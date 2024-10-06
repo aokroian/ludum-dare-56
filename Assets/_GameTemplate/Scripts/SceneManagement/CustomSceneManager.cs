@@ -19,39 +19,51 @@ namespace _GameTemplate.Scripts.SceneManagement
             LoadSceneInner(sceneName, true, false, false, onLoad);
         }
 
-        private static void LoadSceneInner(string sceneName, bool additive, bool showLoadingScreen,
+        private static async void LoadSceneInner(string sceneName, bool additive, bool showLoadingScreen,
             bool waitLoadingScreenAnimation, Action onLoad)
         {
             if (showLoadingScreen)
-                ShowLoadingScreen();
+            {
+                var loadingScreenTask = ShowLoadingScreen();
+                if (waitLoadingScreenAnimation)
+                    await loadingScreenTask;
+            }
 
             var mode = additive ? LoadSceneMode.Additive : LoadSceneMode.Single;
-            var task = SceneManager.LoadSceneAsync(sceneName, mode);
-            task.completed += (op) =>
+            await SceneManager.LoadSceneAsync(sceneName, mode);
+            if (showLoadingScreen)
             {
-                Debug.Log(op.isDone + " " + op.progress);
-                if (showLoadingScreen)
-                    HideLoadingScreen();
-                onLoad?.Invoke();
-            };
+                var hideLoadingScreenTask = HideLoadingScreen();
+                if (waitLoadingScreenAnimation)
+                    await hideLoadingScreenTask;
+            }
+            onLoad?.Invoke();
         }
 
-        private static void ShowLoadingScreen()
+        private static Awaitable ShowLoadingScreen()
         {
+            var task = Awaitable.AwaitableAsyncMethodBuilder.Create().Task;
             if (LoadingScreen != null)
             {
-                var task = LoadingScreen.Show();
+                task = LoadingScreen.Show();
             }
             else
                 Debug.LogWarning("Loading screen is not set");
+
+            return task;
         }
         
-        private static void HideLoadingScreen()
+        private static Awaitable HideLoadingScreen()
         {
+            var task = Awaitable.AwaitableAsyncMethodBuilder.Create().Task;
             if (LoadingScreen != null)
             {
-                var task = LoadingScreen.Hide();
+                task = LoadingScreen.Hide();
             }
+            else
+                Debug.LogWarning("Loading screen is not set");
+
+            return task;
         }
     }
 }

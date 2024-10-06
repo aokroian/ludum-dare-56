@@ -18,14 +18,14 @@ namespace _GameTemplate.Scripts.SceneManagement
             await Hide();
         }
 
-        public async Awaitable Show(float fadeTime = 0f)
+        public async Awaitable Show(float fadeTime = 0.5f)
         {
             loadingScreen.gameObject.SetActive(true);
             loadingScreenGroup.alpha = 0f;
             await loadingScreenGroup.DOFade(1f, fadeTime).SetUpdate(true).AsyncWaitForCompletion();
         }
         
-        public async Awaitable Hide(float fadeTime = 0f)
+        public async Awaitable Hide(float fadeTime = 0.5f)
         {
             loadingScreenGroup.alpha = 1f;
             await loadingScreenGroup.DOFade(0f, fadeTime).SetUpdate(true).AsyncWaitForCompletion();
