@@ -1,4 +1,5 @@
 ﻿using InputUtils;
+using Player.Events;
 using UnityEngine;
 using Zenject;
 #if ENABLE_INPUT_SYSTEM
@@ -19,6 +20,7 @@ namespace StarterAssets
 		public float RotationSpeed = 1.0f;
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
+		
 
 		[Space(10)]
 		[Tooltip("The height the player can jump")]
@@ -74,11 +76,15 @@ namespace StarterAssets
 		[Inject]
 		private PlayerInputsService _inputService;
 		
+		[Inject] SignalBus _signalBus;
+		
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
 
 		private float _mouseSensitivitySetting;
+		
+		private float _lastStepTime;
 
 		private void Awake()
 		{
@@ -91,6 +97,7 @@ namespace StarterAssets
 
 		private void Start()
 		{
+			_lastStepTime = Time.time;
 			_mouseSensitivitySetting = PlayerPrefs.GetFloat(Strings.MouseSensitivityKey, .5f);
 			
 			_controller = GetComponent<CharacterController>();
@@ -194,7 +201,15 @@ namespace StarterAssets
 			}
 
 			// move the player
-			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+			var finalMotion = inputDirection.normalized * (_speed * Time.deltaTime) +
+			                  new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime;
+			_controller.Move(finalMotion);
+			if (_input.move != Vector2.zero && _speed > targetSpeed * .08f &&
+			    Time.time - _lastStepTime > 1 / (MoveSpeed * .43f)) 
+			{
+				_lastStepTime = Time.time;
+				_signalBus.Fire(new PlayerStepEvent { Pos = transform.position });
+			}
 		}
 
 		private void JumpAndGravity()
