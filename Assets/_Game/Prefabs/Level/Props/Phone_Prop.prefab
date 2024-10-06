@@ -47,12 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf3f678d1a94f42bcc283fb1f5a3a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Kind>k__BackingField: 2
+  <Kind>k__BackingField: 22
   <Bounds>k__BackingField: {fileID: 8115873336268898514}
   allVariations:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 4903174906243415668}
+  - {fileID: 4217043847073699917}
   surface: {fileID: 0}
 --- !u!135 &8115873336268898514
 SphereCollider:
@@ -73,7 +72,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.19
+  m_Radius: 0.16
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &4216204183850997161
 PrefabInstance:
@@ -132,6 +131,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff326a8950a52c04f9899c4f86fde8e9, type: 3}
+--- !u!1 &4217043847073699917 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1975087383662052, guid: ff326a8950a52c04f9899c4f86fde8e9, type: 3}
+  m_PrefabInstance: {fileID: 4216204183850997161}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4219239549240243115 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4283001991734786, guid: ff326a8950a52c04f9899c4f86fde8e9, type: 3}
@@ -194,6 +198,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5b5e01895a2f294188114a6032d1692, type: 3}
+--- !u!1 &4903174906243415668 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1523162694156800, guid: a5b5e01895a2f294188114a6032d1692, type: 3}
+  m_PrefabInstance: {fileID: 4904132848487595124}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4908427250158352044 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4721596445248216, guid: a5b5e01895a2f294188114a6032d1692, type: 3}

@@ -11,7 +11,7 @@ namespace Level
         [field: SerializeField] public SphereCollider Bounds { get; private set; }
         [SerializeField] private List<GameObject> allVariations;
 
-        public PropSurface surface;
+        [HideInInspector] public PropSurface surface;
 
         private GameObject _currentVariation;
 

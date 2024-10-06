@@ -266,12 +266,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf3f678d1a94f42bcc283fb1f5a3a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Kind>k__BackingField: 2
+  <Kind>k__BackingField: 27
   <Bounds>k__BackingField: {fileID: 8115873336268898514}
   allVariations:
   - {fileID: 2287198745449852383}
   - {fileID: 6611406405281437968}
   - {fileID: 487920109974678560}
+  surface: {fileID: 0}
 --- !u!135 &8115873336268898514
 SphereCollider:
   m_ObjectHideFlags: 0
