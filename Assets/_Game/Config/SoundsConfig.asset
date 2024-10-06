@@ -30,3 +30,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 503da13e4eadf4b419f4215f7ad9d92f, type: 3}
   - {fileID: 8300000, guid: 039bf7ceb49314cb4a89646c436ac979, type: 3}
   - {fileID: 8300000, guid: 795bcd5e2bafe40afb213f0b4fc3f169, type: 3}
+  gameMusicClips:
+  - {fileID: 8300000, guid: 01348d3ce0123419894e4af79c1a796f, type: 3}
+  menuMusicClips:
+  - {fileID: 8300000, guid: 01348d3ce0123419894e4af79c1a796f, type: 3}

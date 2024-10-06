@@ -7,5 +7,7 @@ namespace Sound
     public class SoundsConfig : SerializedScriptableObject
     {
         public AudioClip[] playerStepSounds;
+        public AudioClip[] gameMusicClips;
+        public AudioClip[] menuMusicClips;
     }
 }
