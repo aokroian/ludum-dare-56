@@ -1,4 +1,5 @@
-﻿using Level;
+﻿using System;
+using Level;
 using Matchstick.Events;
 using UnityEngine;
 using Zenject;
@@ -10,10 +11,12 @@ namespace Enemy
         public Prop Prop { get; private set; }
         
         private SignalBus _signalBus;
-        
-        
-        public void Init(Prop prop, SignalBus signalBus)
+        private Action<Prop> _moveProp;
+
+
+        public void Init(Prop prop, SignalBus signalBus, Action<Prop> moveProp)
         {
+            _moveProp = moveProp;
             _signalBus = signalBus;
             Prop = prop;
             _signalBus.Subscribe<MatchWentOutEvent>(OnMatchWentOut);
@@ -26,7 +29,7 @@ namespace Enemy
 
         private void Reposition()
         {
-            
+            _moveProp?.Invoke(Prop);
             // TODO: Move prop to a new position
         }
     }
