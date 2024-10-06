@@ -11,6 +11,7 @@ public class ShootingController : MonoBehaviour
     private Camera _mainCamera;
     private float _timeForNextShoot;
 
+    public ParticleSystem gunshot;
     public GameObject enemy;
     public int ammo = 2;
 
@@ -18,7 +19,6 @@ public class ShootingController : MonoBehaviour
     public float viewportPointY = .7f;
     public float viewportPointZ = 0f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _mainCamera = Camera.main;
@@ -50,6 +50,7 @@ public class ShootingController : MonoBehaviour
 
         Debug.Log($"shot");
 
+        gunshot.Play();
         ammo--;
         _timeForNextShoot = 2.5f;
 
