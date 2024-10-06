@@ -1,5 +1,6 @@
 using _GameTemplate.Scripts.Common;
 using DG.Tweening;
+using Matchstick.Events;
 using Player.Events;
 using UnityEngine;
 using Zenject;
@@ -14,6 +15,7 @@ namespace Sound
         private SignalBus _signalBus;
         private SoundsConfig _soundsConfig;
         private AudioSource _currentMusicSource;
+        private Camera _camera;
 
         [Inject]
         private void Initialize(SignalBus signalBus, SoundsConfig soundsConfig)
@@ -24,6 +26,7 @@ namespace Sound
 
         private void Start()
         {
+            _camera = Camera.main;
             SubscribeToSignals();
             // todo: delete after implementing scene management signals
             OnGameMusicRequested();
@@ -37,6 +40,7 @@ namespace Sound
         private void SubscribeToSignals()
         {
             _signalBus.Subscribe<PlayerStepEvent>(OnPlayerStep);
+            _signalBus.Subscribe<MatchLitEvent>(OnMatchstickLit);
         }
 
         private void UnsubscribeFromSignals()
@@ -50,6 +54,12 @@ namespace Sound
             {
                 AudioSource.PlayClipAtPoint(clip, ev.Pos);
             }
+        }
+
+        private void OnMatchstickLit()
+        {
+            var clip = _soundsConfig.matchStickSounds.UnityRandom();
+            AudioSource.PlayClipAtPoint(clip, _camera.transform.position + _camera.transform.forward);
         }
 
         private void OnGameMusicRequested()

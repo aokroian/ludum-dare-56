@@ -9,5 +9,6 @@ namespace Sound
         public AudioClip[] playerStepSounds;
         public AudioClip[] gameMusicClips;
         public AudioClip[] menuMusicClips;
+        public AudioClip[] matchStickSounds;
     }
 }
