@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a36a5f2f2177471a9340de1e7f4d88ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Bounds>k__BackingField: {fileID: 7189994094413389125}
+  <BoundsCollider>k__BackingField: {fileID: 7189994094413389125}
+  <Props>k__BackingField: []
 --- !u!65 &7189994094413389125
 BoxCollider:
   m_ObjectHideFlags: 0

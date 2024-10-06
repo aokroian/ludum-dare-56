@@ -7,8 +7,11 @@ namespace Level
 {
     public class Prop : MonoBehaviour
     {
+        [field: SerializeField] public PropKind Kind { get; private set; }
         [field: SerializeField] public SphereCollider Bounds { get; private set; }
         [SerializeField] private List<GameObject> allVariations;
+
+        public PropSurface surface;
 
         private GameObject _currentVariation;
 
@@ -37,8 +40,7 @@ namespace Level
         public void FillVariations()
         {
             allVariations.Clear();
-            var variationsParent = transform.Find("Variations");
-            foreach (Transform variation in variationsParent)
+            foreach (Transform variation in transform)
                 allVariations.Add(variation.gameObject);
         }
 
