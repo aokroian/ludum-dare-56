@@ -1,8 +1,13 @@
+using InputUtils;
 using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
 public class ShootingController : MonoBehaviour
 {
+    [Inject]
+    private PlayerInputsService _playerInputService;
+
     private Camera _mainCamera;
     private float _timeForNextShoot;
 
@@ -21,14 +26,15 @@ public class ShootingController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            Shot();
-        }
+        Shot();
     }
 
     private void Shot()
     {
+        if (!_playerInputService.CurrentState.fire) { return; }
+
+        _playerInputService.CurrentState.fire = false;
+
         if (ammo <= 0)
         {
             Debug.Log($"No Ammo");
