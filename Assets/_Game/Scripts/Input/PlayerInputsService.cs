@@ -39,9 +39,19 @@ namespace Input
         
         public void OnFire(InputValue value)
         {
+            Debug.Log("Fire input: " + value.isPressed);
             if (_isInputEnabled)
             {
                 _innerState.fire = value.isPressed;
+            }
+        }
+        
+        public void OnMatchstick(InputValue value)
+        {
+            Debug.Log("Matchstick input: " + value.isPressed);
+            if (_isInputEnabled)
+            {
+                _innerState.matchstick = value.isPressed;
             }
         }
 

@@ -10,6 +10,7 @@ namespace Input
         public bool jump;
         public bool sprint;
         public bool fire;
+        public bool matchstick;
         
         public bool analogMovement; // Don't know what is this for
         
