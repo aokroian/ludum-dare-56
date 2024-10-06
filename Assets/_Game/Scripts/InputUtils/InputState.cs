@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-namespace Input
+namespace InputUtils
 {
     public class InputState
     {
