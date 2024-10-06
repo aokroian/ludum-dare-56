@@ -1,5 +1,17 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
+<<<<<<<< Updated upstream:Assets/_Game/Prefabs/Matchstick.prefab.meta
 guid: 5906f38ea626ccd4ab32ff0ac4ee209d
+========
+guid: fbf521ed4c7b6ff4e9156749ccd0687d
+>>>>>>>> Stashed changes:Assets/_Game/Prefabs/Level/Props/CafeChair_Prop.prefab.meta
+=======
+<<<<<<<< HEAD:Assets/_Game/Prefabs/Level/Props/Beer_Prop.prefab.meta
+guid: 2a471a75c1ed5074898d6a12f492316b
+========
+guid: 5906f38ea626ccd4ab32ff0ac4ee209d
+>>>>>>>> bec16995eb8c47c81af7b2bbf4f2c2cfda90bfd7:Assets/_Game/Prefabs/Matchstick.prefab.meta
+>>>>>>> Stashed changes
 PrefabImporter:
   externalObjects: {}
   userData: 
