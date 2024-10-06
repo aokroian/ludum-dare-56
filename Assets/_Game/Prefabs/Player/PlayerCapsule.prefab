@@ -285,7 +285,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunshot: {fileID: 5217073375005182294}
   enemy: {fileID: 0}
-  ammo: 2
   viewportPointX: 0.3
   viewportPointY: 0.7
   viewportPointZ: 0
@@ -404,6 +403,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4056852919073388, guid: d01d07052fa0e4a788c4ce27c2e9418e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198076924919084778, guid: d01d07052fa0e4a788c4ce27c2e9418e, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198673632737434412, guid: d01d07052fa0e4a788c4ce27c2e9418e, type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199368111847782378, guid: d01d07052fa0e4a788c4ce27c2e9418e, type: 3}

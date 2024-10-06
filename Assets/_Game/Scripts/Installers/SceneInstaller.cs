@@ -1,4 +1,7 @@
-﻿using Zenject;
+﻿using Matchstick;
+using Matchstick.Events;
+using Shooting;
+using Zenject;
 
 namespace Installers
 {
@@ -6,6 +9,11 @@ namespace Installers
     {
         public override void InstallBindings()
         {
+            Container.Bind<ShootingService>().AsSingle();
+            Container.Bind<MatchService>().AsSingle();
+            
+            
+            SignalsInstaller.Install(Container);
         }
     }
 }

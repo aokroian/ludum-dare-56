@@ -1,4 +1,5 @@
 using InputUtils;
+using Shooting;
 using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
@@ -7,13 +8,14 @@ public class ShootingController : MonoBehaviour
 {
     [Inject]
     private PlayerInputsService _playerInputService;
+    
+    [Inject]
+    private ShootingService _shootingService;
 
     private Camera _mainCamera;
-    private float _timeForNextShoot;
 
     public ParticleSystem gunshot;
     public GameObject enemy;
-    public int ammo = 2;
 
     public float viewportPointX = .3f;
     public float viewportPointY = .7f;
@@ -23,7 +25,7 @@ public class ShootingController : MonoBehaviour
     {
         _mainCamera = Camera.main;
     }
-
+    
     void Update()
     {
         Shot();
@@ -31,29 +33,19 @@ public class ShootingController : MonoBehaviour
 
     private void Shot()
     {
-        if (!_playerInputService.CurrentState.fire) { return; }
-
+        if (!_playerInputService.CurrentState.fire) 
+            return;
+        
         _playerInputService.CurrentState.fire = false;
 
-        if (ammo <= 0)
-        {
-            Debug.Log($"No Ammo");
+        if (!_shootingService.TryShoot())
             return;
-        }
 
-        if (_timeForNextShoot > 0f)
-        {
-            Debug.Log($"Wait...");
-            _timeForNextShoot =- Time.deltaTime;
-            return;
-        }
-
-        Debug.Log($"shot");
-
+        gunshot.time = 0f;
         gunshot.Play();
-        ammo--;
-        _timeForNextShoot = 2.5f;
-
+        
+        // TODO: Recoil
+        
         if (!IsObjectInView(enemy)) { return; }
 
         Debug.Log($"{enemy.name} killed");

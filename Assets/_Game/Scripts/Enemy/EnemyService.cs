@@ -1,10 +1,12 @@
-﻿namespace Enemy
+﻿using Level;
+
+namespace Enemy
 {
     public class EnemyService
     {
-        private void Initialize()
+        private void Initialize(LevelController level)
         {
-            
+            // 
         }
     }
 }
