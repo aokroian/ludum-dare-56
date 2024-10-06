@@ -10,5 +10,8 @@ namespace Sound
         public AudioClip[] gameMusicClips;
         public AudioClip[] menuMusicClips;
         public AudioClip[] matchStickSounds;
+        public AudioClip[] shootSounds;
+        public AudioClip[] shootNoAmmoSounds;
+        public AudioClip[] bulletCasingsSounds;
     }
 }

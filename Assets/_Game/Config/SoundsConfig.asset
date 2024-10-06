@@ -38,3 +38,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c0f0f92d22741429c8e5080125da6026, type: 3}
   - {fileID: 8300000, guid: efd0838b7f269447495dbb7f97c93593, type: 3}
   - {fileID: 8300000, guid: 146a4cfd60f7e439b956259d53070444, type: 3}
+  shootSounds:
+  - {fileID: 8300000, guid: 47eb83a94e9f04d42b32619e6b97dcfd, type: 3}
+  - {fileID: 8300000, guid: 077bdf35f1a5345a989d2ad0a14a82cb, type: 3}
+  - {fileID: 8300000, guid: 77bea33f7bfe146b5acd94eddf6e8f32, type: 3}
+  shootNoAmmoSounds:
+  - {fileID: 8300000, guid: cf76b65354c9e4bee841d5d57715b5f7, type: 3}
+  bulletCasingsSounds:
+  - {fileID: 8300000, guid: c2c62661b82dc4f018d3af8c8e56f501, type: 3}
+  - {fileID: 8300000, guid: b1a6c3f5ea69a40d68d1edad58a72b9d, type: 3}
+  - {fileID: 8300000, guid: 394565f2a55474f2a86e8ece78cb0454, type: 3}
+  - {fileID: 8300000, guid: 533070ceed0104b368398c997bafc1d4, type: 3}
+  - {fileID: 8300000, guid: dc37bfd5d721649b89e4e13dd4365604, type: 3}
+  - {fileID: 8300000, guid: 1712a8780ced2477586ec5a52e95511e, type: 3}
