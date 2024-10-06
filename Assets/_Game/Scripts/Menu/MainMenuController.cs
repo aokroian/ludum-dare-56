@@ -1,5 +1,8 @@
-﻿using _GameTemplate.Scripts.SceneManagement;
+﻿using System.Collections;
+using _GameTemplate.Scripts.SceneManagement;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 namespace Menu
@@ -16,6 +19,11 @@ namespace Menu
         [SerializeField] private RectTransform settingsPanel;
         [SerializeField] private RectTransform creditsPanel;
 
+        [SerializeField] private AudioMixer audioMixer;
+        [SerializeField] private Slider volumeSlider;
+        [SerializeField] private Slider mouseSensitivitySlider;
+        [SerializeField] private TMP_Dropdown graphicsDropdown;
+
 
         private void Start()
         {
@@ -25,6 +33,25 @@ namespace Menu
             backFromSettingsBtn.onClick.AddListener(CloseSettings);
             creditsBtn.onClick.AddListener(OpenCredits);
             backFromCreditsBtn.onClick.AddListener(CloseCredits);
+
+            volumeSlider.value = PlayerPrefs.GetFloat(Strings.SoundVolumeKey, 1f);
+            mouseSensitivitySlider.value = PlayerPrefs.GetFloat(Strings.MouseSensitivityKey, .5f);
+
+            volumeSlider.onValueChanged.AddListener(OnVolumeSliderChanged);
+            mouseSensitivitySlider.onValueChanged.AddListener(OnMouseSensitivitySliderChanged);
+
+            var graphicsNames = QualitySettings.names;
+            graphicsDropdown.options.Clear();
+            foreach (var n in graphicsNames)
+            {
+                graphicsDropdown.options.Add(new TMP_Dropdown.OptionData(n));
+            }
+
+            graphicsDropdown.value = PlayerPrefs.GetInt(Strings.GraphicsQualityKey, QualitySettings.names.Length - 1);
+            graphicsDropdown.onValueChanged.AddListener(OnGraphicsQualityChanged);
+            OnVolumeSliderChanged(volumeSlider.value);
+            OnMouseSensitivitySliderChanged(mouseSensitivitySlider.value);
+            OnGraphicsQualityChanged(graphicsDropdown.value);
 
 #if UNITY_WEBGl
             quitBtn.gameObject.SetActive(false);
@@ -59,6 +86,24 @@ namespace Menu
         private void CloseCredits()
         {
             creditsPanel.gameObject.SetActive(false);
+        }
+
+        private void OnVolumeSliderChanged(float value)
+        {
+            audioMixer.SetFloat("Volume", value);
+            PlayerPrefs.SetFloat(Strings.SoundVolumeKey, value);
+        }
+
+        private void OnMouseSensitivitySliderChanged(float value)
+        {
+            if (value < 0.03f) value = 0.03f;
+            PlayerPrefs.SetFloat(Strings.MouseSensitivityKey, value);
+        }
+
+        private void OnGraphicsQualityChanged(int value)
+        {
+            PlayerPrefs.SetInt(Strings.GraphicsQualityKey, value);
+            QualitySettings.SetQualityLevel(value);
         }
     }
 }

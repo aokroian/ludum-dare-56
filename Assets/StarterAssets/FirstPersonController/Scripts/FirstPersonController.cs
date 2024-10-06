@@ -78,6 +78,8 @@ namespace StarterAssets
 
 		private const float _threshold = 0.01f;
 
+		private float _mouseSensitivitySetting;
+
 		private void Awake()
 		{
 			// get a reference to our main camera
@@ -89,6 +91,8 @@ namespace StarterAssets
 
 		private void Start()
 		{
+			_mouseSensitivitySetting = PlayerPrefs.GetFloat(Strings.MouseSensitivityKey, .5f);
+			
 			_controller = GetComponent<CharacterController>();
 			// _input = GetComponent<StarterAssetsInputs>();
 			_input = _inputService.CurrentState;
@@ -132,8 +136,8 @@ namespace StarterAssets
 				//Don't multiply mouse input by Time.deltaTime
 				float deltaTimeMultiplier = _inputService.IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 				
-				_cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
-				_rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
+				_cinemachineTargetPitch += _input.look.y * (RotationSpeed * _mouseSensitivitySetting) * deltaTimeMultiplier;
+				_rotationVelocity = _input.look.x * (RotationSpeed * _mouseSensitivitySetting) * deltaTimeMultiplier;
 
 				// clamp our pitch rotation
 				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
