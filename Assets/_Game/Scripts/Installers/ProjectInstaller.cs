@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using Input;
+using Zenject;
 
 namespace Installers
 {
