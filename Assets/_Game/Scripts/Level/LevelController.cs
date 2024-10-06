@@ -33,9 +33,7 @@ namespace Level
                 return;
             }
 
-            var newSurface = PropSurfaces.FirstOrDefault(s => s != oldSurface &&
-                                                              s.SelectedProp.Kind != prop.Kind &&
-                                                              s.IsPropAllowed(prop.Kind));
+            var newSurface = PropSurfaces.FirstOrDefault(s => !s.SelectedProp && s.IsPropAllowed(prop.Kind));
 
             if (!newSurface)
             {
@@ -43,7 +41,7 @@ namespace Level
                 return;
             }
 
-            oldSurface.SelectProp(newSurface.SelectedProp.Kind);
+            oldSurface.SelectProp(PropKind.None);
             newSurface.SelectProp(prop.Kind);
         }
 

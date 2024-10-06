@@ -11,7 +11,7 @@ namespace Level
 
         public Prop SelectedProp { get; private set; }
         private static bool IsDebug => true;
-        
+
         public bool IsPropAllowed(PropKind kind)
         {
             return AllowedProps.Any(p => p.Kind == kind);
@@ -29,15 +29,19 @@ namespace Level
 
             var randomIndex = Random.Range(0, filtered.Count);
             var selectedProp = filtered[randomIndex];
-            selectedProp.SelectRandomVariation();
-            foreach (var prop in AllowedProps)
-                prop.gameObject.SetActive(prop == selectedProp);
-            SelectedProp = selectedProp;
-            SelectedProp.surface = this;
+            SelectProp(selectedProp.Kind);
         }
 
         public void SelectProp(PropKind kind)
         {
+            if (kind == PropKind.None)
+            {
+                foreach (var prop in AllowedProps)
+                    prop.gameObject.SetActive(false);
+                SelectedProp = null;
+                return;
+            }
+
             var selectedProp = AllowedProps.FirstOrDefault(p => p.Kind == kind);
             if (!selectedProp)
             {
@@ -51,7 +55,6 @@ namespace Level
             SelectedProp = selectedProp;
             SelectedProp.surface = this;
         }
-
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()
