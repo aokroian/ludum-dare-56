@@ -40,8 +40,8 @@ namespace Level
                 {
                     Debug.Log("");
                 }
+            }
 
-        }
             foreach (var p in allProps)
                 p.SetOutlineMaterial(_propsOutlineMaterial);
         }
@@ -75,25 +75,21 @@ namespace Level
             }
         }
 
-        public void MovePropToAnotherSurface(Prop prop)
+        public Prop MovePropToAnotherSurface(Prop prop)
         {
             var oldSurface = prop.surface;
-            if (!oldSurface)
-            {
-                Debug.LogError("Prop is not on any surface");
-                return;
-            }
-
-            var newSurface = PropSurfaces.FirstOrDefault(s => !s.SelectedProp && s.IsPropAllowed(prop.Kind));
+            var newSurface = PropSurfaces.FirstOrDefault(s =>
+                s != oldSurface && !s.SelectedProp && s.IsPropAllowed(prop.Kind));
 
             if (!newSurface)
             {
-                Debug.LogError("No available surface to move prop");
-                return;
+                Debug.LogError("No available surface to move prop. Returning the same prop");
+                return prop;
             }
 
             oldSurface.SelectProp(PropKind.None);
             newSurface.SelectProp(prop.Kind);
+            return newSurface.SelectedProp;
         }
 
 #if UNITY_EDITOR
