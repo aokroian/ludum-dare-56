@@ -1727,7 +1727,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 5bb68a94905ffc0418608fc7e572ea42, type: 2}
     - target: {fileID: 7834716900163690115, guid: 6eb75e6b24e17104ca084ea125da71f4, type: 3}
       propertyPath: RotationSpeed
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7837145392459524146, guid: 6eb75e6b24e17104ca084ea125da71f4, type: 3}
       propertyPath: m_Name
@@ -1923,10 +1923,10 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 567953199}
   - {fileID: 1847883274}
   - {fileID: 379559931}
   - {fileID: 1079047474}
-  - {fileID: 567953199}
   - {fileID: 6930091364539070931}
   - {fileID: 1580331598}
   - {fileID: 870446903}

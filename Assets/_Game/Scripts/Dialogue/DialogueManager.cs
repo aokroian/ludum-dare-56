@@ -47,7 +47,7 @@ namespace Dialogue
             var variant = Random.Range(0, 3);
             var bulletsLeftPart = _shootingService.Ammo >= 1
                 ? $"{_shootingService.Ammo} bullets left."
-                : "No bullets left. This is the end.";
+                : "No bullets left.";
             switch (variant)
             {
                 case 0:
