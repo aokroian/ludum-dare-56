@@ -56,3 +56,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 533070ceed0104b368398c997bafc1d4, type: 3}
   - {fileID: 8300000, guid: dc37bfd5d721649b89e4e13dd4365604, type: 3}
   - {fileID: 8300000, guid: 1712a8780ced2477586ec5a52e95511e, type: 3}
+  enemyDiedSounds:
+  - {fileID: 8300000, guid: fd619b06f0844416da73349f0d8deecd, type: 3}
+  - {fileID: 8300000, guid: 4046b5cc17faa4f639356c4cf38d85d5, type: 3}
+  - {fileID: 8300000, guid: 79e38ecea053c4e8b9993e1691bf3c8d, type: 3}
+  enemyRepositionedSounds:
+  - {fileID: 8300000, guid: 164a5ecccc17449f68bffed90361e955, type: 3}
+  - {fileID: 8300000, guid: d65cb68ce0d134980bc88460c478881c, type: 3}
+  - {fileID: 8300000, guid: 257b2678194694ce08d63d51abfc58fc, type: 3}
+  - {fileID: 8300000, guid: ebc734383115145a1a9c0716aadce30f, type: 3}
+  - {fileID: 8300000, guid: 38b56e9b74d734c1ab2905a278fbe026, type: 3}

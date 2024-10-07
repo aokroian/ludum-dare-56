@@ -18,6 +18,9 @@ namespace Sound
         public AudioClip[] shootNoAmmoSounds;
         public AudioClip[] bulletCasingsSounds;
         //
-        
+
+        // enemy sounds
+        public AudioClip[] enemyDiedSounds;
+        public AudioClip[] enemyRepositionedSounds;
     }
 }

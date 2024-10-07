@@ -1,8 +1,11 @@
+using System;
 using Cutscenes;
 using DG.Tweening;
+using Enemy.Events;
 using GameLoop.Events;
 using Matchstick.Events;
 using Player.Events;
+using R3;
 using Shooting.Events;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -41,11 +44,6 @@ namespace Sound
             musicSource2.gameObject.transform.position = PosInFrontOfCamera;
         }
 
-        private void OnDestroy()
-        {
-            UnsubscribeFromSignals();
-        }
-
         private void SubscribeToSignals()
         {
             _signalBus.Subscribe<PlayerStepEvent>(OnPlayerStep);
@@ -56,6 +54,22 @@ namespace Sound
             _signalBus.Subscribe<GameStartPressedEvent>(OnGameStartPressed);
             _signalBus.Subscribe<GameSceneLoadedEvent>(OnGameSceneLoaded);
             _signalBus.Subscribe<MenuSceneLoadedEvent>(OnMenuSceneLoaded);
+
+            _signalBus.Subscribe<EnemyDiedEvent>(OnEnemyDied);
+            _signalBus.Subscribe<EnemyRepositionEvent>(OnEnemyRepositioned);
+        }
+
+        private void OnEnemyRepositioned(EnemyRepositionEvent ev)
+        {
+            var clip = _soundsConfig.enemyRepositionedSounds.UnityRandom();
+            Observable.Timer(TimeSpan.FromSeconds(.5f)).ObserveOnCurrentSynchronizationContext()
+                .Subscribe(_ => { Extensions.CustomPlayClipAtPoint(clip, ev.Pos, mainMixerGroup); });
+        }
+
+        private void OnEnemyDied(EnemyDiedEvent ev)
+        {
+            var clip = _soundsConfig.enemyDiedSounds.UnityRandom();
+            Extensions.CustomPlayClipAtPoint(clip, ev.Pos, mainMixerGroup);
         }
 
         private void OnShoot()
@@ -83,10 +97,6 @@ namespace Sound
         {
             var clip = _soundsConfig.shootNoAmmoSounds.UnityRandom();
             Extensions.CustomPlayClipAtPoint(clip, PosInFrontOfCamera, mainMixerGroup);
-        }
-
-        private void UnsubscribeFromSignals()
-        {
         }
 
         private void OnPlayerStep(PlayerStepEvent ev)
