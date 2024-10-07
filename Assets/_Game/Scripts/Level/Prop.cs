@@ -79,8 +79,7 @@ namespace Level
         }
 
 #if UNITY_EDITOR
-        [Button]
-        public void FillVariations()
+        public void FillDataFields()
         {
             allVariations.Clear();
             foreach (Transform variation in transform)

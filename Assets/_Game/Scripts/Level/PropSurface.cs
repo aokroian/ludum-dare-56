@@ -66,6 +66,24 @@ namespace Level
             var worldSpaceBoundsCenter = transform.TransformPoint(BoundsCollider.center);
             Gizmos.DrawCube(worldSpaceBoundsCenter, BoundsCollider.size);
         }
+
+        public void FillDataFields()
+        {
+            AllowedProps.Clear();
+            foreach (Transform prop in transform)
+            {
+                prop.gameObject.SetActive(true);
+                var propComponent = prop.GetComponent<Prop>();
+                if (!propComponent)
+                {
+                    Debug.LogError("Prop component not found on prop", prop);
+                    continue;
+                }
+
+                AllowedProps.Add(propComponent);
+                propComponent.FillDataFields();
+            }
+        }
 #endif
     }
 }

@@ -45,19 +45,25 @@ namespace Level
             _targetOutlineColor = Color.white;
         }
 
-        [Button]
-        public void ResetProps()
+        public void ResetProps(int count)
         {
             ActiveProps.Clear();
             foreach (var propSurface in PropSurfaces)
             {
-                var exclude = ActiveProps.ConvertAll(p => p.Kind);
-                propSurface.SelectRandomProp(exclude);
+                propSurface.SelectProp(PropKind.None);
+            }
+
+            foreach (var propSurface in PropSurfaces)
+            {
+                if (count <= 0)
+                    break;
+                var propsToExclude = ActiveProps.ConvertAll(p => p.Kind);
+                propSurface.SelectRandomProp(propsToExclude);
                 if (propSurface.SelectedProp) ActiveProps.Add(propSurface.SelectedProp);
+                count--;
             }
         }
 
-        [Button]
         public void MovePropToAnotherSurface(Prop prop)
         {
             var oldSurface = prop.surface;
@@ -81,12 +87,15 @@ namespace Level
 
 #if UNITY_EDITOR
         [Button]
-        public void FillPropSurfaces()
+        public void FillDataFields()
         {
             PropSurfaces.Clear();
             var allSurfaces = FindObjectsByType<PropSurface>(FindObjectsSortMode.None);
             foreach (var propSurface in allSurfaces)
+            {
                 PropSurfaces.Add(propSurface);
+                propSurface.FillDataFields();
+            }
         }
 
 #endif

@@ -39,7 +39,7 @@ namespace GameLoop
         
         private void StartGame()
         {
-            _levelController.ResetProps();
+            _levelController.ResetProps(10);
             _enemyService.ResetEnemies();
             
             _signalBus.Fire(new NightStartedEvent(_gameState.night));
