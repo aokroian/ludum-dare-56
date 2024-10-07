@@ -50,12 +50,20 @@ namespace Enemy
             }
         }
 
-        private void MoveProp(Prop prop)
+        private void MoveProp(Prop oldProp)
         {
-            _level.MovePropToAnotherSurface(prop);
+            var oldEnemy = oldProp.GetComponent<Enemy>();
+            _enemies.Remove(oldEnemy);
+            Object.Destroy(oldEnemy);
+            var prop = _level.MovePropToAnotherSurface(oldProp);
             prop.SelectRandomVariation();
+            var enemy = prop.gameObject.AddComponent<Enemy>();
+            enemy.Init(prop, _signalBus, MoveProp, OnEnemyDied);
+            _enemies.Add(enemy);
+            
+            _signalBus.Fire(new EnemyRepositionEvent(enemy.transform.position));
         }
-        
+
         private void OnEnemyDied(Enemy enemy)
         {
             _signalBus.Fire(new EnemyDiedEvent(enemy.transform.position));
