@@ -19,6 +19,9 @@ namespace MimicSpace
         public float velocityLerpCoef = 4f;
         Mimic myMimic;
 
+        private bool isLeft = false;
+        private bool isForward = false;
+
         private void Start()
         {
             myMimic = GetComponent<Mimic>();
@@ -26,7 +29,13 @@ namespace MimicSpace
 
         void Update()
         {
-            velocity = Vector3.Lerp(velocity, new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * speed, velocityLerpCoef * Time.deltaTime);
+            velocity = Vector3.Lerp(velocity,
+                new Vector3(isLeft ? -.1f : .1f, 0, isForward ? .1f : -.1f).normalized * speed,
+                velocityLerpCoef * Time.deltaTime);
+
+            isLeft = !isLeft;
+            isForward = !isForward;
+
 
             // Assigning velocity to the mimic to assure great leg placement
             myMimic.velocity = velocity;
@@ -39,5 +48,4 @@ namespace MimicSpace
             transform.position = Vector3.Lerp(transform.position, destHeight, velocityLerpCoef * Time.deltaTime);
         }
     }
-
 }

@@ -7,9 +7,10 @@ namespace Cutscenes
 {
     public class MenuSceneLampAnim : MonoBehaviour
     {
-        [MinMaxSlider(.5f, 4f)]
+        [MinMaxSlider(1f, 6f)]
         [SerializeField] private Vector2 delayRange;
         [SerializeField] private GameObject lamp;
+        [SerializeField] private GameObject mimic;
 
         private float _delay;
 
@@ -29,11 +30,22 @@ namespace Cutscenes
             while (numberOfTimes-- > 0)
             {
                 lamp.SetActive(!lamp.activeSelf);
-                var delay = UnityEngine.Random.Range(.1f, .2f);
+                if (!lamp.activeSelf)
+                {
+                    var isMimicActive = UnityEngine.Random.value > .5f;
+                    mimic.SetActive(isMimicActive);
+                }
+                else
+                {
+                    mimic.SetActive(false);
+                }
+
+                var delay = UnityEngine.Random.Range(.35f, .55f);
                 yield return new WaitForSeconds(delay);
             }
 
             lamp.SetActive(true);
+            mimic.SetActive(false);
         }
     }
 }
