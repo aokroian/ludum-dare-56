@@ -82,6 +82,7 @@ namespace Level
 
                 AllowedProps.Add(propComponent);
                 propComponent.FillDataFields();
+                prop.gameObject.SetActive(false);
             }
         }
 #endif

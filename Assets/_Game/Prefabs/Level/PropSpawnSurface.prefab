@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <BoundsCollider>k__BackingField: {fileID: 7189994094413389125}
-  <Props>k__BackingField: []
+  <AllowedProps>k__BackingField: []
 --- !u!65 &7189994094413389125
 BoxCollider:
   m_ObjectHideFlags: 0
