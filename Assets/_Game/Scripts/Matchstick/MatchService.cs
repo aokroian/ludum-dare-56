@@ -44,6 +44,7 @@ namespace Matchstick
             _signalBus.Fire(new MatchLitEvent());
 
             Observable.Timer(TimeSpan.FromSeconds(_config.duration))
+                .ObserveOnCurrentSynchronizationContext()
                 .Subscribe(_ => { _signalBus.Fire(new MatchWentOutEvent()); });
 
             return _config.duration;

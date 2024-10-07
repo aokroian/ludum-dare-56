@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Matchstick.Events;
@@ -31,8 +32,18 @@ namespace Level
             _signalBus.Subscribe<MatchWentOutEvent>(OnMatchWentOut);
 
             _propsOutlineMaterial = new Material(propOutlineMaterial);
-            foreach (var ap in PropSurfaces.SelectMany(ps => ps.AllowedProps))
-                ap.SetOutlineMaterial(_propsOutlineMaterial);
+            var allProps = PropSurfaces.SelectMany(ps => ps.AllowedProps).ToList();
+            for (var i = 0; i < allProps.Count; i++)
+            {
+                var p = allProps[i];
+                if (!p)
+                {
+                    Debug.Log("");
+                }
+
+        }
+            foreach (var p in allProps)
+                p.SetOutlineMaterial(_propsOutlineMaterial);
         }
 
         private void OnMatchWentOut()
@@ -95,6 +106,33 @@ namespace Level
             {
                 PropSurfaces.Add(propSurface);
                 propSurface.FillDataFields();
+            }
+        }
+
+        [Button]
+        public void CheckPropUsages()
+        {
+            var result = new Dictionary<PropKind, int>();
+            foreach (var entry in Enum.GetValues(typeof(PropKind)).Cast<PropKind>())
+            {
+                result[entry] = PropSurfaces.Count(ps => ps.AllowedProps.FirstOrDefault(p => p.Kind == entry));
+            }
+        }
+
+        [Button]
+        public void CheckForDuplicatePropsInOneSurface()
+        {
+            foreach (var ps in PropSurfaces)
+            {
+                var duplicates = ps.AllowedProps.GroupBy(p => p.Kind).Where(g => g.Count() > 1).ToList();
+                if (duplicates.Count > 0)
+                {
+                    Debug.LogError($"Duplicate props found on surface {ps.name}");
+                    foreach (var duplicate in duplicates)
+                    {
+                        Debug.LogError($"Duplicate prop kind: {duplicate.Key}");
+                    }
+                }
             }
         }
 
