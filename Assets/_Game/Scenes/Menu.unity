@@ -1947,7 +1947,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 608258904, guid: bc0f01d13d48b8c48b642a449933c67f, type: 3}
       propertyPath: speed
-      value: 1
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 608258904, guid: bc0f01d13d48b8c48b642a449933c67f, type: 3}
+      propertyPath: height
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 608258904, guid: bc0f01d13d48b8c48b642a449933c67f, type: 3}
       propertyPath: m_Enabled
@@ -2015,11 +2019,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8675915457954794083, guid: bc0f01d13d48b8c48b642a449933c67f, type: 3}
       propertyPath: velocity.x
-      value: -0.6098362
+      value: 0.41759297
       objectReference: {fileID: 0}
     - target: {fileID: 8675915457954794083, guid: bc0f01d13d48b8c48b642a449933c67f, type: 3}
       propertyPath: velocity.z
-      value: -0.6141997
+      value: 0.82158965
       objectReference: {fileID: 0}
     - target: {fileID: 8675915457954794083, guid: bc0f01d13d48b8c48b642a449933c67f, type: 3}
       propertyPath: numberOfLegs
@@ -7835,6 +7839,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8675915457954794080, guid: bc0f01d13d48b8c48b642a449933c67f, type: 3}
   m_PrefabInstance: {fileID: 515192843}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1796882895 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 608258904, guid: bc0f01d13d48b8c48b642a449933c67f, type: 3}
+  m_PrefabInstance: {fileID: 515192843}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796882894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ba22986a1af554791e80503075c599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1796882897 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8675915457954794082, guid: bc0f01d13d48b8c48b642a449933c67f, type: 3}
@@ -9520,7 +9535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4645643900792454, guid: 87610805b5ff52147bfc9bb034a635f6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.04
+      value: -0.15
       objectReference: {fileID: 0}
     - target: {fileID: 4645643900792454, guid: 87610805b5ff52147bfc9bb034a635f6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10734,6 +10749,7 @@ MonoBehaviour:
   delayRange: {x: 3.1003506, y: 4.730219}
   lamp: {fileID: 1590036266177499}
   mimic: {fileID: 1796882894}
+  mimicMovement: {fileID: 1796882895}
 --- !u!65 &65623686611005603
 BoxCollider:
   m_ObjectHideFlags: 0

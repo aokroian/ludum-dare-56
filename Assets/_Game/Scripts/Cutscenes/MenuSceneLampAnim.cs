@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using MimicSpace;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -11,8 +12,12 @@ namespace Cutscenes
         [SerializeField] private Vector2 delayRange;
         [SerializeField] private GameObject lamp;
         [SerializeField] private GameObject mimic;
+        [SerializeField] private Movement mimicMovement;
 
         private float _delay;
+
+        private bool isMimicLeft = false;
+        private bool isMimicForward = false;
 
         private void Update()
         {
@@ -23,6 +28,12 @@ namespace Cutscenes
                 StopAllCoroutines();
                 StartCoroutine(ToggleCoroutine(UnityEngine.Random.Range(1, 5)));
             }
+
+            var x = isMimicLeft ? -.2f : .2f;
+            var z = isMimicForward ? .2f : -.2f;
+            mimicMovement.input = new Vector2(x, z);
+            isMimicForward = !isMimicForward;
+            isMimicLeft = !isMimicLeft;
         }
 
         private IEnumerator ToggleCoroutine(int numberOfTimes)
