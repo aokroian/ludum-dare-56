@@ -382,3 +382,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource1: {fileID: 2273685285786874617}
   musicSource2: {fileID: 1552551149471311009}
+  mainMixerGroup: {fileID: 24300002, guid: 0550768ddfa344c29b67ef8933b348ce, type: 2}

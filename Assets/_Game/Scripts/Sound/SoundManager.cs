@@ -1,23 +1,24 @@
-using System;
-using _GameTemplate.Scripts.Common;
+using Cutscenes;
 using DG.Tweening;
+using GameLoop.Events;
 using Matchstick.Events;
 using Player.Events;
-using R3;
 using Shooting.Events;
 using UnityEngine;
+using UnityEngine.Audio;
 using Zenject;
 
 namespace Sound
 {
-    public class SoundManager : SingletonGlobal<SoundManager>
+    public class SoundManager : MonoBehaviour
     {
         [SerializeField] private AudioSource musicSource1;
         [SerializeField] private AudioSource musicSource2;
+        [SerializeField] private AudioMixerGroup mainMixerGroup;
 
         private SignalBus _signalBus;
         private SoundsConfig _soundsConfig;
-        private AudioSource _currentMusicSource;
+        private AudioSource _activeMusicSource;
         private Camera _camera;
         private Vector3 PosInFrontOfCamera => _camera.transform.position + _camera.transform.forward;
 
@@ -26,19 +27,16 @@ namespace Sound
         {
             _signalBus = signalBus;
             _soundsConfig = soundsConfig;
-        }
-
-        private void Start()
-        {
-            _camera = Camera.main;
             SubscribeToSignals();
-
-            // todo: delete after implementing scene management signals
-            OnGameMusicRequested();
         }
 
         private void FixedUpdate()
         {
+            if (!_camera)
+            {
+                return;
+            }
+
             musicSource1.gameObject.transform.position = PosInFrontOfCamera;
             musicSource2.gameObject.transform.position = PosInFrontOfCamera;
         }
@@ -54,6 +52,10 @@ namespace Sound
             _signalBus.Subscribe<MatchLitEvent>(OnMatchstickLit);
             _signalBus.Subscribe<ShootingEvent>(OnShoot);
             _signalBus.Subscribe<ShootingNoAmmoEvent>(OnShootNoAmmo);
+
+            _signalBus.Subscribe<GameStartPressedEvent>(OnGameStartPressed);
+            _signalBus.Subscribe<GameSceneLoadedEvent>(OnGameSceneLoaded);
+            _signalBus.Subscribe<MenuSceneLoadedEvent>(OnMenuSceneLoaded);
         }
 
         private void OnShoot()
@@ -62,25 +64,25 @@ namespace Sound
             var clipLength = clip.length;
             Invoke(nameof(OnCasings), clipLength * .5f);
             Invoke(nameof(OnCock), clipLength);
-            AudioSource.PlayClipAtPoint(clip, PosInFrontOfCamera);
+            Extensions.CustomPlayClipAtPoint(clip, PosInFrontOfCamera, mainMixerGroup);
         }
 
         private void OnCasings()
         {
             var casings = _soundsConfig.bulletCasingsSounds.UnityRandom();
-            AudioSource.PlayClipAtPoint(casings, PosInFrontOfCamera);
+            Extensions.CustomPlayClipAtPoint(casings, PosInFrontOfCamera, mainMixerGroup);
         }
-        
+
         private void OnCock()
         {
             var clip = _soundsConfig.cockSounds.UnityRandom();
-            AudioSource.PlayClipAtPoint(clip, PosInFrontOfCamera);
+            Extensions.CustomPlayClipAtPoint(clip, PosInFrontOfCamera, mainMixerGroup);
         }
 
         private void OnShootNoAmmo()
         {
             var clip = _soundsConfig.shootNoAmmoSounds.UnityRandom();
-            AudioSource.PlayClipAtPoint(clip, PosInFrontOfCamera);
+            Extensions.CustomPlayClipAtPoint(clip, PosInFrontOfCamera, mainMixerGroup);
         }
 
         private void UnsubscribeFromSignals()
@@ -92,32 +94,52 @@ namespace Sound
             var clip = _soundsConfig.playerStepSounds.UnityRandom();
             if (clip)
             {
-                AudioSource.PlayClipAtPoint(clip, ev.Pos);
+                Extensions.CustomPlayClipAtPoint(clip, ev.Pos, mainMixerGroup);
             }
         }
 
         private void OnMatchstickLit()
         {
             var clip = _soundsConfig.matchStickSounds.UnityRandom();
-            AudioSource.PlayClipAtPoint(clip, PosInFrontOfCamera);
+            Extensions.CustomPlayClipAtPoint(clip, PosInFrontOfCamera, mainMixerGroup);
         }
 
-        private void OnGameMusicRequested()
+        private void OnGameStartPressed()
         {
+            FadeToMusicClip(null);
+            var clip = _soundsConfig.gameStartPressedSound;
+            Extensions.CustomPlayClipAtPoint(clip, PosInFrontOfCamera, mainMixerGroup);
+            var cameraAnim = new GameStartCameraAnimation();
+            var cameraTarget = _camera.transform.position + _camera.transform.forward * 15f;
+            cameraAnim.PlayAnim(_camera, cameraTarget, clip.length * .7f);
+        }
+
+        private void OnGameSceneLoaded()
+        {
+            _camera = Camera.main;
             var clip = _soundsConfig.gameMusicClips.UnityRandom();
+            FadeToMusicClip(clip);
+        }
+
+        private void OnMenuSceneLoaded()
+        {
+            _camera = Camera.main;
+            var clip = _soundsConfig.menuMusicClips.UnityRandom();
             FadeToMusicClip(clip);
         }
 
         private void FadeToMusicClip(AudioClip clip)
         {
-            var targetSource = _currentMusicSource == musicSource1 ? musicSource2 : musicSource1;
-            targetSource.clip = clip;
-            targetSource.volume = 0f;
-            targetSource.Play();
-            targetSource.DOFade(1, 1f);
-            _currentMusicSource.DOKill();
-            _currentMusicSource.DOFade(0, 1f).OnComplete(() => _currentMusicSource.Stop());
-            _currentMusicSource = targetSource;
+            if (_activeMusicSource) _activeMusicSource.DOFade(0f, .7f);
+            var nextAudioSource = _activeMusicSource == musicSource1 ? musicSource2 : musicSource1;
+            if (clip)
+            {
+                nextAudioSource.clip = clip;
+                nextAudioSource.Play();
+                nextAudioSource.DOFade(1f, .7f);
+            }
+
+            _activeMusicSource = nextAudioSource;
         }
     }
 }

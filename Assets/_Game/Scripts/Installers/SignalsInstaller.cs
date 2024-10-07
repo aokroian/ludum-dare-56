@@ -13,6 +13,7 @@ namespace Installers
         {
             SignalBusInstaller.Install(Container);
             
+            Container.DeclareSignal<GameStartPressedEvent>().OptionalSubscriber();
             Container.DeclareSignal<GameSceneLoadedEvent>().OptionalSubscriber();
             Container.DeclareSignal<MenuSceneLoadedEvent>().OptionalSubscriber();
 

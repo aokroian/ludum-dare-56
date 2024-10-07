@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using _GameTemplate.Scripts.SceneManagement;
+﻿using _GameTemplate.Scripts.SceneManagement;
+using GameLoop.Events;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -28,8 +28,9 @@ namespace Menu
         private SignalBus _signalBus;
 
         [Inject]
-        private void Initialize()
+        private void Initialize(SignalBus signalBus)
         {
+            _signalBus = signalBus;
         }
 
         private void Start()
@@ -63,12 +64,22 @@ namespace Menu
 #if UNITY_WEBGl
             quitBtn.gameObject.SetActive(false);
 #endif
+
+            _signalBus.Fire<MenuSceneLoadedEvent>();
         }
 
         private void StartGame()
         {
+            _signalBus.Fire<GameStartPressedEvent>();
+            Invoke(nameof(LoadGameScene), 3f);
+        }
+
+
+        private void LoadGameScene()
+        {
             CustomSceneManager.LoadScene("Game");
         }
+
 
         private void QuitGame()
         {
@@ -95,10 +106,16 @@ namespace Menu
             creditsPanel.gameObject.SetActive(false);
         }
 
-        private void OnVolumeSliderChanged(float value)
+        private void OnVolumeSliderChanged(float valuePercent)
         {
+            var minAudio = -40;
+            var maxAudio = 0;
+            if (valuePercent == 0)
+                minAudio = -80;
+            var value = minAudio + (maxAudio - minAudio) * valuePercent;
+            
             audioMixer.SetFloat("Volume", value);
-            PlayerPrefs.SetFloat(Strings.SoundVolumeKey, value);
+            PlayerPrefs.SetFloat(Strings.SoundVolumeKey, valuePercent);
         }
 
         private void OnMouseSensitivitySliderChanged(float value)
