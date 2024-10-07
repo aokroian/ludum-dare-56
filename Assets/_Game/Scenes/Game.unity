@@ -2094,6 +2094,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 5bb68a94905ffc0418608fc7e572ea42, type: 2}
+    - target: {fileID: 7834716900163690115, guid: 6eb75e6b24e17104ca084ea125da71f4, type: 3}
+      propertyPath: RotationSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7837145392459524146, guid: 6eb75e6b24e17104ca084ea125da71f4, type: 3}
       propertyPath: m_Name
       value: PlayerCapsule
