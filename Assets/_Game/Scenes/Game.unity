@@ -1917,6 +1917,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6630908163669484735, guid: 6eb75e6b24e17104ca084ea125da71f4, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5bb68a94905ffc0418608fc7e572ea42, type: 2}
     - target: {fileID: 7837145392459524146, guid: 6eb75e6b24e17104ca084ea125da71f4, type: 3}
       propertyPath: m_Name
       value: PlayerCapsule
@@ -1995,13 +1999,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: directionalLight
+      value: 
+      objectReference: {fileID: 26241448}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
       propertyPath: blackOutlineColor.a
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
       propertyPath: propOutlineMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: b022dcc11e946884cbd85bb589a1f59a, type: 2}
+      objectReference: {fileID: 2100000, guid: 3e5f354c5a4404018b528259cf1288f8, type: 2}
     - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
       propertyPath: whiteOutlineColor.a
       value: 1
@@ -2017,6 +2025,94 @@ PrefabInstance:
     - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
       propertyPath: whiteOutlineColor.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOnOutlineColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOnOutlineColor.b
+      value: 0.70172685
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOnOutlineColor.g
+      value: 0.4488252
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOnOutlineColor.r
+      value: 0.7735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOffOutlineColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOffOutlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOffOutlineColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOffOutlineColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOnOutlineColor.key0.b
+      value: 0.7579874
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOnOutlineColor.key0.g
+      value: 0.50445
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOnOutlineColor.key0.r
+      value: 0.9811321
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOnOutlineColor.key1.b
+      value: 0.7485134
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOnOutlineColor.key1.g
+      value: 0.5007565
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOnOutlineColor.key1.r
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOffOutlineColor.key0.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOffOutlineColor.key0.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOffOutlineColor.key0.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOffOutlineColor.key1.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOffOutlineColor.key1.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOffOutlineColor.key1.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOnOutlineColor.m_ColorSpace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: matchOffOutlineColor.m_ColorSpace
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
       propertyPath: <ActiveProps>k__BackingField.Array.size

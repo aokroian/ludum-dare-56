@@ -4,12 +4,15 @@ using System.Linq;
 using Matchstick.Events;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using Zenject;
 
 namespace Level
 {
     public class LevelController : MonoBehaviour
     {
+        [SerializeField] private GameObject directionalLight;
+
         [field: SerializeField] public List<PropSurface> PropSurfaces { get; private set; }
         [field: SerializeField] public List<Prop> ActiveProps { get; private set; }
 
@@ -17,12 +20,6 @@ namespace Level
 
         private SignalBus _signalBus;
         private Material _propsOutlineMaterial;
-        private Color _targetOutlineColor;
-
-        private void Update()
-        {
-            if (_propsOutlineMaterial) _propsOutlineMaterial.color = _targetOutlineColor;
-        }
 
         [Inject]
         private void Initialize(SignalBus signalBus)
@@ -33,27 +30,19 @@ namespace Level
 
             _propsOutlineMaterial = new Material(propOutlineMaterial);
             var allProps = PropSurfaces.SelectMany(ps => ps.AllowedProps).ToList();
-            for (var i = 0; i < allProps.Count; i++)
-            {
-                var p = allProps[i];
-                if (!p)
-                {
-                    Debug.Log("");
-                }
-            }
-
             foreach (var p in allProps)
                 p.SetOutlineMaterial(_propsOutlineMaterial);
+            directionalLight.SetActive(true);
         }
 
         private void OnMatchWentOut()
         {
-            _targetOutlineColor = Color.black;
+            directionalLight.SetActive(false);
         }
 
         private void OnMatchLit()
         {
-            _targetOutlineColor = Color.white;
+            directionalLight.SetActive(true);
         }
 
         public void ResetProps(int count)
