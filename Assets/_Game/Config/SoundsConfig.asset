@@ -34,7 +34,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 01348d3ce0123419894e4af79c1a796f, type: 3}
   gameStartPressedSound: {fileID: 8300000, guid: 88e2e9c96940c4403bca48f4752566c9, type: 3}
   menuMusicClips:
-  - {fileID: 8300000, guid: 767cafdb7e3944a6aa7ad6f3f3ef1452, type: 3}
+  - {fileID: 8300000, guid: e99cba2d1885a4af0a94aa979c5946ca, type: 3}
   matchStickSounds:
   - {fileID: 8300000, guid: c0f0f92d22741429c8e5080125da6026, type: 3}
   - {fileID: 8300000, guid: efd0838b7f269447495dbb7f97c93593, type: 3}
