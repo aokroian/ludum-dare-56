@@ -61,6 +61,7 @@ namespace Sound
             var clip = _soundsConfig.shootSounds.UnityRandom();
             var clipLength = clip.length;
             Invoke(nameof(OnCasings), clipLength * .5f);
+            Invoke(nameof(OnCock), clipLength);
             AudioSource.PlayClipAtPoint(clip, PosInFrontOfCamera);
         }
 
@@ -68,6 +69,12 @@ namespace Sound
         {
             var casings = _soundsConfig.bulletCasingsSounds.UnityRandom();
             AudioSource.PlayClipAtPoint(casings, PosInFrontOfCamera);
+        }
+        
+        private void OnCock()
+        {
+            var clip = _soundsConfig.cockSounds.UnityRandom();
+            AudioSource.PlayClipAtPoint(clip, PosInFrontOfCamera);
         }
 
         private void OnShootNoAmmo()

@@ -10,8 +10,13 @@ namespace Sound
         public AudioClip[] gameMusicClips;
         public AudioClip[] menuMusicClips;
         public AudioClip[] matchStickSounds;
+
+        // weapon sounds
         public AudioClip[] shootSounds;
+        public AudioClip[] cockSounds;
         public AudioClip[] shootNoAmmoSounds;
         public AudioClip[] bulletCasingsSounds;
+        //
+        
     }
 }

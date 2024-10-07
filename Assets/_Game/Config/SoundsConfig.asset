@@ -42,6 +42,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 47eb83a94e9f04d42b32619e6b97dcfd, type: 3}
   - {fileID: 8300000, guid: 077bdf35f1a5345a989d2ad0a14a82cb, type: 3}
   - {fileID: 8300000, guid: 77bea33f7bfe146b5acd94eddf6e8f32, type: 3}
+  cockSounds:
+  - {fileID: 8300000, guid: 7a26b8ba7f76949e2a532d8b61f1fab9, type: 3}
+  - {fileID: 8300000, guid: 144d9ed673be94343afb2da7a3c50fa5, type: 3}
+  - {fileID: 8300000, guid: a7d295592e978474f956034438aa233f, type: 3}
   shootNoAmmoSounds:
   - {fileID: 8300000, guid: cf76b65354c9e4bee841d5d57715b5f7, type: 3}
   bulletCasingsSounds:

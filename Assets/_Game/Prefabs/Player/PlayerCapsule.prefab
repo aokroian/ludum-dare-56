@@ -193,7 +193,7 @@ Transform:
   m_GameObject: {fileID: 6651834661000744201}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.000000007152557, y: 0.033235535, z: 0.04765225}
+  m_LocalPosition: {x: 0, y: 0.0332, z: 0.0433}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1311,6 +1311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed9a0acd2b3b54a6eb223aaae716a450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 6164744540772233736}
   gunshot: {fileID: 5217073375005182294}
   enemy: {fileID: 0}
   viewportPointX: 0.3
@@ -1328,6 +1329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cdc08b7cdab4ba891164e956a3db53c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponT: {fileID: 6649100474284554655}
 --- !u!1001 &1373935725175019638
 PrefabInstance:
   m_ObjectHideFlags: 0

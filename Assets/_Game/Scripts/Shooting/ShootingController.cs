@@ -6,6 +6,8 @@ using Zenject;
 
 public class ShootingController : MonoBehaviour
 {
+    [SerializeField] private ShootWeaponAnimation anim;
+    
     [Inject]
     private PlayerInputsService _playerInputService;
     
@@ -43,6 +45,7 @@ public class ShootingController : MonoBehaviour
 
         gunshot.time = 0f;
         gunshot.Play();
+        anim.PlayShootAnim();
         
         // TODO: Recoil
         
