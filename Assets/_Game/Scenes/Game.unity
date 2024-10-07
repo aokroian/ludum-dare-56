@@ -232,7 +232,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.0001
+  m_Intensity: 0.001
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -4241,9 +4241,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: blackOutlineColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
       propertyPath: propOutlineMaterial
       value: 
       objectReference: {fileID: 2100000, guid: b022dcc11e946884cbd85bb589a1f59a, type: 2}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: whiteOutlineColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: whiteOutlineColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: whiteOutlineColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
+      propertyPath: whiteOutlineColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8126641456275219417, guid: 3f47b52c5ba39459fa0a2310f7816a35, type: 3}
       propertyPath: <ActiveProps>k__BackingField.Array.size
       value: 1

@@ -16,6 +16,12 @@ namespace Level
 
         private SignalBus _signalBus;
         private Material _propsOutlineMaterial;
+        private Color _targetOutlineColor;
+
+        private void Update()
+        {
+            if (_propsOutlineMaterial) _propsOutlineMaterial.color = _targetOutlineColor;
+        }
 
         [Inject]
         private void Initialize(SignalBus signalBus)
@@ -27,17 +33,16 @@ namespace Level
             _propsOutlineMaterial = new Material(propOutlineMaterial);
             foreach (var ap in PropSurfaces.SelectMany(ps => ps.AllowedProps))
                 ap.SetOutlineMaterial(_propsOutlineMaterial);
-            _propsOutlineMaterial.color = Color.white;
         }
 
         private void OnMatchWentOut()
         {
-            _propsOutlineMaterial.color = Color.black;
+            _targetOutlineColor = Color.black;
         }
 
         private void OnMatchLit()
         {
-            _propsOutlineMaterial.color = Color.white;
+            _targetOutlineColor = Color.white;
         }
 
         [Button]

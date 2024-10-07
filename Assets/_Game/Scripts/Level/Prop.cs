@@ -14,7 +14,17 @@ namespace Level
 
         [SerializeField] private List<GameObject> allVariations;
 
-        public bool isDeadEnemy;
+        public bool IsDeadEnemy
+        {
+            get => _isDeadEnemy;
+            set
+            {
+                if (value)
+                    SetOutline(false);
+                _isDeadEnemy = value;
+            }
+        }
+        private bool _isDeadEnemy;
         
         public Vector3 BoundsCenter => transform.TransformPoint(Bounds.center);
 
@@ -50,14 +60,14 @@ namespace Level
 
         public void SetOutline(bool value)
         {
-            if (isDeadEnemy)
+            if (IsDeadEnemy)
                 return;
             CurrentVariation.GetComponent<MeshRenderer>().material = value ? _outlineMaterial : _defaultMaterial;
         }
 
         public void SelectRandomVariation()
         {
-            isDeadEnemy = false;
+            IsDeadEnemy = false;
             var exceptCurrent = CurrentVariation
                 ? allVariations.Where(v => v != CurrentVariation).ToList()
                 : allVariations;

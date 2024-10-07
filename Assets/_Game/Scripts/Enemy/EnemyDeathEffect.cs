@@ -15,7 +15,7 @@ namespace Enemy
 
         public void PlayDeathEffect(Prop prop, Action onFinished)
         {
-            prop.isDeadEnemy = true;
+            prop.IsDeadEnemy = true;
             var meshObject = prop.CurrentVariation;
             _deformable = meshObject.gameObject.AddComponent<Deformable>();
             
