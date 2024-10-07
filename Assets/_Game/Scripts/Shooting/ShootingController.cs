@@ -55,7 +55,7 @@ public class ShootingController : MonoBehaviour
 
         var enemy = _enemyService.Enemies[0];
 
-        if (!propDetector.Detected)
+        if (propDetector.Detected?.gameObject != enemy.gameObject)
         {
             return;
         }

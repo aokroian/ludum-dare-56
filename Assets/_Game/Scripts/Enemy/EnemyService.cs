@@ -32,6 +32,9 @@ namespace Enemy
         {
             foreach (var enemy in Enemies)
             {
+                var deathEffect = enemy.GetComponentInChildren<EnemyDeathEffect>();
+                if (deathEffect)
+                    Object.Destroy(deathEffect.gameObject);
                 Object.Destroy(enemy);
             }
             _enemies.Clear();

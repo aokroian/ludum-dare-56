@@ -16,7 +16,7 @@ MonoBehaviour:
     startAmmo: 20
     shotDelay: 0.3
   matchService:
-    startMatches: 3
+    startMatches: 20
     duration: 5
     delay: 1
   enemyService:

@@ -1,10 +1,10 @@
-﻿namespace Player.Events
+﻿namespace GameLoop.Events
 {
-    public class NightStartedEvent
+    public class NightFinishedEvent
     {
         public int Night { get; private set; }
         
-        public NightStartedEvent(int night)
+        public NightFinishedEvent(int night)
         {
             Night = night;
         }

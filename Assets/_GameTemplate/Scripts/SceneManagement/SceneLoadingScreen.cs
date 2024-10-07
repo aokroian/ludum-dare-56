@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using _GameTemplate.Scripts.Common;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 namespace _GameTemplate.Scripts.SceneManagement
