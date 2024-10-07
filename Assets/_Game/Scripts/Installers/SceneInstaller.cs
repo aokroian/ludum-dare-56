@@ -1,4 +1,5 @@
-﻿using Matchstick;
+﻿using Enemy;
+using Matchstick;
 using Matchstick.Events;
 using Shooting;
 using Zenject;
@@ -11,6 +12,7 @@ namespace Installers
         {
             Container.Bind<ShootingService>().AsSingle();
             Container.Bind<MatchService>().AsSingle();
+            Container.Bind<EnemyService>().AsSingle();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Matchstick;
+﻿using Enemy;
+using Matchstick;
 using Shooting;
 using Sound;
 using UnityEngine;
@@ -11,12 +12,16 @@ namespace Installers
     {
         public ShootingService.Config shootingService;
         public MatchService.Config matchService;
+        public EnemyService.Config enemyService;
+        
         public SoundsConfig soundsConfig;
 
         public override void InstallBindings()
         {
             Container.BindInstance(shootingService).IfNotBound();
             Container.BindInstance(matchService).IfNotBound();
+            Container.BindInstance(enemyService).IfNotBound();
+            
             Container.BindInstance(soundsConfig).IfNotBound();
         }
     }
