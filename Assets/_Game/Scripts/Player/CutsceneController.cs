@@ -56,7 +56,7 @@ namespace Player
             _signalBus.Subscribe<GameOverEvent>(OnGameOver);
             
             
-            PrepareCutscene();
+            // PrepareCutscene();
             
             // DontDestroyOnLoad(this);
         }
@@ -77,6 +77,7 @@ namespace Player
 
         private void OnNightStarted(NightStartedEvent e)
         {
+            PrepareCutscene();
             Debug.Log("Night started");
             // TODO: Start cutscene
             // TODO: Move parameters to config
