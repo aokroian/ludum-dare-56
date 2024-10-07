@@ -31,8 +31,9 @@ namespace Matchstick
             
             if (_currentMatch is not null)
                 return;
-            
-            if (!_matchService.TryLight())
+
+            var duration = _matchService.TryLight();
+            if (duration == 0)
                 return;
             
             Debug.Log("Matchstick lit");
@@ -40,7 +41,7 @@ namespace Matchstick
             _currentMatch = Instantiate(matchPrefab, transform);
             _currentMatch.transform.localPosition = Vector3.zero;
             _currentMatch.transform.localRotation = Quaternion.identity;
-            _currentMatch.Light(5f, () =>
+            _currentMatch.Light(duration, () =>
             {
                 Debug.Log("Matchstick burned out");
                 Destroy(_currentMatch.gameObject);

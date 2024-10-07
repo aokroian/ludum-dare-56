@@ -17,4 +17,6 @@ MonoBehaviour:
     shotDelay: 0.3
   matchService:
     startMatches: 3
+    duration: 5
+    delay: 1
   soundsConfig: {fileID: 11400000, guid: 3dcf8f50c61b54c29842626e8b7f497e, type: 2}

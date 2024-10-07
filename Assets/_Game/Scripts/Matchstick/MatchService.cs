@@ -1,5 +1,6 @@
 ﻿using System;
 using Matchstick.Events;
+using UnityEngine;
 using Zenject;
 
 namespace Matchstick
@@ -11,6 +12,7 @@ namespace Matchstick
         public int Matches { get; private set; }
         
         private SignalBus _signalBus;
+        private float _nextLightTime;
         
         [Inject]
         private void Initialize(Config config, SignalBus signalBus)
@@ -21,22 +23,30 @@ namespace Matchstick
             Matches = _config.startMatches;
         }
         
-        public bool TryLight()
+        public float TryLight()
         {
             if (Matches <= 0)
             {
-                return false;
+                return 0;
             }
+            
+            if (_nextLightTime > Time.time)
+            {
+                return 0;
+            }
+            _nextLightTime = Time.time + _config.duration + _config.delay;
             
             Matches--;
             _signalBus.Fire(new MatchLitEvent());
-            return true;
+            return _config.duration;
         }
 
         [Serializable]
         public class Config
         {
             public int startMatches;
+            public float duration;
+            public float delay;
         }
     }
 }
