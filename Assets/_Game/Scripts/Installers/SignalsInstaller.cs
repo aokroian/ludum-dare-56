@@ -1,4 +1,5 @@
 ﻿using Enemy.Events;
+using GameLoop.Events;
 using Matchstick.Events;
 using Player.Events;
 using Shooting.Events;
@@ -11,6 +12,9 @@ namespace Installers
         public override void InstallBindings()
         {
             SignalBusInstaller.Install(Container);
+            
+            Container.DeclareSignal<GameSceneLoadedEvent>().OptionalSubscriber();
+            Container.DeclareSignal<MenuSceneLoadedEvent>().OptionalSubscriber();
 
             Container.DeclareSignal<MatchLitEvent>().OptionalSubscriber();
             Container.DeclareSignal<MatchWentOutEvent>().OptionalSubscriber();

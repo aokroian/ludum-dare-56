@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Menu
 {
@@ -24,6 +25,12 @@ namespace Menu
         [SerializeField] private Slider mouseSensitivitySlider;
         [SerializeField] private TMP_Dropdown graphicsDropdown;
 
+        private SignalBus _signalBus;
+
+        [Inject]
+        private void Initialize()
+        {
+        }
 
         private void Start()
         {

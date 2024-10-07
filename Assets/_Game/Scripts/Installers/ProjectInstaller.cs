@@ -6,6 +6,7 @@ namespace Installers
     {
         public override void InstallBindings()
         {
+            SignalsInstaller.Install(Container);
         }
     }
 }
