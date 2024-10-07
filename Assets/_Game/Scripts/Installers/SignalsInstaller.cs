@@ -19,6 +19,7 @@ namespace Installers
             Container.DeclareSignal<MenuSceneLoadedEvent>().OptionalSubscriber();
             Container.DeclareSignal<NightStartedEvent>().OptionalSubscriber();
             Container.DeclareSignal<NightFinishedEvent>().OptionalSubscriber();
+            Container.DeclareSignal<GameFinishedEvent>().OptionalSubscriber();
 
             Container.DeclareSignal<MatchLitEvent>().OptionalSubscriber();
             Container.DeclareSignal<MatchWentOutEvent>().OptionalSubscriber();

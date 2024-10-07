@@ -17,6 +17,10 @@ namespace Enemy
 
         public bool Alive { get; private set; } = true;
 
+        private void OnDestroy()
+        {
+            _signalBus.TryUnsubscribe<MatchWentOutEvent>(OnMatchWentOut);
+        }
 
         public void Init(Prop prop, SignalBus signalBus, Action<Prop> moveProp, Action<Enemy> onEnemyDied)
         {

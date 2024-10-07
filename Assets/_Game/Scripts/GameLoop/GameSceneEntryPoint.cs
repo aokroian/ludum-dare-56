@@ -57,6 +57,12 @@ namespace GameLoop
         private void OnAllEnemiesDied()
         {
             // TODO: dialogue
+            if (_gameState.night >= 7)
+            {
+                _signalBus.Fire<GameFinishedEvent>();
+                _gameState.night = 1;
+                return;
+            }
             
             Observable.Timer(System.TimeSpan.FromSeconds(1)).ObserveOnCurrentSynchronizationContext().Subscribe(_ =>
             {

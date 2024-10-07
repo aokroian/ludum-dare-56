@@ -1,9 +1,13 @@
-﻿using DG.Tweening;
+﻿using System;
+using System.Threading;
+using DG.Tweening;
 using GameLoop.Events;
 using InputUtils;
 using Player.Events;
+using R3;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using Zenject;
 
 namespace Player
@@ -34,6 +38,7 @@ namespace Player
             _signalBus = signalBus;
             _signalBus.Subscribe<NightStartedEvent>(OnNightStarted);
             _signalBus.Subscribe<NightFinishedEvent>(OnNightFinished);
+            _signalBus.Subscribe<GameFinishedEvent>(OnGameFinished);
             
             
             PrepareCutscene();
@@ -70,6 +75,23 @@ namespace Player
                 _playerInputsService.EnableInput();
             };
             // _playerInputsService.EnableInput();
+        }
+        
+        private void OnGameFinished()
+        {
+            PrepareCutscene();
+            cutsceneCanvasText.text = "Finally, I am safe";
+            DisposableBag disposable = default;
+            Observable.EveryUpdate()
+                .ObserveOn(UnityFrameProvider.Update)
+                .Subscribe(_ =>
+                {
+                    if (Input.GetMouseButton(0))
+                    {
+                        Debug.Log("Disposed");
+                        disposable.Dispose();
+                    }
+                }).AddTo(ref disposable);
         }
     }
 }

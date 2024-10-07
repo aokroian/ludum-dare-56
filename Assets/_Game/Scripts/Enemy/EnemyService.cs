@@ -58,6 +58,7 @@ namespace Enemy
         
         private void OnEnemyDied(Enemy enemy)
         {
+            _signalBus.Fire(new EnemyDiedEvent(enemy.transform.position));
             var deathEffect = Object.Instantiate(_config.deathEffect, enemy.transform.position, Quaternion.identity, enemy.transform);
             deathEffect.PlayDeathEffect(enemy.Prop, () =>
             {
