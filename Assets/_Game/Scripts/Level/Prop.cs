@@ -7,12 +7,15 @@ using Random = UnityEngine.Random;
 
 namespace Level
 {
-    public class Prop : MonoBehaviour
+    public class Prop : SerializedMonoBehaviour
     {
         [field: SerializeField] public PropKind Kind { get; private set; }
         [field: SerializeField] public SphereCollider Bounds { get; private set; }
+
+        [ShowInInspector] public static Material outlineMaterial;
+
         [SerializeField] private List<GameObject> allVariations;
-        
+
         public Vector3 BoundsCenter => transform.TransformPoint(Bounds.center);
 
         [HideInInspector] public PropSurface surface;
@@ -20,12 +23,16 @@ namespace Level
         private GameObject _currentVariation;
         public static List<Prop> AllActiveProps;
 
+        private Material _defaultMaterial;
+
         private static bool IsDebug => true;
 
         private void Awake()
         {
             if (!_currentVariation)
                 SelectRandomVariation();
+
+            _defaultMaterial = _currentVariation.GetComponent<MeshRenderer>().material;
         }
 
         private void OnEnable()
@@ -37,6 +44,14 @@ namespace Level
         private void OnDisable()
         {
             AllActiveProps.Remove(this);
+        }
+        
+        public void SetOutline(bool value)
+        {
+            // if (value)
+                // _currentVariation.GetComponent<MeshRenderer>().material = outlineMaterial;
+            // else
+                // _currentVariation.GetComponent<MeshRenderer>().material = _defaultMaterial;
         }
 
         public void SelectRandomVariation()

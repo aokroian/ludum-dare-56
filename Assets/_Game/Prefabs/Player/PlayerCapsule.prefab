@@ -1184,6 +1184,7 @@ GameObject:
   - component: {fileID: 6858641916010017435}
   - component: {fileID: 6208758801070911721}
   - component: {fileID: 6164744540772233736}
+  - component: {fileID: 20761484910690565}
   m_Layer: 8
   m_Name: PlayerCapsule
   m_TagString: Player
@@ -1312,11 +1313,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 6164744540772233736}
+  propDetector: {fileID: 20761484910690565}
   gunshot: {fileID: 5217073375005182294}
-  enemy: {fileID: 0}
-  viewportPointX: 0.3
-  viewportPointY: 0.7
-  viewportPointZ: 0
 --- !u!114 &6164744540772233736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1330,6 +1328,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponT: {fileID: 6649100474284554655}
+--- !u!114 &20761484910690565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7837145392459524146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 457b514fdb8340369eb265b2d8ac5edf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionX: {x: 0.4, y: 0.6}
+  detectionY: {x: 0.6, y: 0.6}
+  detectionLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &1373935725175019638
 PrefabInstance:
   m_ObjectHideFlags: 0

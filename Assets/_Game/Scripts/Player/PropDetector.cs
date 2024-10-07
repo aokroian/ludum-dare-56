@@ -17,6 +17,8 @@ namespace Player
         private const float MaxDetectionDistance = 100f;
         private Camera _cam;
 
+        private Prop _prevDetected;
+
         private void Awake()
         {
             _cam = Camera.main;
@@ -28,6 +30,14 @@ namespace Player
             if (!detected)
                 detected = TryDetectWithViewportPoint();
             Detected = detected;
+
+            if (_prevDetected || Detected != _prevDetected)
+                _prevDetected.SetOutline(false);
+
+            if (Detected && Detected != _prevDetected)
+                Detected.SetOutline(true);
+
+            _prevDetected = Detected;
         }
 
         private Prop TryDetectWithRaycast()
