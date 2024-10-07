@@ -9,10 +9,11 @@ namespace Dialogue
         public CanvasGroup canvasGroup;
         public TextMeshProUGUI tmp;
 
-        private void OnEnable()
+        public void Activate(float lifetime)
         {
+            Destroy(gameObject, lifetime);
             canvasGroup.alpha = 1;
-            canvasGroup.DOFade(0, 4f).SetDelay(2f).OnComplete(() => { Destroy(gameObject); });
+            canvasGroup.DOFade(0, lifetime).SetDelay(1f).OnComplete(() => { Destroy(gameObject); });
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Matchstick;
+﻿using GameLoop.Events;
+using Matchstick;
 using Matchstick.Events;
 using Shooting;
 using Shooting.Events;
@@ -18,6 +19,9 @@ namespace Dialogue
         private MatchService _matchService;
         private ShootingService _shootingService;
 
+        private const float FirstMessageLifetime = 8f;
+        private const float NextMessageLifetime = 5f;
+
         [Inject]
         private void Initialize(
             SignalBus signalBus,
@@ -30,6 +34,12 @@ namespace Dialogue
 
             _signalBus.Subscribe<MatchWentOutEvent>(OnMatchWeanOut);
             _signalBus.Subscribe<ShootingEvent>(OnShoot);
+            _signalBus.Subscribe<GameSceneLoadedEvent>(OnGameSceneLoaded);
+        }
+
+        private void OnGameSceneLoaded()
+        {
+            SpawnMessage("I'm being hunted by a mimic. I have to find and shoot it.", FirstMessageLifetime);
         }
 
         private void OnShoot()
@@ -41,13 +51,13 @@ namespace Dialogue
             switch (variant)
             {
                 case 0:
-                    SpawnMessage("The shot echoed.\n" + bulletsLeftPart);
+                    SpawnMessage("The shot echoed.\n" + bulletsLeftPart, NextMessageLifetime);
                     break;
                 case 1:
-                    SpawnMessage("The shot echoed. It's getting closer.\n" + bulletsLeftPart);
+                    SpawnMessage("The shot echoed. It's getting closer.\n" + bulletsLeftPart, NextMessageLifetime);
                     break;
                 case 2:
-                    SpawnMessage("The shot echoed. It's getting colder.\n" + bulletsLeftPart);
+                    SpawnMessage("The shot echoed. It's getting colder.\n" + bulletsLeftPart, NextMessageLifetime);
                     break;
             }
         }
@@ -61,21 +71,22 @@ namespace Dialogue
             switch (variant)
             {
                 case 0:
-                    SpawnMessage("The match went out.\n" + matchesLeftPart);
+                    SpawnMessage("The match went out.\n" + matchesLeftPart, NextMessageLifetime);
                     break;
                 case 1:
-                    SpawnMessage("The match went out. It's dark now.\n" + matchesLeftPart);
+                    SpawnMessage("The match went out. It's dark now.\n" + matchesLeftPart, NextMessageLifetime);
                     break;
                 case 2:
-                    SpawnMessage("The match went out. It's getting cold.\n" + matchesLeftPart);
+                    SpawnMessage("The match went out. It's getting cold.\n" + matchesLeftPart, NextMessageLifetime);
                     break;
             }
         }
 
-        private void SpawnMessage(string text)
+        private void SpawnMessage(string text, float lifetime)
         {
             var spawnedMessage = Instantiate(messagePrefab, messagesParent.transform);
             spawnedMessage.tmp.text = text;
+            spawnedMessage.Activate(lifetime);
             messagesParent.enabled = false;
             messagesParent.enabled = true;
             Canvas.ForceUpdateCanvases();
