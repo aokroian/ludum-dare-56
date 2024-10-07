@@ -46,6 +46,8 @@ namespace Sound
 
         private void SubscribeToSignals()
         {
+            _signalBus.Subscribe<NightStartedEvent>(OnNightStarted);
+            
             _signalBus.Subscribe<PlayerStepEvent>(OnPlayerStep);
             _signalBus.Subscribe<MatchLitEvent>(OnMatchstickLit);
             _signalBus.Subscribe<ShootingEvent>(OnShoot);
@@ -57,6 +59,19 @@ namespace Sound
 
             _signalBus.Subscribe<EnemyDiedEvent>(OnEnemyDied);
             _signalBus.Subscribe<EnemyRepositionEvent>(OnEnemyRepositioned);
+        }
+
+        private void OnNightStarted()
+        {
+            var clip = _soundsConfig.newNightSounds.UnityRandom();
+            var length = clip.length;
+            Extensions.CustomPlayClipAtPoint(clip, PosInFrontOfCamera, mainMixerGroup);
+            Observable.Timer(TimeSpan.FromSeconds(length * .5f)).ObserveOnCurrentSynchronizationContext()
+                .Subscribe(_ =>
+                {
+                    var getUpFromBedClip = _soundsConfig.getUpFromBedSounds.UnityRandom();
+                    Extensions.CustomPlayClipAtPoint(getUpFromBedClip, PosInFrontOfCamera, mainMixerGroup);
+                });
         }
 
         private void OnEnemyRepositioned(EnemyRepositionEvent ev)

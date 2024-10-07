@@ -6,9 +6,13 @@ namespace Sound
     [CreateAssetMenu(menuName = "Game/Sound/SoundsConfig", fileName = "SoundsConfig")]
     public class SoundsConfig : SerializedScriptableObject
     {
+        public AudioClip gameStartPressedSound;
+        public AudioClip winSound;
+        public AudioClip[] getUpFromBedSounds;
+
+        public AudioClip[] newNightSounds;
         public AudioClip[] playerStepSounds;
         public AudioClip[] gameMusicClips;
-        public AudioClip gameStartPressedSound;
         public AudioClip[] menuMusicClips;
         public AudioClip[] matchStickSounds;
 
@@ -21,6 +25,7 @@ namespace Sound
 
         // enemy sounds
         public AudioClip[] enemyDiedSounds;
+        public AudioClip[] enemyAttackSounds;
         public AudioClip[] enemyRepositionedSounds;
     }
 }
