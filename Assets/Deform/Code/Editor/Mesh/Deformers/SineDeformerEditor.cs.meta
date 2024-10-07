@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 847ec53de1be9344780fafbcbe084981
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 148425
+  packageName: Deform
+  packageVersion: 1.2.1
+  assetPath: Assets/Deform/Code/Editor/Mesh/Deformers/SineDeformerEditor.cs
+  uploadId: 442588

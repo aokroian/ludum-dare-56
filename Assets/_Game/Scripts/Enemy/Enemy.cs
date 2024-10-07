@@ -1,7 +1,7 @@
 ﻿using System;
 using Level;
 using Matchstick.Events;
-using MimicSpace;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
@@ -14,12 +14,12 @@ namespace Enemy
         private SignalBus _signalBus;
         private Action<Prop> _moveProp;
         private Action<Enemy> _onEnemyDied;
-        private Mimic _mimicInstance;
+
+        public bool Alive { get; private set; } = true;
 
 
-        public void Init(Prop prop, SignalBus signalBus, Mimic enemyObject, Action<Prop> moveProp, Action<Enemy> onEnemyDied)
+        public void Init(Prop prop, SignalBus signalBus, Action<Prop> moveProp, Action<Enemy> onEnemyDied)
         {
-            _mimicInstance = enemyObject;
             _onEnemyDied = onEnemyDied;
             _moveProp = moveProp;
             _signalBus = signalBus;
@@ -27,12 +27,11 @@ namespace Enemy
             _signalBus.Subscribe<MatchWentOutEvent>(OnMatchWentOut);
         }
 
+        [Button]
         public void Kill()
         {
+            Alive = false;
             _onEnemyDied?.Invoke(this);
-            Prop.GetComponent<MeshRenderer>().enabled = false;
-            _mimicInstance.gameObject.SetActive(false);
-            _mimicInstance.transform.position = Prop.transform.position;
         }
         
         private void OnMatchWentOut()

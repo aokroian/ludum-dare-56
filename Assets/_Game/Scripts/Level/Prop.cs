@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -22,6 +23,8 @@ namespace Level
 
         private GameObject _currentVariation;
         public static List<Prop> AllActiveProps;
+        
+        public GameObject CurrentVariation => _currentVariation;
 
         private Material _defaultMaterial;
 

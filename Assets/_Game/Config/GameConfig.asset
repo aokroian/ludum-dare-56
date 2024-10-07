@@ -22,4 +22,5 @@ MonoBehaviour:
   enemyService:
     enemiesCount: 1
     enemyPrefab: {fileID: 8675915457954794083, guid: bc0f01d13d48b8c48b642a449933c67f, type: 3}
+    deathEffect: {fileID: -3475721051429772325, guid: a9151d867911c5941afb418cafdf34a3, type: 3}
   soundsConfig: {fileID: 11400000, guid: 3dcf8f50c61b54c29842626e8b7f497e, type: 2}
