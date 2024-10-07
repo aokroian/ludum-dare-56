@@ -74,6 +74,11 @@ namespace Matchstick
             _cancelCallback?.Invoke();
         }
         
+        public bool IsLit()
+        {
+            return _nextLightTime > Time.time;
+        }
+        
         [Serializable]
         public class Config
         {

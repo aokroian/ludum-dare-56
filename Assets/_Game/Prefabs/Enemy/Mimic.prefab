@@ -56,14 +56,14 @@ MonoBehaviour:
   minLegLifetime: 5
   maxLegLifetime: 15
   legPlacerOrigin: {x: 0, y: 0, z: 0}
-  newLegRadius: 3
+  newLegRadius: 1
   minLegDistance: 4.5
-  maxLegDistance: 6.2999997
+  maxLegDistance: 2.1
   legResolution: 40
   minGrowCoef: 4.5
   maxGrowCoef: 6.5
   newLegCooldown: 0.3
-  velocity: {x: -0.3168504, y: 0, z: -0.23463367}
+  velocity: {x: 0.77296364, y: 0, z: 0.37280807}
 --- !u!114 &608258904
 MonoBehaviour:
   m_ObjectHideFlags: 0

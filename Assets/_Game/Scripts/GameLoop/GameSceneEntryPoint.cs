@@ -46,7 +46,7 @@ namespace GameLoop
             _signalBus.Subscribe<AllEnemiesDeadEvent>(OnAllEnemiesDied);
         }
         
-        private void StartGame()
+        public void StartGame()
         {
             _levelController.ResetProps(_gameState.night + 2);
             _enemyService.ResetEnemies();

@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Enemy.Events;
+using GameLoop.Events;
 using Level;
+using Matchstick;
 using MimicSpace;
+using Shooting;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -17,14 +21,19 @@ namespace Enemy
         private Config _config;
         private SignalBus _signalBus;
         private LevelController _level;
+        private MatchService _matchService;
+        private ShootingService _shootingService;
         
         private List<Enemy> _enemies = new ();
 
         [Inject]
-        private void Initialize(Config config, SignalBus signalBus, LevelController level)
+        private void Initialize(Config config, SignalBus signalBus, MatchService matchService,
+            ShootingService shootingService, LevelController level)
         {
             _config = config;
             _signalBus = signalBus;
+            _shootingService = shootingService;
+            _matchService = matchService;
             _level = level;
         }
         
@@ -52,6 +61,11 @@ namespace Enemy
 
         private void MoveProp(Prop oldProp)
         {
+            if (_shootingService.Ammo <= 0 || _matchService.Matches <= 0)
+            {
+                AttackPlayer();
+                return;
+            }
             var oldEnemy = oldProp.GetComponent<Enemy>();
             _enemies.Remove(oldEnemy);
             Object.Destroy(oldEnemy);
@@ -62,6 +76,19 @@ namespace Enemy
             _enemies.Add(enemy);
             
             _signalBus.Fire(new EnemyRepositionEvent(enemy.transform.position));
+        }
+        
+        private void AttackPlayer()
+        {
+            var mimic = Object.Instantiate(_config.enemyPrefab,
+                _enemies[0].transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
+            _signalBus.Fire(new AttackPlayerEvent(mimic.transform));
+            var cam = Camera.main;
+            mimic.transform.DOMove(cam.transform.position, 2f).SetEase(Ease.InQuint).OnComplete(() =>
+            {
+                Object.Destroy(mimic.gameObject);
+                _signalBus.Fire(new GameOverEvent());
+            });
         }
 
         private void OnEnemyDied(Enemy enemy)
@@ -75,7 +102,6 @@ namespace Enemy
                     Debug.LogWarning("All enemies are dead");
                     _signalBus.Fire<AllEnemiesDeadEvent>();
                 } 
-                    
             });
         }
 
@@ -83,7 +109,7 @@ namespace Enemy
         public class Config
         {
             public int enemiesCount;
-            public Mimic enemyPrefab;
+            public EnemyMimic enemyPrefab;
             public EnemyDeathEffect deathEffect;
         }
     }

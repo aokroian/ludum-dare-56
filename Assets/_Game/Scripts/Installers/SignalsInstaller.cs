@@ -20,6 +20,7 @@ namespace Installers
             Container.DeclareSignal<NightStartedEvent>().OptionalSubscriber();
             Container.DeclareSignal<NightFinishedEvent>().OptionalSubscriber();
             Container.DeclareSignal<GameFinishedEvent>().OptionalSubscriber();
+            Container.DeclareSignal<GameOverEvent>().OptionalSubscriber();
 
             Container.DeclareSignal<MatchLitEvent>().OptionalSubscriber();
             Container.DeclareSignal<MatchWentOutEvent>().OptionalSubscriber();
@@ -28,6 +29,7 @@ namespace Installers
             Container.DeclareSignal<EnemyRepositionEvent>().OptionalSubscriber();
             Container.DeclareSignal<EnemyDiedEvent>().OptionalSubscriber();
             Container.DeclareSignal<AllEnemiesDeadEvent>().OptionalSubscriber();
+            Container.DeclareSignal<AttackPlayerEvent>().OptionalSubscriber();
 
             Container.DeclareSignal<ShootingEvent>().OptionalSubscriber();
             Container.DeclareSignal<ShootingNoAmmoEvent>().OptionalSubscriber();

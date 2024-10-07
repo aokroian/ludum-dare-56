@@ -1,14 +1,13 @@
-﻿using System;
-using System.Threading;
+﻿using _GameTemplate.Scripts.SceneManagement;
 using Cinemachine;
 using DG.Tweening;
+using Enemy.Events;
+using GameLoop;
 using GameLoop.Events;
 using InputUtils;
-using Player.Events;
 using R3;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using Zenject;
 
 namespace Player
@@ -19,11 +18,15 @@ namespace Player
         [SerializeField] private CanvasGroup cutsceneCanvasGroup;
         [SerializeField] private TMP_Text cutsceneCanvasText;
 
-        [SerializeField] private CinemachineVirtualCamera virtualCamera;
+        [SerializeField] private CinemachineVirtualCamera mainVirtualCamera;
+        [SerializeField] private CinemachineVirtualCamera attackVirtualCamera;
+        [SerializeField] private CinemachineVirtualCamera bedVirtualCamera;
         [SerializeField] private CinemachineBrain camBrain;
 
         [SerializeField] private Transform playerStartPos;
         [SerializeField] private CharacterController player;
+
+        [SerializeField] private RectTransform gameOverScreen;
         
         
         private SignalBus _signalBus;
@@ -35,6 +38,8 @@ namespace Player
         [Inject]
         private void Initialize(SignalBus signalBus, PlayerInputsService playerInputsService)
         {
+            gameOverScreen.gameObject.SetActive(false);
+            
             if (_instance != null)
             {
                 Destroy(gameObject);
@@ -47,6 +52,8 @@ namespace Player
             _signalBus.Subscribe<NightStartedEvent>(OnNightStarted);
             _signalBus.Subscribe<NightFinishedEvent>(OnNightFinished);
             _signalBus.Subscribe<GameFinishedEvent>(OnGameFinished);
+            _signalBus.Subscribe<AttackPlayerEvent>(OnAttackPlayer);
+            _signalBus.Subscribe<GameOverEvent>(OnGameOver);
             
             
             PrepareCutscene();
@@ -78,7 +85,7 @@ namespace Player
             // var camBrain = cam.GetComponent<CinemachineBrain>();
             camBrain.m_DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Style.EaseInOut, 0);
             
-            virtualCamera.enabled = true;
+            bedVirtualCamera.enabled = true;
             
             player.enabled = false;
             player.transform.position = playerStartPos.position;
@@ -98,7 +105,7 @@ namespace Player
             // var cam = Camera.main;
             // var camBrain = cam.GetComponent<CinemachineBrain>();
             camBrain.m_DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Style.EaseInOut, 2);
-            virtualCamera.enabled = false;
+            bedVirtualCamera.enabled = false;
 
             DisposableBag disposable = default;
             
@@ -123,10 +130,42 @@ namespace Player
                 .ObserveOn(UnityFrameProvider.Update)
                 .Subscribe(_ =>
                 {
-                    if (Input.GetMouseButton(0))
+                    if (Input.GetKey(KeyCode.Escape))
                     {
                         Debug.Log("Disposed");
                         disposable.Dispose();
+                        CustomSceneManager.LoadScene("Menu");
+                    }
+                }).AddTo(ref disposable);
+        }
+        
+        public void OnAttackPlayer(AttackPlayerEvent e)
+        {
+            camBrain.m_DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Style.EaseInOut, 0.2f);
+            _playerInputsService.DisableInput();
+            attackVirtualCamera.transform.position = mainVirtualCamera.transform.position;
+            attackVirtualCamera.enabled = true;
+            attackVirtualCamera.LookAt = e.EnemyTransform;
+        }
+        
+        private void OnGameOver()
+        {
+            attackVirtualCamera.enabled = false;
+            
+            canvas.gameObject.SetActive(true);
+            gameOverScreen.gameObject.SetActive(true);
+            
+            DisposableBag disposable = default;
+            Observable.EveryUpdate()
+                .ObserveOn(UnityFrameProvider.Update)
+                .Subscribe(_ =>
+                {
+                    if (Input.GetKey(KeyCode.R))
+                    {
+                        Debug.Log("Disposed");
+                        disposable.Dispose();
+                        gameOverScreen.gameObject.SetActive(false);
+                        FindFirstObjectByType<GameSceneEntryPoint>().StartGame();
                     }
                 }).AddTo(ref disposable);
         }
