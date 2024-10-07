@@ -13,14 +13,19 @@ namespace Installers
         {
             SignalBusInstaller.Install(Container);
             
+            // game loop events
             Container.DeclareSignal<GameStartPressedEvent>().OptionalSubscriber();
             Container.DeclareSignal<GameSceneLoadedEvent>().OptionalSubscriber();
             Container.DeclareSignal<MenuSceneLoadedEvent>().OptionalSubscriber();
+            Container.DeclareSignal<NightStartedEvent>().OptionalSubscriber();
 
             Container.DeclareSignal<MatchLitEvent>().OptionalSubscriber();
             Container.DeclareSignal<MatchWentOutEvent>().OptionalSubscriber();
 
+            // enemies events
             Container.DeclareSignal<EnemyRepositionEvent>().OptionalSubscriber();
+            Container.DeclareSignal<EnemyDiedEvent>().OptionalSubscriber();
+            Container.DeclareSignal<AllEnemiesDeadEvent>().OptionalSubscriber();
 
             Container.DeclareSignal<ShootingEvent>().OptionalSubscriber();
             Container.DeclareSignal<ShootingNoAmmoEvent>().OptionalSubscriber();

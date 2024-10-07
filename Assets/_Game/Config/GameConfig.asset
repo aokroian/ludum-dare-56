@@ -19,4 +19,7 @@ MonoBehaviour:
     startMatches: 3
     duration: 5
     delay: 1
+  enemyService:
+    enemiesCount: 1
+    enemyPrefab: {fileID: 8675915457954794083, guid: 3fc537e92bf3d2449b5be72cfd6cb447, type: 3}
   soundsConfig: {fileID: 11400000, guid: 3dcf8f50c61b54c29842626e8b7f497e, type: 2}

@@ -1,3 +1,4 @@
+using Enemy;
 using InputUtils;
 using Shooting;
 using Unity.VisualScripting;
@@ -13,11 +14,13 @@ public class ShootingController : MonoBehaviour
     
     [Inject]
     private ShootingService _shootingService;
+    
+    [Inject]
+    private EnemyService _enemyService;
 
     private Camera _mainCamera;
 
     public ParticleSystem gunshot;
-    public GameObject enemy;
 
     public float viewportPointX = .3f;
     public float viewportPointY = .7f;
@@ -46,13 +49,14 @@ public class ShootingController : MonoBehaviour
         gunshot.time = 0f;
         gunshot.Play();
         anim.PlayShootAnim();
+
+        if (_enemyService.Enemies.Count == 0) { return; }
+        var enemy = _enemyService.Enemies[0];
         
-        // TODO: Recoil
-        
-        if (!IsObjectInView(enemy)) { return; }
+        if (!IsObjectInView(enemy.gameObject)) { return; }
 
         Debug.Log($"{enemy.name} killed");
-        Destroy(enemy);
+        enemy.Kill();
     }
 
     private bool IsObjectInView(GameObject desiredObject)
