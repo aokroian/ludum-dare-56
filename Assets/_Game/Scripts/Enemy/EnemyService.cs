@@ -56,7 +56,7 @@ namespace Enemy
         private void OnEnemyDied(Enemy enemy)
         {
             var deathEffect = Object.Instantiate(_config.deathEffect, enemy.transform.position, Quaternion.identity, enemy.transform);
-            deathEffect.PlayDeathEffect(enemy.Prop.CurrentVariation, () =>
+            deathEffect.PlayDeathEffect(enemy.Prop, () =>
             {
                 if (_enemies.Count(it => it.Alive) <= 0)
                 {

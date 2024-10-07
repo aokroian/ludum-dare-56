@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using R3;
@@ -8,34 +7,32 @@ using Random = UnityEngine.Random;
 
 namespace Level
 {
-    public class Prop : SerializedMonoBehaviour
+    public class Prop : MonoBehaviour
     {
         [field: SerializeField] public PropKind Kind { get; private set; }
         [field: SerializeField] public SphereCollider Bounds { get; private set; }
 
-        [ShowInInspector] public static Material outlineMaterial;
-
         [SerializeField] private List<GameObject> allVariations;
 
+        public bool isDeadEnemy;
+        
         public Vector3 BoundsCenter => transform.TransformPoint(Bounds.center);
 
         [HideInInspector] public PropSurface surface;
 
-        private GameObject _currentVariation;
         public static List<Prop> AllActiveProps;
-        
-        public GameObject CurrentVariation => _currentVariation;
 
+        public GameObject CurrentVariation { get; private set; }
+
+        private Material _outlineMaterial;
         private Material _defaultMaterial;
-
-        private static bool IsDebug => true;
 
         private void Awake()
         {
-            if (!_currentVariation)
+            if (!CurrentVariation)
                 SelectRandomVariation();
 
-            _defaultMaterial = _currentVariation.GetComponent<MeshRenderer>().material;
+            _defaultMaterial = CurrentVariation.GetComponent<MeshRenderer>().material;
         }
 
         private void OnEnable()
@@ -48,25 +45,27 @@ namespace Level
         {
             AllActiveProps.Remove(this);
         }
-        
+
+        public void SetOutlineMaterial(Material mat) => _outlineMaterial = mat;
+
         public void SetOutline(bool value)
         {
-            // if (value)
-                // _currentVariation.GetComponent<MeshRenderer>().material = outlineMaterial;
-            // else
-                // _currentVariation.GetComponent<MeshRenderer>().material = _defaultMaterial;
+            if (isDeadEnemy)
+                return;
+            CurrentVariation.GetComponent<MeshRenderer>().material = value ? _outlineMaterial : _defaultMaterial;
         }
 
         public void SelectRandomVariation()
         {
-            var exceptCurrent = _currentVariation
-                ? allVariations.Where(v => v != _currentVariation).ToList()
+            isDeadEnemy = false;
+            var exceptCurrent = CurrentVariation
+                ? allVariations.Where(v => v != CurrentVariation).ToList()
                 : allVariations;
             var randomIndex = Random.Range(0, exceptCurrent.Count);
-            _currentVariation = exceptCurrent[randomIndex];
+            CurrentVariation = exceptCurrent[randomIndex];
 
             foreach (var variation in allVariations)
-                variation.SetActive(variation == _currentVariation);
+                variation.SetActive(variation == CurrentVariation);
         }
 
 #if UNITY_EDITOR
@@ -81,7 +80,7 @@ namespace Level
         private void OnDrawGizmos()
         {
             // draw socket size using bounds
-            if (!IsDebug || !Bounds)
+            if (!Bounds)
                 return;
             Gizmos.color = Color.green;
             var worldSpaceBoundsCenter = transform.TransformPoint(Bounds.center);

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Matchstick.Events;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 namespace Level
 {
@@ -10,11 +12,38 @@ namespace Level
         [field: SerializeField] public List<PropSurface> PropSurfaces { get; private set; }
         [field: SerializeField] public List<Prop> ActiveProps { get; private set; }
 
+        [SerializeField] private Material propOutlineMaterial;
+
+        private SignalBus _signalBus;
+        private Material _propsOutlineMaterial;
+
+        [Inject]
+        private void Initialize(SignalBus signalBus)
+        {
+            _signalBus = signalBus;
+            _signalBus.Subscribe<MatchLitEvent>(OnMatchLit);
+            _signalBus.Subscribe<MatchWentOutEvent>(OnMatchWentOut);
+
+            _propsOutlineMaterial = new Material(propOutlineMaterial);
+            foreach (var ap in PropSurfaces.SelectMany(ps => ps.AllowedProps))
+                ap.SetOutlineMaterial(_propsOutlineMaterial);
+            _propsOutlineMaterial.color = Color.white;
+        }
+
+        private void OnMatchWentOut()
+        {
+            _propsOutlineMaterial.color = Color.black;
+        }
+
+        private void OnMatchLit()
+        {
+            _propsOutlineMaterial.color = Color.white;
+        }
+
         [Button]
         public void ResetProps()
         {
             ActiveProps.Clear();
-
             foreach (var propSurface in PropSurfaces)
             {
                 var exclude = ActiveProps.ConvertAll(p => p.Kind);

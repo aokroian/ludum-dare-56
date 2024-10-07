@@ -157,8 +157,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf3f678d1a94f42bcc283fb1f5a3a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   <Kind>k__BackingField: 3
   <Bounds>k__BackingField: {fileID: 8291865280136959206}
+  outlineMaterial: {fileID: 2100000, guid: b022dcc11e946884cbd85bb589a1f59a, type: 2}
   allVariations:
   - {fileID: 6936334796451187629}
   - {fileID: 1487914046660828411}

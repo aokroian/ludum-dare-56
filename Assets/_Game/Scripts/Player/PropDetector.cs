@@ -31,7 +31,7 @@ namespace Player
                 detected = TryDetectWithViewportPoint();
             Detected = detected;
 
-            if (_prevDetected || Detected != _prevDetected)
+            if (_prevDetected != null && Detected != _prevDetected)
                 _prevDetected.SetOutline(false);
 
             if (Detected && Detected != _prevDetected)

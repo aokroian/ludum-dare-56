@@ -1,6 +1,7 @@
 ﻿using System;
 using Deform;
 using DG.Tweening;
+using Level;
 using UnityEngine;
 
 namespace Enemy
@@ -12,8 +13,10 @@ namespace Enemy
         
         private Deformable _deformable;
 
-        public void PlayDeathEffect(GameObject meshObject, Action onFinished)
+        public void PlayDeathEffect(Prop prop, Action onFinished)
         {
+            prop.isDeadEnemy = true;
+            var meshObject = prop.CurrentVariation;
             _deformable = meshObject.gameObject.AddComponent<Deformable>();
             
             _deformable.DeformerElements.Add(new DeformerElement(_meltDeformer));
