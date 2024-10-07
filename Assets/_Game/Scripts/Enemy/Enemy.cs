@@ -34,6 +34,9 @@ namespace Enemy
         [Button]
         public void Kill()
         {
+            if (!Alive)
+                return;
+            
             Alive = false;
             _onEnemyDied?.Invoke(this);
         }

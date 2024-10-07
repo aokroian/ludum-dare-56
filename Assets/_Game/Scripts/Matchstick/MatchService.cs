@@ -1,5 +1,6 @@
 ﻿using System;
 using DG.Tweening;
+using GameLoop.Events;
 using Matchstick.Events;
 using R3;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Matchstick
 
         private SignalBus _signalBus;
         private float _nextLightTime;
+        private Action _cancelCallback;
 
 
         [Inject]
@@ -24,9 +26,11 @@ namespace Matchstick
             _signalBus = signalBus;
 
             Matches = _config.startMatches;
+            
+            _signalBus.Subscribe<NightStartedEvent>(OnNightStarted);
         }
 
-        public float TryLight()
+        public float TryLight(Action cancelCallback)
         {
             if (Matches <= 0)
             {
@@ -42,14 +46,26 @@ namespace Matchstick
 
             Matches--;
             _signalBus.Fire(new MatchLitEvent());
+            _cancelCallback = cancelCallback;
 
             Observable.Timer(TimeSpan.FromSeconds(_config.duration))
                 .ObserveOnCurrentSynchronizationContext()
-                .Subscribe(_ => { _signalBus.Fire(new MatchWentOutEvent()); });
+                .Subscribe(_ =>
+                {
+                    _signalBus.Fire(new MatchWentOutEvent());
+                    _cancelCallback = null;
+                });
 
             return _config.duration;
         }
-
+        
+        private void OnNightStarted(NightStartedEvent e)
+        {
+            Matches = _config.startMatches;
+            _nextLightTime = 0;
+            _cancelCallback?.Invoke();
+        }
+        
         [Serializable]
         public class Config
         {

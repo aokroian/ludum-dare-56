@@ -32,7 +32,7 @@ namespace Matchstick
             if (_currentMatch is not null)
                 return;
 
-            var duration = _matchService.TryLight();
+            var duration = _matchService.TryLight(PutOut);
             if (duration == 0)
                 return;
             
@@ -47,6 +47,15 @@ namespace Matchstick
                 Destroy(_currentMatch.gameObject);
                 _currentMatch = null;
             });
+        }
+
+        private void PutOut()
+        {
+            if (_currentMatch is not null)
+            {
+                Destroy(_currentMatch.gameObject);
+                _currentMatch = null;
+            }
         }
     }
 }

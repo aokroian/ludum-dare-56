@@ -17,7 +17,7 @@ MonoBehaviour:
     shotDelay: 0.3
   matchService:
     startMatches: 20
-    duration: 5
+    duration: 9
     delay: 1
   enemyService:
     enemiesCount: 1

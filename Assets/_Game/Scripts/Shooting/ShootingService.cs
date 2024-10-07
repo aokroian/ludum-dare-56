@@ -1,4 +1,5 @@
 ﻿using System;
+using GameLoop.Events;
 using Shooting.Events;
 using UnityEngine;
 using Zenject;
@@ -24,6 +25,8 @@ namespace Shooting
             _config = config;
             
             Ammo = _config.startAmmo;
+            
+            _signalBus.Subscribe<NightStartedEvent>(OnNightStarted);
         }
 
         public bool TryShoot()
@@ -49,7 +52,10 @@ namespace Shooting
             return true;
         }
         
-        
+        private void OnNightStarted(NightStartedEvent e)
+        {
+            Ammo = _config.startAmmo;
+        }
 
         [Serializable]
         public class Config
