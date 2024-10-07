@@ -71,15 +71,17 @@ namespace Menu
         private void StartGame()
         {
             _signalBus.Fire<GameStartPressedEvent>();
+            settingsBtn.interactable = false;
+            creditsBtn.interactable = false;
+            quitBtn.interactable = false;
+            startGameBtn.interactable = false;
             Invoke(nameof(LoadGameScene), 3f);
         }
-
 
         private void LoadGameScene()
         {
             CustomSceneManager.LoadScene("Game");
         }
-
 
         private void QuitGame()
         {
@@ -113,7 +115,7 @@ namespace Menu
             if (valuePercent == 0)
                 minAudio = -80;
             var value = minAudio + (maxAudio - minAudio) * valuePercent;
-            
+
             audioMixer.SetFloat("Volume", value);
             PlayerPrefs.SetFloat(Strings.SoundVolumeKey, valuePercent);
         }

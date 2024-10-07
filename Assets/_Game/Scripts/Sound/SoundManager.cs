@@ -47,7 +47,7 @@ namespace Sound
         private void SubscribeToSignals()
         {
             _signalBus.Subscribe<NightStartedEvent>(OnNightStarted);
-            
+
             _signalBus.Subscribe<PlayerStepEvent>(OnPlayerStep);
             _signalBus.Subscribe<MatchLitEvent>(OnMatchstickLit);
             _signalBus.Subscribe<ShootingEvent>(OnShoot);
@@ -58,7 +58,14 @@ namespace Sound
             _signalBus.Subscribe<MenuSceneLoadedEvent>(OnMenuSceneLoaded);
 
             _signalBus.Subscribe<EnemyDiedEvent>(OnEnemyDied);
+            _signalBus.Subscribe<AttackPlayerEvent>(OnEnemyAttackedPlayer);
             _signalBus.Subscribe<EnemyRepositionEvent>(OnEnemyRepositioned);
+        }
+
+        private void OnEnemyAttackedPlayer()
+        {
+            var clip = _soundsConfig.enemyAttackSounds.UnityRandom();
+            Extensions.CustomPlayClipAtPoint(clip, PosInFrontOfCamera, mainMixerGroup);
         }
 
         private void OnNightStarted()

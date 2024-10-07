@@ -35,9 +35,21 @@ namespace Dialogue
         private void OnShoot()
         {
             var variant = Random.Range(0, 3);
-            var ammoLeftPart = _shootingService.Ammo >= 1
-                ? $"{_shootingService.Ammo} ammo left."
-                : "No ammo left. This is the end.";
+            var bulletsLeftPart = _shootingService.Ammo >= 1
+                ? $"{_shootingService.Ammo} bullets left."
+                : "No bullets left. This is the end.";
+            switch (variant)
+            {
+                case 0:
+                    SpawnMessage("The shot echoed.\n" + bulletsLeftPart);
+                    break;
+                case 1:
+                    SpawnMessage("The shot echoed. It's getting closer.\n" + bulletsLeftPart);
+                    break;
+                case 2:
+                    SpawnMessage("The shot echoed. It's getting colder.\n" + bulletsLeftPart);
+                    break;
+            }
         }
 
         private void OnMatchWeanOut()
