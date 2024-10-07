@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using GameLoop.Events;
 using Matchstick.Events;
@@ -18,7 +19,7 @@ namespace Matchstick
         private float _nextLightTime;
         private Action _cancelCallback;
         
-        private DisposableBag _disposables;
+        private List<IDisposable> _disposables = new();
 
 
         [Inject]
@@ -51,19 +52,23 @@ namespace Matchstick
             _cancelCallback = cancelCallback;
 
             Observable.Timer(TimeSpan.FromSeconds(_config.duration))
-                .ObserveOnCurrentSynchronizationContext()
+                .ObserveOn(UnityFrameProvider.Update)
                 .Subscribe(_ =>
                 {
                     _signalBus.Fire(new MatchWentOutEvent());
                     _cancelCallback = null;
-                }).AddTo(ref _disposables);
+                }).AddTo(_disposables);
 
             return _config.duration;
         }
         
         private void OnNightStarted(NightStartedEvent e)
         {
-            _disposables.Dispose();
+            foreach (var disposable in _disposables)
+            {
+                disposable.Dispose();
+            }
+            _disposables.Clear();
             Matches = _config.startMatches;
             _nextLightTime = 0;
             _cancelCallback?.Invoke();
