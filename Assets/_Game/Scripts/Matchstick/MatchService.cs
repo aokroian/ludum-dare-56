@@ -17,6 +17,8 @@ namespace Matchstick
         private SignalBus _signalBus;
         private float _nextLightTime;
         private Action _cancelCallback;
+        
+        private DisposableBag _disposables;
 
 
         [Inject]
@@ -54,13 +56,14 @@ namespace Matchstick
                 {
                     _signalBus.Fire(new MatchWentOutEvent());
                     _cancelCallback = null;
-                });
+                }).AddTo(ref _disposables);
 
             return _config.duration;
         }
         
         private void OnNightStarted(NightStartedEvent e)
         {
+            _disposables.Dispose();
             Matches = _config.startMatches;
             _nextLightTime = 0;
             _cancelCallback?.Invoke();

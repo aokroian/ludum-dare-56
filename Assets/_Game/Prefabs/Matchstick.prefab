@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4745080516530433254
 Transform:
   m_ObjectHideFlags: 0
@@ -45,7 +45,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 0.9127122, b: 0.49622637, a: 1}
   m_Intensity: 1
-  m_Range: 10
+  m_Range: 80
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -89,7 +89,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: NaN, y: 3.3782684e+16, z: 4.5912e-41, w: 8.4e-44}
+  m_BoundingSphereOverride: {x: 3.3425e-41, y: 0, z: 0, w: 1.6376136e+10}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -347,12 +347,80 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 676504852844227736}
     - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: LightsModule.range
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: LightsModule.ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
       propertyPath: LightsModule.enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: LightsModule.intensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
       propertyPath: LightsModule.maxLights
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key3.g
+      value: 0.45577544
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: LightsModule.intensityCurve.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: LightsModule.intensityCurve.maxCurve.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: LightsModule.intensityCurve.maxCurve.m_Curve.Array.data[1].time
+      value: 0.36113855
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: LightsModule.intensityCurve.maxCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: LightsModule.intensityCurve.maxCurve.m_Curve.Array.data[1].value
+      value: 0.82391053
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: LightsModule.intensityCurve.maxCurve.m_Curve.Array.data[2].value
+      value: 0.48646858
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: LightsModule.intensityCurve.maxCurve.m_Curve.Array.data[1].inSlope
+      value: 0.717611
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: LightsModule.intensityCurve.maxCurve.m_Curve.Array.data[2].inSlope
+      value: -2.77865
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: LightsModule.intensityCurve.maxCurve.m_Curve.Array.data[1].inWeight
+      value: 0.42040068
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: LightsModule.intensityCurve.maxCurve.m_Curve.Array.data[1].outSlope
+      value: 0.717611
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: LightsModule.intensityCurve.maxCurve.m_Curve.Array.data[2].inWeight
+      value: 0.16121909
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: LightsModule.intensityCurve.maxCurve.m_Curve.Array.data[2].outSlope
+      value: -2.77865
+      objectReference: {fileID: 0}
+    - target: {fileID: 198373134025340838, guid: 9e06d9e29114a724b90c59175acd0812, type: 3}
+      propertyPath: LightsModule.intensityCurve.maxCurve.m_Curve.Array.data[2].outWeight
+      value: 0.33333334
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

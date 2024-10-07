@@ -77,7 +77,6 @@ namespace Enemy
                 } 
                     
             });
-            // TODO: start next night
         }
 
         [Serializable]

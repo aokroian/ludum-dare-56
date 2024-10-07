@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Cinemachine;
 using DG.Tweening;
 using GameLoop.Events;
 using InputUtils;
@@ -17,6 +18,13 @@ namespace Player
         [SerializeField] private Canvas canvas;
         [SerializeField] private CanvasGroup cutsceneCanvasGroup;
         [SerializeField] private TMP_Text cutsceneCanvasText;
+
+        [SerializeField] private CinemachineVirtualCamera virtualCamera;
+        [SerializeField] private CinemachineBrain camBrain;
+
+        [SerializeField] private Transform playerStartPos;
+        [SerializeField] private CharacterController player;
+        
         
         private SignalBus _signalBus;
         private PlayerInputsService _playerInputsService;
@@ -43,7 +51,7 @@ namespace Player
             
             PrepareCutscene();
             
-            DontDestroyOnLoad(this);
+            // DontDestroyOnLoad(this);
         }
 
         private void PrepareCutscene()
@@ -66,15 +74,44 @@ namespace Player
             // TODO: Start cutscene
             // TODO: Move parameters to config
             
+            // var cam = Camera.main;
+            // var camBrain = cam.GetComponent<CinemachineBrain>();
+            camBrain.m_DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Style.EaseInOut, 0);
+            
+            virtualCamera.enabled = true;
+            
+            player.enabled = false;
+            player.transform.position = playerStartPos.position;
+            player.transform.rotation = playerStartPos.rotation;
+            player.enabled = true;
+            
             var seq = DOTween.Sequence();
             cutsceneCanvasText.text = "Night " + e.Night;
             seq.AppendInterval(1f);
             seq.Append(cutsceneCanvasGroup.DOFade(0, 0f));
-            seq.onComplete += () =>
-            {
-                _playerInputsService.EnableInput();
-            };
+            seq.onComplete += BedAnimation;
             // _playerInputsService.EnableInput();
+        }
+
+        private void BedAnimation()
+        {
+            // var cam = Camera.main;
+            // var camBrain = cam.GetComponent<CinemachineBrain>();
+            camBrain.m_DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Style.EaseInOut, 2);
+            virtualCamera.enabled = false;
+
+            DisposableBag disposable = default;
+            
+            Observable.EveryUpdate()
+                .ObserveOn(UnityFrameProvider.Update)
+                .Subscribe(_ =>
+                {
+                    if (camBrain.IsBlending)
+                        return;
+                    
+                    _playerInputsService.EnableInput();
+                    disposable.Dispose();
+                }).AddTo(ref disposable);
         }
         
         private void OnGameFinished()

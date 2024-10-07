@@ -43,6 +43,8 @@ namespace Enemy
         
         private void OnMatchWentOut()
         {
+            if (!Alive)
+                return;
             Reposition();
         }
 
