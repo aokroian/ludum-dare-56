@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Level
 {
@@ -10,10 +12,13 @@ namespace Level
         [field: SerializeField] public PropKind Kind { get; private set; }
         [field: SerializeField] public SphereCollider Bounds { get; private set; }
         [SerializeField] private List<GameObject> allVariations;
+        
+        public Vector3 BoundsCenter => transform.TransformPoint(Bounds.center);
 
         [HideInInspector] public PropSurface surface;
 
         private GameObject _currentVariation;
+        public static List<Prop> AllActiveProps;
 
         private static bool IsDebug => true;
 
@@ -21,6 +26,17 @@ namespace Level
         {
             if (!_currentVariation)
                 SelectRandomVariation();
+        }
+
+        private void OnEnable()
+        {
+            AllActiveProps ??= new List<Prop>();
+            AllActiveProps.Add(this);
+        }
+
+        private void OnDisable()
+        {
+            AllActiveProps.Remove(this);
         }
 
         public void SelectRandomVariation()
