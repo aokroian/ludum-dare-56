@@ -13,7 +13,6 @@ namespace Installers
             Container.Bind<ShootingService>().AsSingle();
             Container.Bind<MatchService>().AsSingle();
             Container.Bind<EnemyService>().AsSingle();
-            Container.Bind<GameStateProvider>().AsSingle();
         }
     }
 }

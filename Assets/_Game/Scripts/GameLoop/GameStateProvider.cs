@@ -15,6 +15,12 @@ namespace GameLoop
             else
                 GameState = CreateNewState();
         }
+        
+        public void ClearGameState()
+        {
+            PlayerPrefs.DeleteKey(Key);
+            GameState = CreateNewState();
+        }
 
         public void SaveGameState()
         {

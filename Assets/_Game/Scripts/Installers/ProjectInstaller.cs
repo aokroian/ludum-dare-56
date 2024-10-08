@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using GameLoop;
+using Zenject;
 
 namespace Installers
 {
@@ -7,6 +8,7 @@ namespace Installers
         public override void InstallBindings()
         {
             SignalsInstaller.Install(Container);
+            Container.Bind<GameStateProvider>().AsSingle();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using _GameTemplate.Scripts.SceneManagement;
+using GameLoop;
 using GameLoop.Events;
 using TMPro;
 using UnityEngine;
@@ -21,16 +22,19 @@ namespace Menu
         [SerializeField] private RectTransform creditsPanel;
 
         [SerializeField] private AudioMixer audioMixer;
+        [SerializeField] private Button clearProgressBtn;
         [SerializeField] private Slider volumeSlider;
         [SerializeField] private Slider mouseSensitivitySlider;
         [SerializeField] private TMP_Dropdown graphicsDropdown;
 
         private SignalBus _signalBus;
+        private GameStateProvider _gameStateProvider;
 
         [Inject]
-        private void Initialize(SignalBus signalBus)
+        private void Initialize(SignalBus signalBus, GameStateProvider gameStateProvider)
         {
             _signalBus = signalBus;
+            _gameStateProvider = gameStateProvider;
         }
 
         private void Start()
@@ -41,6 +45,7 @@ namespace Menu
             backFromSettingsBtn.onClick.AddListener(CloseSettings);
             creditsBtn.onClick.AddListener(OpenCredits);
             backFromCreditsBtn.onClick.AddListener(CloseCredits);
+            clearProgressBtn.onClick.AddListener(ClearGameProgress);
 
             volumeSlider.value = PlayerPrefs.GetFloat(Strings.SoundVolumeKey, 1f);
             mouseSensitivitySlider.value = PlayerPrefs.GetFloat(Strings.MouseSensitivityKey, .5f);
@@ -66,6 +71,11 @@ namespace Menu
 #endif
 
             _signalBus.Fire<MenuSceneLoadedEvent>();
+        }
+
+        private void ClearGameProgress()
+        {
+            _gameStateProvider.ClearGameState();
         }
 
         private void StartGame()
