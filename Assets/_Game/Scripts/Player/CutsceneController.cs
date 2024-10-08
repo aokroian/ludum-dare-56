@@ -126,18 +126,6 @@ namespace Player
         {
             PrepareCutscene();
             cutsceneCanvasText.text = "Finally, I am safe";
-            DisposableBag disposable = default;
-            Observable.EveryUpdate()
-                .ObserveOn(UnityFrameProvider.Update)
-                .Subscribe(_ =>
-                {
-                    if (Input.GetKey(KeyCode.Escape))
-                    {
-                        Debug.Log("Disposed");
-                        disposable.Dispose();
-                        CustomSceneManager.LoadScene("Menu");
-                    }
-                }).AddTo(ref disposable);
         }
         
         public void OnAttackPlayer(AttackPlayerEvent e)
