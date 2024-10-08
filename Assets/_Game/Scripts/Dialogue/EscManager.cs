@@ -13,7 +13,7 @@ namespace Dialogue
             if (delay > 0)
                 return;
 
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 CustomSceneManager.LoadScene("Menu");
             }
