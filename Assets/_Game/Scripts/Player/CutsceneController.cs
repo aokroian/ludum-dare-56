@@ -29,6 +29,7 @@ namespace Player
         [SerializeField] private RectTransform gameOverScreen;
         
         
+        private GameStateProvider _gameStateProvider;
         private SignalBus _signalBus;
         private PlayerInputsService _playerInputsService;
         
@@ -36,7 +37,7 @@ namespace Player
         private static CutsceneController _instance;
 
         [Inject]
-        private void Initialize(SignalBus signalBus, PlayerInputsService playerInputsService)
+        private void Initialize(SignalBus signalBus, PlayerInputsService playerInputsService, GameStateProvider gameStateProvider)
         {
             gameOverScreen.gameObject.SetActive(false);
             
@@ -48,6 +49,7 @@ namespace Player
             _instance = this;
             
             _playerInputsService = playerInputsService;
+            _gameStateProvider = gameStateProvider;
             _signalBus = signalBus;
             _signalBus.Subscribe<NightStartedEvent>(OnNightStarted);
             _signalBus.Subscribe<NightFinishedEvent>(OnNightFinished);
@@ -126,6 +128,7 @@ namespace Player
         {
             PrepareCutscene();
             cutsceneCanvasText.text = "Finally, I am safe";
+            _gameStateProvider.ClearGameState();
         }
         
         public void OnAttackPlayer(AttackPlayerEvent e)
