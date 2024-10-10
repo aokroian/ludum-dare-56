@@ -1,5 +1,3 @@
-using System;
-using StarterAssets;
 using UnityEngine;
 
 namespace InputUtils
@@ -11,9 +9,9 @@ namespace InputUtils
         private void Start()
         {
 #if UNITY_ANDROID || UNITY_IOS
-            touchInputUI.enabled = true;
+            touchInputUI.gameObject.SetActive(true);
 #else
-            touchInputUI.enabled = false;;
+            touchInputUI.gameObject.SetActive(false);
 #endif
         }
     }
