@@ -18,6 +18,7 @@ namespace Menu
         [SerializeField] private Button creditsBtn;
         [SerializeField] private Button backFromCreditsBtn;
 
+        [SerializeField] private GameObject mainPanel;
         [SerializeField] private RectTransform settingsPanel;
         [SerializeField] private RectTransform creditsPanel;
 
@@ -71,6 +72,8 @@ namespace Menu
 #endif
 
             _signalBus.Fire<MenuSceneLoadedEvent>();
+
+            mainPanel.SetActive(true);
         }
 
         private void ClearGameProgress()
@@ -81,6 +84,7 @@ namespace Menu
         private void StartGame()
         {
             _signalBus.Fire<GameStartPressedEvent>();
+            mainPanel.SetActive(false);
             settingsBtn.interactable = false;
             creditsBtn.interactable = false;
             quitBtn.interactable = false;

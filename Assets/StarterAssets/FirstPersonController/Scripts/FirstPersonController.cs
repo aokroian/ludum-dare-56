@@ -144,9 +144,14 @@ namespace StarterAssets
 			{
 				//Don't multiply mouse input by Time.deltaTime
 				float deltaTimeMultiplier = _inputService.IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+
+				var rotSpeed = RotationSpeed;
+#if UNITY_IOS || UNITY_ANDROID
+				rotSpeed = RotationSpeed * 7f;
+#endif
 				
-				_cinemachineTargetPitch += _input.look.y * (RotationSpeed * _mouseSensitivitySetting) * deltaTimeMultiplier;
-				_rotationVelocity = _input.look.x * (RotationSpeed * _mouseSensitivitySetting) * deltaTimeMultiplier;
+				_cinemachineTargetPitch += _input.look.y * (rotSpeed * _mouseSensitivitySetting) * deltaTimeMultiplier;
+				_rotationVelocity = _input.look.x * (rotSpeed * _mouseSensitivitySetting) * deltaTimeMultiplier;
 
 				// clamp our pitch rotation
 				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
