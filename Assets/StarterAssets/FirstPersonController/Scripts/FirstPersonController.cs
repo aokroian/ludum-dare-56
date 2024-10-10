@@ -147,7 +147,7 @@ namespace StarterAssets
 
 				var rotSpeed = RotationSpeed;
 #if UNITY_IOS || UNITY_ANDROID
-				rotSpeed = RotationSpeed * 7f;
+				rotSpeed = RotationSpeed * 15f;
 #endif
 				
 				_cinemachineTargetPitch += _input.look.y * (rotSpeed * _mouseSensitivitySetting) * deltaTimeMultiplier;
