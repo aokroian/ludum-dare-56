@@ -3,14 +3,14 @@ using UnityEngine.InputSystem;
 
 namespace InputUtils
 {
-    public class PlayerInputsService: MonoBehaviour
+    public class PlayerInputsService : MonoBehaviour
     {
         public InputState CurrentState => _innerState;
-        
+
         public bool cursorLocked = true;
-        
+
         public PlayerInput playerInput;
-        
+
         public bool IsCurrentDeviceMouse
         {
             get
@@ -22,10 +22,10 @@ namespace InputUtils
 #endif
             }
         }
-        
+
         private InputState _innerState = new();
         private bool _isInputEnabled = true;
-        
+
         public void EnableInput()
         {
             _isInputEnabled = true;
@@ -36,41 +36,59 @@ namespace InputUtils
             _isInputEnabled = false;
             _innerState.Reset();
         }
-        
+
         public void OnFire(InputValue value)
         {
-            Debug.Log("Fire input: " + value.isPressed);
-            if (_isInputEnabled)
-            {
-                _innerState.fire = value.isPressed;
-            }
+            FireInput(value.isPressed);
         }
-        
+
         public void OnMatchstick(InputValue value)
         {
-            Debug.Log("Matchstick input: " + value.isPressed);
-            if (_isInputEnabled)
-            {
-                _innerState.matchstick = value.isPressed;
-            }
+            MatchstickInput(value.isPressed);
         }
 
         public void OnMove(InputValue value)
         {
-            if (_isInputEnabled)
-            {
-                _innerState.move = value.Get<Vector2>();
-            }
+            MoveInput(value.Get<Vector2>());
         }
 
         public void OnLook(InputValue value)
         {
+            LookInput(value.Get<Vector2>());
+        }
+
+        public void FireInput(bool value)
+        {
             if (_isInputEnabled)
             {
-                _innerState.look = value.Get<Vector2>();
+                _innerState.fire = value;
             }
         }
-        
+
+        public void MatchstickInput(bool value)
+        {
+            if (_isInputEnabled)
+            {
+                _innerState.matchstick = value;
+            }
+        }
+
+        public void MoveInput(Vector2 value)
+        {
+            if (_isInputEnabled)
+            {
+                _innerState.move = value;
+            }
+        }
+
+        public void LookInput(Vector2 value)
+        {
+            if (_isInputEnabled)
+            {
+                _innerState.look = value;
+            }
+        }
+
         private void OnApplicationFocus(bool hasFocus)
         {
             SetCursorState(cursorLocked);
