@@ -131,9 +131,12 @@ namespace Player
             _gameStateProvider.ClearGameState();
         }
         
-        public void OnAttackPlayer(AttackPlayerEvent e)
+        private async void OnAttackPlayer(AttackPlayerEvent e)
         {
-            camBrain.m_DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Style.EaseInOut, 0.2f);
+            _playerInputsService.DisableInput();
+            await Observable.Timer(System.TimeSpan.FromSeconds(0.2f))
+                .ObserveOnMainThread().WaitAsync();
+            camBrain.m_DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Style.EaseInOut, 0.5f);
             _playerInputsService.DisableInput();
             attackVirtualCamera.transform.position = mainVirtualCamera.transform.position;
             attackVirtualCamera.enabled = true;

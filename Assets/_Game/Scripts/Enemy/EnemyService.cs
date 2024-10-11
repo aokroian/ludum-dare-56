@@ -87,6 +87,12 @@ namespace Enemy
                 _enemies[0].transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
             _signalBus.Fire(new AttackPlayerEvent(mimic.transform));
             var cam = Camera.main;
+            mimic.transform.localScale = Vector3.zero;
+            var seq = DOTween.Sequence();
+            seq.AppendInterval(0.7f);
+            seq.Append(_enemies[0].Prop.transform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InSine));
+            seq.Append(mimic.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutSine));
+            seq.Join(mimic.transform.DOMove(cam.transform.position, 0.5f).SetEase(Ease.OutSine));
             mimic.transform.DOMove(cam.transform.position, 2f).SetEase(Ease.InQuint).OnComplete(() =>
             {
                 Object.Destroy(mimic.gameObject);
