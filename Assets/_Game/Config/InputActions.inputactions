@@ -1,5 +1,5 @@
 {
-    "name": "StarterAssets",
+    "name": "InputActions",
     "maps": [
         {
             "name": "Player",
@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "eb1cf577-36f1-4fa6-b5e3-d6256823b0e7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Sprint",
                     "type": "PassThrough",
                     "id": "980e881e-182c-404c-8cbf-3d09fdb48fef",
@@ -45,6 +54,15 @@
                     "name": "Fire",
                     "type": "Button",
                     "id": "a2387791-424c-476b-920b-71315a94e96b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Restart",
+                    "type": "Button",
+                    "id": "2b3af598-e8c2-4136-b2ae-4e6a1c19ee3a",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -217,6 +235,28 @@
                 },
                 {
                     "name": "",
+                    "id": "ca06138c-3292-4983-9b32-d4cfb6caa5a0",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b2f07e10-d629-4f8d-abd5-d17bdaa20ea0",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "dc65b89f-9bd3-43fb-92af-d0d87ba5faa4",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
@@ -256,6 +296,28 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "09110918-c7e3-4ba9-bc52-43250821d4b8",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "431d602a-9d8d-4f5a-83c5-ebf08a9e5a78",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Restart",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

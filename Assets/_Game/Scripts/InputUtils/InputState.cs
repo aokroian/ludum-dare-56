@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace InputUtils
 {
@@ -11,9 +10,11 @@ namespace InputUtils
         public bool sprint;
         public bool fire;
         public bool matchstick;
-        
+        public bool escape;
+        public bool restart;
+
         public bool analogMovement; // Don't know what is this for
-        
+
         public void Reset()
         {
             move = Vector2.zero;
@@ -21,15 +22,9 @@ namespace InputUtils
             jump = false;
             sprint = false;
             fire = false;
-        }
-        
-        public void SetValues(InputState inputState)
-        {
-            move = inputState.move;
-            look = inputState.look;
-            jump = inputState.jump;
-            sprint = inputState.sprint;
-            fire = inputState.fire;
+            matchstick = false;
+            escape = false;
+            restart = false;
         }
     }
 }

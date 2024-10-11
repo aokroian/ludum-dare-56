@@ -37,6 +37,16 @@ namespace InputUtils
             _innerState.Reset();
         }
 
+        public void OnEscape(InputValue value)
+        {
+            EscapeInput(value.isPressed);
+        }
+
+        public void OnRestart(InputValue value)
+        {
+            RestartInput(value.isPressed);
+        }
+
         public void OnFire(InputValue value)
         {
             FireInput(value.isPressed);
@@ -55,6 +65,16 @@ namespace InputUtils
         public void OnLook(InputValue value)
         {
             LookInput(value.Get<Vector2>());
+        }
+
+        public void EscapeInput(bool value)
+        {
+            _innerState.escape = value;
+        }
+
+        public void RestartInput(bool value)
+        {
+            _innerState.restart = value;
         }
 
         public void FireInput(bool value)

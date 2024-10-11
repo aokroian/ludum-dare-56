@@ -8,6 +8,8 @@ using InputUtils;
 using R3;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Player
@@ -15,6 +17,10 @@ namespace Player
     public class CutsceneController: MonoBehaviour
     {
         [SerializeField] private Canvas canvas;
+        [SerializeField] private GameObject gamepadRestartText;
+        [SerializeField] private GameObject keyboardRestartText;
+        [SerializeField] private Button touchRestartButton;
+        
         [SerializeField] private CanvasGroup cutsceneCanvasGroup;
         [SerializeField] private TMP_Text cutsceneCanvasText;
 
@@ -32,12 +38,17 @@ namespace Player
         private GameStateProvider _gameStateProvider;
         private SignalBus _signalBus;
         private PlayerInputsService _playerInputsService;
+        private InputDeviceService _inputDeviceService;
         
         // Fast workaround
         private static CutsceneController _instance;
 
         [Inject]
-        private void Initialize(SignalBus signalBus, PlayerInputsService playerInputsService, GameStateProvider gameStateProvider)
+        private void Initialize(
+            SignalBus signalBus,
+            PlayerInputsService playerInputsService,
+            GameStateProvider gameStateProvider,
+            InputDeviceService inputDeviceService)
         {
             gameOverScreen.gameObject.SetActive(false);
             
@@ -49,6 +60,19 @@ namespace Player
             _instance = this;
             
             _playerInputsService = playerInputsService;
+            _inputDeviceService = inputDeviceService;
+            _inputDeviceService.CurrentDevice
+                .Subscribe(device =>
+                {
+                    gamepadRestartText.SetActive(device is Gamepad);
+                    keyboardRestartText.SetActive(device is Keyboard);
+                    touchRestartButton.transform.parent.gameObject.SetActive(device is Touchscreen);
+                }).AddTo(this);
+            touchRestartButton.onClick.AddListener(() =>
+            {
+                _playerInputsService.CurrentState.restart = true;
+            });
+            
             _gameStateProvider = gameStateProvider;
             _signalBus = signalBus;
             _signalBus.Subscribe<NightStartedEvent>(OnNightStarted);
@@ -146,6 +170,7 @@ namespace Player
         private void OnGameOver()
         {
             attackVirtualCamera.enabled = false;
+            _playerInputsService.CurrentState.restart = false;
             
             canvas.gameObject.SetActive(true);
             gameOverScreen.gameObject.SetActive(true);
@@ -155,9 +180,9 @@ namespace Player
                 .ObserveOn(UnityFrameProvider.Update)
                 .Subscribe(_ =>
                 {
-                    if (Input.GetKey(KeyCode.R))
+                    if (_playerInputsService.CurrentState.restart)
                     {
-                        Debug.Log("Disposed");
+                        _playerInputsService.CurrentState.restart = false;
                         disposable.Dispose();
                         gameOverScreen.gameObject.SetActive(false);
                         FindFirstObjectByType<GameSceneEntryPoint>().StartGame();
