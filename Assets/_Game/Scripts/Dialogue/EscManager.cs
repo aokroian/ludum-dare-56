@@ -1,31 +1,32 @@
+using System;
 using _GameTemplate.Scripts.SceneManagement;
+using InputUtils;
+using R3;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Dialogue
 {
     public class EscManager : MonoBehaviour
     {
-        [SerializeField] private Button escButton;
-        [SerializeField] private GameObject escText;
+        [SerializeField] private Button escButtonTouchscreen;
+        [SerializeField] private GameObject escGamepad;
+        [SerializeField] private GameObject escKeyboard;
+        [Inject] private InputDeviceService _inputDeviceService;
 
-        private float delay = 2f;
+        private float _delayAfterSceneLoad = 2f;
 
         private void Start()
         {
-#if UNITY_ANDROID || UNITY_IOS
-            escButton.gameObject.SetActive(true);
-            escText.SetActive(false);
-            escButton.onClick.AddListener(ExitToMenu);
-#else
-            escButton.gameObject.SetActive(false);
-            escText.SetActive(true);
-#endif
+            _inputDeviceService.CurrentDevice.Subscribe(OnInputDeviceChanged).AddTo(this);
         }
 
         private void Update()
         {
-            delay -= Time.deltaTime;
+            _delayAfterSceneLoad -= Time.deltaTime;
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 ExitToMenu();
@@ -34,9 +35,15 @@ namespace Dialogue
 
         private void ExitToMenu()
         {
-            if (delay > 0)
-                return;
+            if (_delayAfterSceneLoad > 0) return;
             CustomSceneManager.LoadScene("Menu");
+        }
+
+        private void OnInputDeviceChanged(InputDevice device)
+        {
+            escButtonTouchscreen.gameObject.SetActive(device is Touchscreen);
+            escGamepad.gameObject.SetActive(device is Gamepad);
+            escKeyboard.SetActive(device is not Touchscreen);
         }
     }
 }
