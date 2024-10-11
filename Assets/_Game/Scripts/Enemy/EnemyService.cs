@@ -8,6 +8,7 @@ using Level;
 using Matchstick;
 using MimicSpace;
 using Shooting;
+using Shooting.Events;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -35,6 +36,8 @@ namespace Enemy
             _shootingService = shootingService;
             _matchService = matchService;
             _level = level;
+            
+            _signalBus.Subscribe<ShootingEvent>(OnShot);
         }
         
         public void ResetEnemies()
@@ -103,6 +106,12 @@ namespace Enemy
                     _signalBus.Fire<AllEnemiesDeadEvent>();
                 } 
             });
+        }
+        
+        private void OnShot()
+        {
+            if (_shootingService.Ammo <= 0 && !_matchService.IsLit())
+                AttackPlayer();
         }
 
         [Serializable]
