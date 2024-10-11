@@ -1,4 +1,5 @@
 ﻿using GameLoop;
+using InputUtils;
 using Zenject;
 
 namespace Installers
@@ -9,6 +10,7 @@ namespace Installers
         {
             SignalsInstaller.Install(Container);
             Container.Bind<GameStateProvider>().AsSingle();
+            Container.Bind<InputDeviceService>().AsSingle();
         }
     }
 }

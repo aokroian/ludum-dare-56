@@ -8,7 +8,6 @@ namespace InputUtils
     {
         private Vector2 _lastPointerPosition;
         private bool _isDragging;
-        private Vector2 _lookInput;
         private Vector2 _currentPointerPos;
 
         public PlayerInputsService playerInputService;
@@ -31,7 +30,6 @@ namespace InputUtils
         public void OnPointerUp(PointerEventData eventData)
         {
             _isDragging = false;
-            _lookInput = Vector2.zero;
             _lastPointerPosition = Vector2.zero;
             _currentPointerPos = Vector2.zero;
         }

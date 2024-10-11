@@ -1,4 +1,8 @@
+using System;
+using R3;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Zenject;
 
 namespace InputUtils
 {
@@ -6,6 +10,14 @@ namespace InputUtils
     {
         [Header("Output")]
         public PlayerInputsService playerInput;
+
+        [Inject] private InputDeviceService _inputDeviceService;
+
+        private void Awake()
+        {
+            _inputDeviceService.CurrentDevice
+                .Subscribe(device => { gameObject.SetActive(device is Touchscreen); }).AddTo(this);
+        }
 
         public void VirtualMoveInput(Vector2 virtualMoveDirection)
         {
