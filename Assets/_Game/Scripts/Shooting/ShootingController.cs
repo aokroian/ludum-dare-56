@@ -1,4 +1,5 @@
 using Enemy;
+using Enemy.Events;
 using InputUtils;
 using Player;
 using Shooting;
@@ -8,33 +9,21 @@ using Zenject;
 
 public class ShootingController : MonoBehaviour
 {
+    public ParticleSystem gunshot;
     [SerializeField] private ShootWeaponAnimation anim;
     [SerializeField] private PropDetector propDetector;
 
-    [Inject]
-    private PlayerInputsService _playerInputService;
+    [Inject] private PlayerInputsService _playerInputService;
+    [Inject] private ShootingService _shootingService;
+    [Inject] private EnemyService _enemyService;
+    [Inject] private SignalBus _signalBus;
 
-    [Inject]
-    private ShootingService _shootingService;
-
-    [Inject]
-    private EnemyService _enemyService;
-
-    private Camera _mainCamera;
-
-    public ParticleSystem gunshot;
-
-    void Start()
+    private void Update()
     {
-        _mainCamera = Camera.main;
+        TryToShoot();
     }
 
-    void Update()
-    {
-        Shot();
-    }
-
-    private void Shot()
+    private void TryToShoot()
     {
         if (!_playerInputService.CurrentState.fire)
             return;
@@ -57,10 +46,10 @@ public class ShootingController : MonoBehaviour
 
         if (propDetector.Detected?.gameObject != enemy.gameObject)
         {
+            _signalBus.Fire<MissedEnemyEvent>();
             return;
         }
 
-        Debug.Log($"{enemy.name} killed");
         enemy.Kill();
     }
 }

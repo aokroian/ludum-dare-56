@@ -1,9 +1,8 @@
-﻿using GameLoop.Events;
+﻿using Enemy.Events;
+using GameLoop.Events;
 using Matchstick;
 using Matchstick.Events;
 using Shooting;
-using Shooting.Events;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -19,8 +18,8 @@ namespace Dialogue
         private MatchService _matchService;
         private ShootingService _shootingService;
 
-        private const float FirstMessageLifetime = 8f;
-        private const float NextMessageLifetime = 5f;
+        private const float LongMessageDuration = 8f;
+        private const float DefaultMessageDuration = 5f;
 
         [Inject]
         private void Initialize(
@@ -33,53 +32,43 @@ namespace Dialogue
             _shootingService = shootingService;
 
             _signalBus.Subscribe<MatchWentOutEvent>(OnMatchWeanOut);
-            _signalBus.Subscribe<ShootingEvent>(OnShoot);
-            _signalBus.Subscribe<GameSceneLoadedEvent>(OnGameSceneLoaded);
+            _signalBus.Subscribe<MissedEnemyEvent>(OnMissedEnemy);
+            _signalBus.Subscribe<EnemyGotHitEvent>(OnEnemyGotHit);
+            _signalBus.Subscribe<NightStartedEvent>(OnNightStarted);
         }
 
-        private void OnGameSceneLoaded()
+        private void OnEnemyGotHit(EnemyGotHitEvent data)
         {
-            SpawnMessage("I'm being hunted by a mimic. I have to find and shoot it.", FirstMessageLifetime);
+            SpawnMessage(Strings.GetHitEnemyMessage(), LongMessageDuration);
         }
 
-        private void OnShoot()
+        private void OnMissedEnemy()
         {
-            var variant = Random.Range(0, 3);
-            var bulletsLeftPart = _shootingService.Ammo >= 1
-                ? $"{_shootingService.Ammo} bullets left."
-                : "No bullets left.";
-            switch (variant)
-            {
-                case 0:
-                    SpawnMessage("The shot echoed.\n" + bulletsLeftPart, NextMessageLifetime);
-                    break;
-                case 1:
-                    SpawnMessage("The shot echoed. It's getting closer.\n" + bulletsLeftPart, NextMessageLifetime);
-                    break;
-                case 2:
-                    SpawnMessage("The shot echoed. It's getting colder.\n" + bulletsLeftPart, NextMessageLifetime);
-                    break;
-            }
+            var bulletsLeftPart = _shootingService.Ammo > 0
+                ? $"<color=#EED17A>{_shootingService.Ammo}</color> bullets left."
+                : "No bullets left. This is the end.";
+            SpawnMessage(Strings.GetMissedEnemyMessage() + "\n" + bulletsLeftPart, DefaultMessageDuration);
+        }
+
+        private void OnNightStarted(NightStartedEvent data)
+        {
+            ClearSpawnedMessages();
+            SpawnMessage(data.Night == 1 ? Strings.GetFirstNightMessage() : Strings.GetNextNightMessage(),
+                LongMessageDuration);
+        }
+
+        private void ClearSpawnedMessages()
+        {
+            foreach (Transform child in messagesParent.transform)
+                Destroy(child.gameObject);
         }
 
         private void OnMatchWeanOut()
         {
-            var variant = Random.Range(0, 3);
-            var matchesLeftPart = _matchService.Matches >= 1
-                ? $"{_matchService.Matches} matches left."
+            var matchesLeftPart = _matchService.Matches > 0
+                ? $"<color=#EED17A>{_matchService.Matches}</color> matches left."
                 : "No matches left. I'm doomed.";
-            switch (variant)
-            {
-                case 0:
-                    SpawnMessage("The match went out.\n" + matchesLeftPart, NextMessageLifetime);
-                    break;
-                case 1:
-                    SpawnMessage("The match went out. It's dark now.\n" + matchesLeftPart, NextMessageLifetime);
-                    break;
-                case 2:
-                    SpawnMessage("The match went out. It's getting cold.\n" + matchesLeftPart, NextMessageLifetime);
-                    break;
-            }
+            SpawnMessage($"{Strings.GetMatchWentOutMessage()}\n{matchesLeftPart}", DefaultMessageDuration);
         }
 
         private void SpawnMessage(string text, float lifetime)

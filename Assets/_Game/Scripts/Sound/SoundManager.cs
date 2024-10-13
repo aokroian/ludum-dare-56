@@ -66,7 +66,7 @@ namespace Sound
             _signalBus.Subscribe<GameSceneLoadedEvent>(OnGameSceneLoaded);
             _signalBus.Subscribe<MenuSceneLoadedEvent>(OnMenuSceneLoaded);
 
-            _signalBus.Subscribe<EnemyDiedEvent>(OnEnemyDied);
+            _signalBus.Subscribe<EnemyGotHitEvent>(OnEnemyDied);
             _signalBus.Subscribe<AttackPlayerEvent>(OnEnemyAttackedPlayer);
             _signalBus.Subscribe<EnemyRepositionEvent>(OnEnemyRepositioned);
         }
@@ -97,7 +97,7 @@ namespace Sound
                 .Subscribe(_ => { Extensions.CustomPlayClipAtPoint(clip, ev.Pos, mainMixerGroup); });
         }
 
-        private void OnEnemyDied(EnemyDiedEvent ev)
+        private void OnEnemyDied(EnemyGotHitEvent ev)
         {
             var clip = _soundsConfig.enemyDiedSounds.UnityRandom();
             Extensions.CustomPlayClipAtPoint(clip, ev.Pos, mainMixerGroup);

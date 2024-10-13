@@ -27,7 +27,8 @@ namespace Installers
 
             // enemies events
             Container.DeclareSignal<EnemyRepositionEvent>().OptionalSubscriber();
-            Container.DeclareSignal<EnemyDiedEvent>().OptionalSubscriber();
+            Container.DeclareSignal<EnemyGotHitEvent>().OptionalSubscriber();
+            Container.DeclareSignal<MissedEnemyEvent>().OptionalSubscriber();
             Container.DeclareSignal<AllEnemiesDeadEvent>().OptionalSubscriber();
             Container.DeclareSignal<AttackPlayerEvent>().OptionalSubscriber();
 

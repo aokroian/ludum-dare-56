@@ -146,7 +146,7 @@ namespace StarterAssets
 				float deltaTimeMultiplier = _inputService.IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
 				var rotSpeed = RotationSpeed;
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_IOS || UNITY_ANDROID || UNITY_STANDALONE_OSX 
 				rotSpeed = RotationSpeed * 15f;
 #endif
 				
