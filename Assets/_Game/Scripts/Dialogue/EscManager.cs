@@ -1,10 +1,8 @@
-using System;
 using _GameTemplate.Scripts.SceneManagement;
 using InputUtils;
 using R3;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 

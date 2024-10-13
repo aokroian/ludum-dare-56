@@ -1,5 +1,4 @@
-﻿using _GameTemplate.Scripts.SceneManagement;
-using Cinemachine;
+﻿using Cinemachine;
 using DG.Tweening;
 using Enemy.Events;
 using GameLoop;
