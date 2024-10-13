@@ -5,6 +5,7 @@ namespace EditorScripts
 {
     public class EditorUtils
     {
+#if UNITY_EDITOR
         [MenuItem("Custom/Clear All PlayerPrefs")]
         public static void ClearAllPlayerPrefs()
         {
@@ -12,5 +13,6 @@ namespace EditorScripts
             PlayerPrefs.Save();
             Debug.Log("All PlayerPrefs have been cleared.");
         }
+#endif
     }
 }
