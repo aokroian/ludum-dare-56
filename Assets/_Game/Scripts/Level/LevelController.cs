@@ -102,6 +102,12 @@ namespace Level
             {
                 result[entry] = PropSurfaces.Count(ps => ps.AllowedProps.FirstOrDefault(p => p.Kind == entry));
             }
+            
+            // log everything
+            foreach (var entry in result)
+            {
+                Debug.Log($"{entry.Key}: {entry.Value}");
+            }
         }
 
         [Button]
