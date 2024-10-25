@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Matchstick.Events;
+using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
@@ -52,6 +53,8 @@ namespace Level
             {
                 propSurface.SelectProp(PropKind.None);
             }
+            
+            PropSurfaces = PropSurfaces.OrderBy(_ => Guid.NewGuid()).ToList();
 
             foreach (var propSurface in PropSurfaces)
             {
@@ -102,7 +105,7 @@ namespace Level
             {
                 result[entry] = PropSurfaces.Count(ps => ps.AllowedProps.FirstOrDefault(p => p.Kind == entry));
             }
-            
+
             // log everything
             foreach (var entry in result)
             {
@@ -125,6 +128,34 @@ namespace Level
                     }
                 }
             }
+        }
+
+
+        private IDisposable _movingTest;
+        
+        [Button]
+        public void TestPropMoving()
+        {
+            _movingTest?.Dispose();
+            var iterations = 1000;
+            _movingTest= Observable.Interval(TimeSpan.FromSeconds(.05f))
+                .Take(iterations)
+                .Subscribe(x =>
+                {
+                    for (var propsCount = 1; propsCount < 10; propsCount++)
+                    {
+                        ResetProps(propsCount);
+                        foreach (var prop in ActiveProps)
+                        {
+                            var newProp = MovePropToAnotherSurface(prop);
+                            if (prop == newProp)
+                            {
+                                Debug.LogError("Prop was not moved to another surface");
+                                break;
+                            }
+                        }
+                    }
+                });
         }
 
 #endif
