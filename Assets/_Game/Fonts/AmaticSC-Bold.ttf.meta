@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 89f0803f0685e4053ace425101b82c2f
+guid: a212193daf26c41eeb1cb2939c29615f
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Bungee
+  - Amatic SC
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
