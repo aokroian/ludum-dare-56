@@ -73,7 +73,6 @@ namespace Enemy
             _enemies.Remove(oldEnemy);
             Object.Destroy(oldEnemy);
             var prop = _level.MovePropToAnotherSurface(oldProp);
-            prop.SelectRandomVariation();
             var enemy = prop.gameObject.AddComponent<Enemy>();
             enemy.Init(prop, _signalBus, MoveProp, OnEnemyDied);
             _enemies.Add(enemy);
