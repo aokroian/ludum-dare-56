@@ -26,6 +26,18 @@ MonoBehaviour:
     m_Localized: Nights\nin the cozy shack
     m_Metadata:
       m_Items: []
+  - m_Id: 57353602654208
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57435358027776
+    m_Localized: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57463426310144
+    m_Localized: Quit
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

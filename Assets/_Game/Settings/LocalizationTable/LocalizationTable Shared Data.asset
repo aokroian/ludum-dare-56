@@ -23,6 +23,18 @@ MonoBehaviour:
     m_Key: Menu/MenuController/SafeArea/MainPanel/StartGame
     m_Metadata:
       m_Items: []
+  - m_Id: 57353602654208
+    m_Key: Menu/MenuController/SafeArea/MainPanel/Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57435358027776
+    m_Key: Menu/MenuController/SafeArea/MainPanel/Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57463426310144
+    m_Key: Menu/MenuController/SafeArea/MainPanel/Quit
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
