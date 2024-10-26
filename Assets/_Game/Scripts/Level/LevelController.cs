@@ -5,7 +5,6 @@ using Matchstick.Events;
 using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 using Zenject;
 
 namespace Level
@@ -53,7 +52,7 @@ namespace Level
             {
                 propSurface.SelectProp(PropKind.None);
             }
-            
+
             PropSurfaces = PropSurfaces.OrderBy(_ => Guid.NewGuid()).ToList();
 
             foreach (var propSurface in PropSurfaces)
@@ -132,13 +131,13 @@ namespace Level
 
 
         private IDisposable _movingTest;
-        
+
         [Button]
         public void TestPropMoving()
         {
             _movingTest?.Dispose();
             var iterations = 1000;
-            _movingTest= Observable.Interval(TimeSpan.FromSeconds(.05f))
+            _movingTest = Observable.Interval(TimeSpan.FromSeconds(.05f))
                 .Take(iterations)
                 .Subscribe(x =>
                 {

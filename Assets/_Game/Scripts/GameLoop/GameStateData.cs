@@ -6,5 +6,6 @@ namespace GameLoop
     public class GameStateData
     {
         public int night;
+        public bool isTutorialDone;
     }
 }
