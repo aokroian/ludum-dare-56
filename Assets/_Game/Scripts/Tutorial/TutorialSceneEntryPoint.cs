@@ -9,7 +9,7 @@ namespace Tutorial
         private void Start()
         {
             Debug.Log("Tutorial scene loaded");
-            tutorialController.StartTutorial();
+            tutorialController.Init();
         }
     }
 }
