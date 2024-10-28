@@ -18,5 +18,14 @@ namespace Tutorial.States
             base.Enter();
             Progress = 0;
         }
+
+        public override void Tick(float deltaTime)
+        {
+            base.Tick(deltaTime);
+            if (Progress >= 1f)
+            {
+               IsDone = true;
+            }
+        }
     }
 }

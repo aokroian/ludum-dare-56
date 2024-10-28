@@ -6,6 +6,7 @@ namespace InputUtils
     public class PlayerInputsService : MonoBehaviour
     {
         public InputState CurrentState => _innerState;
+        public PlayerInputFlags InputFlags { get; private set; } = PlayerInputFlags.All;
 
         public bool cursorLocked = true;
 
@@ -25,12 +26,10 @@ namespace InputUtils
 
         private readonly InputState _innerState = new();
 
-        private PlayerInputFlags _inputFlags = PlayerInputFlags.All;
-
         public void EnableInputs(PlayerInputFlags flags)
         {
-            _inputFlags = flags;
-            if (_inputFlags == PlayerInputFlags.None)
+            InputFlags = flags;
+            if (InputFlags == PlayerInputFlags.None)
             {
                 _innerState.Reset();
             }
@@ -68,7 +67,7 @@ namespace InputUtils
 
         public void EscapeInput(bool value)
         {
-            if (_inputFlags.HasFlag(PlayerInputFlags.Escape))
+            if (InputFlags.HasFlag(PlayerInputFlags.Escape))
             {
                 _innerState.escape = value;
             }
@@ -76,7 +75,7 @@ namespace InputUtils
 
         public void RestartInput(bool value)
         {
-            if (_inputFlags.HasFlag(PlayerInputFlags.Restart))
+            if (InputFlags.HasFlag(PlayerInputFlags.Restart))
             {
                 _innerState.restart = value;
             }
@@ -84,7 +83,7 @@ namespace InputUtils
 
         public void FireInput(bool value)
         {
-            if (_inputFlags.HasFlag(PlayerInputFlags.Fire))
+            if (InputFlags.HasFlag(PlayerInputFlags.Fire))
             {
                 _innerState.fire = value;
             }
@@ -92,7 +91,7 @@ namespace InputUtils
 
         public void MatchstickInput(bool value)
         {
-            if (_inputFlags.HasFlag(PlayerInputFlags.Matchstick))
+            if (InputFlags.HasFlag(PlayerInputFlags.Matchstick))
             {
                 _innerState.matchstick = value;
             }
@@ -100,7 +99,7 @@ namespace InputUtils
 
         public void MoveInput(Vector2 value)
         {
-            if (_inputFlags.HasFlag(PlayerInputFlags.Move))
+            if (InputFlags.HasFlag(PlayerInputFlags.Move))
             {
                 _innerState.move = value;
             }
@@ -108,7 +107,7 @@ namespace InputUtils
 
         public void LookInput(Vector2 value)
         {
-            if (_inputFlags.HasFlag(PlayerInputFlags.Look))
+            if (InputFlags.HasFlag(PlayerInputFlags.Look))
             {
                 _innerState.look = value;
             }

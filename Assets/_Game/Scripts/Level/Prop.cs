@@ -30,7 +30,7 @@ namespace Level
 
         [HideInInspector] public PropSurface surface;
 
-        public static List<Prop> AllActiveProps;
+        public static List<Prop> AllActiveProps = new();
 
         public GameObject CurrentVariation { get; private set; }
 
