@@ -4,7 +4,7 @@ namespace BasicStateMachine
     {
         public bool IsRunning { get; private set; }
         
-        public bool IsDone { get; protected set; }
+        public virtual bool IsDone { get; protected set; }
 
         public virtual void Enter()
         {
@@ -17,7 +17,6 @@ namespace BasicStateMachine
         public virtual void Exit()
         {
             IsRunning = false;
-            IsDone = false;
         }
 
         public virtual void Tick(float deltaTime)

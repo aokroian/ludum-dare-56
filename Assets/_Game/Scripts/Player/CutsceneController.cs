@@ -88,7 +88,7 @@ namespace Player
 
         private void PrepareCutscene()
         {
-            _playerInputsService.DisableInput();
+            _playerInputsService.EnableInputs(PlayerInputFlags.NonGameplay);
             canvas.gameObject.SetActive(true);
             cutsceneCanvasGroup.alpha = 1;
             cutsceneCanvasText.text = "";
@@ -142,7 +142,7 @@ namespace Player
                     if (camBrain.IsBlending)
                         return;
                     
-                    _playerInputsService.EnableInput();
+                    _playerInputsService.EnableInputs(PlayerInputFlags.All);
                     disposable.Dispose();
                 }).AddTo(ref disposable);
         }
@@ -156,11 +156,10 @@ namespace Player
         
         private async void OnAttackPlayer(AttackPlayerEvent e)
         {
-            _playerInputsService.DisableInput();
             await Observable.Timer(System.TimeSpan.FromSeconds(0.2f))
                 .ObserveOnMainThread().WaitAsync();
             camBrain.m_DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Style.EaseInOut, 0.5f);
-            _playerInputsService.DisableInput();
+            _playerInputsService.EnableInputs(PlayerInputFlags.NonGameplay);   
             attackVirtualCamera.transform.position = mainVirtualCamera.transform.position;
             attackVirtualCamera.enabled = true;
             attackVirtualCamera.LookAt = e.EnemyTransform;

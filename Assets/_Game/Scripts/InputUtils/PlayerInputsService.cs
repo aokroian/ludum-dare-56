@@ -23,18 +23,17 @@ namespace InputUtils
             }
         }
 
-        private InputState _innerState = new();
-        private bool _isInputEnabled = true;
+        private readonly InputState _innerState = new();
 
-        public void EnableInput()
-        {
-            _isInputEnabled = true;
-        }
+        private PlayerInputFlags _inputFlags = PlayerInputFlags.All;
 
-        public void DisableInput()
+        public void EnableInputs(PlayerInputFlags flags)
         {
-            _isInputEnabled = false;
-            _innerState.Reset();
+            _inputFlags = flags;
+            if (_inputFlags == PlayerInputFlags.None)
+            {
+                _innerState.Reset();
+            }
         }
 
         public void OnEscape(InputValue value)
@@ -69,17 +68,23 @@ namespace InputUtils
 
         public void EscapeInput(bool value)
         {
-            _innerState.escape = value;
+            if (_inputFlags.HasFlag(PlayerInputFlags.Escape))
+            {
+                _innerState.escape = value;
+            }
         }
 
         public void RestartInput(bool value)
         {
-            _innerState.restart = value;
+            if (_inputFlags.HasFlag(PlayerInputFlags.Restart))
+            {
+                _innerState.restart = value;
+            }
         }
 
         public void FireInput(bool value)
         {
-            if (_isInputEnabled)
+            if (_inputFlags.HasFlag(PlayerInputFlags.Fire))
             {
                 _innerState.fire = value;
             }
@@ -87,7 +92,7 @@ namespace InputUtils
 
         public void MatchstickInput(bool value)
         {
-            if (_isInputEnabled)
+            if (_inputFlags.HasFlag(PlayerInputFlags.Matchstick))
             {
                 _innerState.matchstick = value;
             }
@@ -95,7 +100,7 @@ namespace InputUtils
 
         public void MoveInput(Vector2 value)
         {
-            if (_isInputEnabled)
+            if (_inputFlags.HasFlag(PlayerInputFlags.Move))
             {
                 _innerState.move = value;
             }
@@ -103,7 +108,7 @@ namespace InputUtils
 
         public void LookInput(Vector2 value)
         {
-            if (_isInputEnabled)
+            if (_inputFlags.HasFlag(PlayerInputFlags.Look))
             {
                 _innerState.look = value;
             }

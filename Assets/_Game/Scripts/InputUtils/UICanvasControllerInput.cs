@@ -12,7 +12,7 @@ namespace InputUtils
 
         [Inject] private InputDeviceService _inputDeviceService;
 
-        private void Awake()
+        private void Start()
         {
             _inputDeviceService.CurrentDevice
                 .Subscribe(device => { gameObject.SetActive(device is Touchscreen); }).AddTo(this);
