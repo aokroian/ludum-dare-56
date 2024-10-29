@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,7 @@ namespace InputUtils
     public class PlayerInputsService : MonoBehaviour
     {
         public InputState CurrentState => _innerState;
+        public InputState PreviousState => _previousInnerState;
         public PlayerInputFlags InputFlags { get; private set; } = PlayerInputFlags.All;
 
         public bool cursorLocked = true;
@@ -25,14 +27,22 @@ namespace InputUtils
         }
 
         private readonly InputState _innerState = new();
+        private readonly InputState _previousInnerState = new();
+
+        private void LateUpdate()
+        {
+            _previousInnerState.matchstick = _innerState.matchstick;
+            _previousInnerState.fire = _innerState.fire;
+            _previousInnerState.escape = _innerState.escape;
+            _previousInnerState.restart = _innerState.restart;
+            _previousInnerState.move = _innerState.move;
+            _previousInnerState.look = _innerState.look;
+        }
 
         public void EnableInputs(PlayerInputFlags flags)
         {
             InputFlags = flags;
-            if (InputFlags == PlayerInputFlags.None)
-            {
-                _innerState.Reset();
-            }
+            _innerState.Reset();
         }
 
         public void OnEscape(InputValue value)

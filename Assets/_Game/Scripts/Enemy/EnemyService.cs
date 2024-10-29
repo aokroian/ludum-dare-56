@@ -82,6 +82,8 @@ namespace Enemy
         
         private void AttackPlayer()
         {
+            if (_enemies.Count == 0)
+                return;
             var mimic = Object.Instantiate(_config.enemyPrefab,
                 _enemies[0].transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
             _signalBus.Fire(new AttackPlayerEvent(mimic.transform));

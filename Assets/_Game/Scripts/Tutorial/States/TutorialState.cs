@@ -1,17 +1,22 @@
 using BasicStateMachine;
+using Zenject;
 
 namespace Tutorial.States
 {
     public abstract class TutorialState : State
     {
-        protected float Progress;
-        protected TutorialController Controller;
+        public float Progress { get; protected set; }
+        protected SignalBus SignalBus { get; private set; }
+        protected TutorialController Controller { get; private set; }
         public sealed override bool IsDone => Progress >= 1;
 
-        public TutorialState(TutorialController controller)
+        public TutorialState(TutorialController controller, SignalBus signalBus)
         {
             Controller = controller;
+            SignalBus = signalBus;
         }
+
+        public virtual string Name => GetType().Name;
 
         public override void Enter()
         {
@@ -24,7 +29,7 @@ namespace Tutorial.States
             base.Tick(deltaTime);
             if (Progress >= 1f)
             {
-               IsDone = true;
+                IsDone = true;
             }
         }
     }

@@ -1,18 +1,23 @@
+using System;
 using InputUtils;
+using Shooting.Events;
+using Zenject;
 
 namespace Tutorial.States
 {
     public class FireTutorialState : TutorialState
     {
         private PlayerInputFlags _previousInputFlags;
+        private IDisposable _subscription;
 
-        public FireTutorialState(TutorialController controller) : base(controller)
+        public FireTutorialState(TutorialController controller, SignalBus signalBus) : base(controller, signalBus)
         {
         }
 
         public override void Enter()
         {
             base.Enter();
+            SignalBus.Subscribe<ShootingEvent>(OnFire);
             _previousInputFlags = Controller.InputService.InputFlags;
             const PlayerInputFlags inputFlags = PlayerInputFlags.NonGameplay | PlayerInputFlags.Fire;
             Controller.InputService.EnableInputs(inputFlags);
@@ -21,14 +26,13 @@ namespace Tutorial.States
         public override void Exit()
         {
             base.Exit();
+            SignalBus.Unsubscribe<ShootingEvent>(OnFire);
             Controller.InputService.EnableInputs(_previousInputFlags);
         }
 
-        public override void Tick(float deltaTime)
+        private void OnFire()
         {
-            base.Tick(deltaTime);
-            if (Controller.InputService.CurrentState.fire)
-                Progress = 1;
+            Progress += .5f;
         }
     }
 }

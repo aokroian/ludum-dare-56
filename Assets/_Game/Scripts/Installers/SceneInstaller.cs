@@ -1,5 +1,4 @@
 ﻿using Enemy;
-using GameLoop;
 using Matchstick;
 using Shooting;
 using Zenject;
