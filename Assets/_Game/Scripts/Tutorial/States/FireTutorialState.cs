@@ -1,6 +1,7 @@
 using System;
 using InputUtils;
 using Shooting.Events;
+using UnityEngine;
 using Zenject;
 
 namespace Tutorial.States
@@ -8,7 +9,6 @@ namespace Tutorial.States
     public class FireTutorialState : TutorialState
     {
         private PlayerInputFlags _previousInputFlags;
-        private IDisposable _subscription;
 
         public FireTutorialState(TutorialController controller, SignalBus signalBus) : base(controller, signalBus)
         {

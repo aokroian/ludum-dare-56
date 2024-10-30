@@ -10,7 +10,7 @@ namespace Tutorial.States
         private PlayerInputFlags _previousInputFlags;
         private Transform _cameraT;
         private Quaternion _prevRotation;
-        private const float ProgressSpeed = .5f;
+        private const float ProgressSpeed = .8f;
 
         public LookTutorialState(TutorialController controller, SignalBus signalBus) : base(controller, signalBus)
         {

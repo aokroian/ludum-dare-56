@@ -1,4 +1,6 @@
+using System;
 using InputUtils;
+using Matchstick.Events;
 using Zenject;
 
 namespace Tutorial.States
@@ -14,6 +16,7 @@ namespace Tutorial.States
         public override void Enter()
         {
             base.Enter();
+            SignalBus.Subscribe<MatchLitEvent>(OnMatchLit);
             _previousInputFlags = Controller.InputService.InputFlags;
             const PlayerInputFlags inputFlags = PlayerInputFlags.NonGameplay | PlayerInputFlags.Matchstick;
             Controller.InputService.EnableInputs(inputFlags);
@@ -22,14 +25,13 @@ namespace Tutorial.States
         public override void Exit()
         {
             base.Exit();
+            SignalBus.Unsubscribe<MatchLitEvent>(OnMatchLit);
             Controller.InputService.EnableInputs(_previousInputFlags);
         }
 
-        public override void Tick(float deltaTime)
+        private void OnMatchLit()
         {
-            base.Tick(deltaTime);
-            if (Controller.InputService.PreviousState.matchstick)
-                Progress += .5f;
+            Progress += 1f;
         }
     }
 }

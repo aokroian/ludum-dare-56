@@ -16,6 +16,7 @@ namespace Tutorial
         [SerializeField] private GameObject matchstickGraphics;
 
         private TutorialState _prevState;
+        private bool _prevIsDone;
         private TutorialController _controller;
         private bool _isInit;
 
@@ -38,21 +39,22 @@ namespace Tutorial
         private void Update()
         {
             if (!_isInit) return;
-            if (_prevState != _controller.CurrentState)
+            if (_prevState != _controller.CurrentState || _prevIsDone != _controller.IsDone)
             {
                 ToggleGraphics();
             }
 
             UpdateProgress();
             _prevState = _controller.CurrentState;
+            _prevIsDone = _controller.IsDone;
         }
 
         private void ToggleGraphics()
         {
-            movementGraphics.SetActive(_controller.CurrentState is MovementTutorialState);
-            fireGraphics.SetActive(_controller.CurrentState is FireTutorialState);
-            lookGraphics.SetActive(_controller.CurrentState is LookTutorialState);
-            matchstickGraphics.SetActive(_controller.CurrentState is MatchstickTutorialState);
+            movementGraphics.SetActive(_controller.CurrentState is MovementTutorialState && !_controller.IsDone);
+            fireGraphics.SetActive(_controller.CurrentState is FireTutorialState && !_controller.IsDone);
+            lookGraphics.SetActive(_controller.CurrentState is LookTutorialState && !_controller.IsDone);
+            matchstickGraphics.SetActive(_controller.CurrentState is MatchstickTutorialState && !_controller.IsDone);
 
             progressText.gameObject.SetActive(!_controller.IsDone && _controller.CurrentState != null);
             progressImage.gameObject.SetActive(!_controller.IsDone && _controller.CurrentState != null);
@@ -60,11 +62,11 @@ namespace Tutorial
 
         private void UpdateProgress()
         {
-            if (_controller.IsDone) return;
+            if (_controller.IsDone)
+                return;
+
             progressImage.fillAmount = _controller.CurrentState?.Progress ?? 0;
-            // format 
-            var formattedProgress = Mathf.RoundToInt(progressImage.fillAmount * 100);
-            progressText.text = $"{_controller.CurrentState?.Name} ({formattedProgress}%)";
+            progressText.text = $"{_controller.CurrentState?.Name} ({_controller.CurrentState?.Progress:P2})";
         }
     }
 }

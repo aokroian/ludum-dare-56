@@ -94,7 +94,7 @@ namespace Tutorial
         {
             var ui = device switch
             {
-                Keyboard => keyboardMouseUI,
+                Keyboard or Mouse  => keyboardMouseUI,
                 Gamepad => gamepadUI,
                 Touchscreen => touchUI,
                 _ => null

@@ -10,7 +10,7 @@ namespace Tutorial.States
         private PlayerInputFlags _previousInputFlags;
         private Transform _playerT;
         private Vector3 _prevPosition;
-        private const float ProgressSpeed = .5f;
+        private const float ProgressSpeed = .8f;
 
         public MovementTutorialState(TutorialController controller, SignalBus signalBus) : base(controller, signalBus)
         {
@@ -36,7 +36,7 @@ namespace Tutorial.States
         {
             base.Tick(deltaTime);
 
-            if (Vector3.Distance(_prevPosition, _playerT.position) > .01f)
+            if (Vector3.Distance(_prevPosition, _playerT.position) > .001f)
                 Progress += ProgressSpeed * deltaTime;
 
             _prevPosition = _playerT.position;
