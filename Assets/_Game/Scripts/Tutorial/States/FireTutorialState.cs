@@ -1,7 +1,5 @@
-using System;
 using InputUtils;
 using Shooting.Events;
-using UnityEngine;
 using Zenject;
 
 namespace Tutorial.States

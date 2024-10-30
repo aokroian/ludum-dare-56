@@ -17,6 +17,7 @@ namespace Menu
         [SerializeField] private Button quitBtn;
         [SerializeField] private Button creditsBtn;
         [SerializeField] private Button backFromCreditsBtn;
+        [SerializeField] private Button tutorialBtn;
 
         [SerializeField] private GameObject mainPanel;
         [SerializeField] private RectTransform settingsPanel;
@@ -47,6 +48,7 @@ namespace Menu
             creditsBtn.onClick.AddListener(OpenCredits);
             backFromCreditsBtn.onClick.AddListener(CloseCredits);
             clearProgressBtn.onClick.AddListener(ClearGameProgress);
+            tutorialBtn.onClick.AddListener(StartTutorial);
 
             volumeSlider.value = PlayerPrefs.GetFloat(Strings.SoundVolumeKey, 1f);
             mouseSensitivitySlider.value = PlayerPrefs.GetFloat(Strings.MouseSensitivityKey, .5f);
@@ -90,6 +92,11 @@ namespace Menu
             quitBtn.interactable = false;
             startGameBtn.interactable = false;
             Invoke(nameof(LoadGameScene), 3f);
+        }
+
+        private void StartTutorial()
+        {
+            CustomSceneManager.LoadScene("Tutorial");
         }
 
         private void LoadGameScene()

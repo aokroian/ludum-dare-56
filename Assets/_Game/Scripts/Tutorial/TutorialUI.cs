@@ -1,7 +1,6 @@
 using TMPro;
 using Tutorial.States;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Tutorial
 {

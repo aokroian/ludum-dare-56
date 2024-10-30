@@ -35,6 +35,10 @@ MonoBehaviour:
     m_Key: Menu/MenuController/SafeArea/MainPanel/Quit
     m_Metadata:
       m_Items: []
+  - m_Id: 1817136610664448
+    m_Key: Menu/MenuController/SafeArea/MainPanel/Tutorial
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
