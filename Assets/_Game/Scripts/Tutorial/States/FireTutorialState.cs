@@ -9,6 +9,7 @@ namespace Tutorial.States
     public class FireTutorialState : TutorialState
     {
         private PlayerInputFlags _previousInputFlags;
+        public override string Name => "Fire";
 
         public FireTutorialState(TutorialController controller, SignalBus signalBus) : base(controller, signalBus)
         {

@@ -7,6 +7,8 @@ namespace Tutorial.States
 {
     public class MovementTutorialState : TutorialState
     {
+        public override string Name => "Walk";
+
         private PlayerInputFlags _previousInputFlags;
         private Transform _playerT;
         private Vector3 _prevPosition;

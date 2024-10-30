@@ -1,4 +1,3 @@
-using System;
 using InputUtils;
 using Matchstick.Events;
 using Zenject;
@@ -7,6 +6,8 @@ namespace Tutorial.States
 {
     public class MatchstickTutorialState : TutorialState
     {
+        public override string Name => "Light Matchstick";
+        
         private PlayerInputFlags _previousInputFlags;
 
         public MatchstickTutorialState(TutorialController controller, SignalBus signalBus) : base(controller, signalBus)

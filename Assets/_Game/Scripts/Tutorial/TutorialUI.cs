@@ -7,13 +7,13 @@ namespace Tutorial
 {
     public class TutorialUI : MonoBehaviour
     {
-        [SerializeField] private Image progressImage;
         [SerializeField] private TextMeshProUGUI progressText;
 
         [SerializeField] private GameObject movementGraphics;
         [SerializeField] private GameObject fireGraphics;
         [SerializeField] private GameObject lookGraphics;
         [SerializeField] private GameObject matchstickGraphics;
+        [SerializeField] private GameObject finalGraphics;
 
         private TutorialState _prevState;
         private bool _prevIsDone;
@@ -51,21 +51,19 @@ namespace Tutorial
 
         private void ToggleGraphics()
         {
+            finalGraphics.SetActive(_controller.IsDone);
             movementGraphics.SetActive(_controller.CurrentState is MovementTutorialState && !_controller.IsDone);
             fireGraphics.SetActive(_controller.CurrentState is FireTutorialState && !_controller.IsDone);
             lookGraphics.SetActive(_controller.CurrentState is LookTutorialState && !_controller.IsDone);
             matchstickGraphics.SetActive(_controller.CurrentState is MatchstickTutorialState && !_controller.IsDone);
 
             progressText.gameObject.SetActive(!_controller.IsDone && _controller.CurrentState != null);
-            progressImage.gameObject.SetActive(!_controller.IsDone && _controller.CurrentState != null);
         }
 
         private void UpdateProgress()
         {
             if (_controller.IsDone)
                 return;
-
-            progressImage.fillAmount = _controller.CurrentState?.Progress ?? 0;
             progressText.text = $"{_controller.CurrentState?.Name} ({_controller.CurrentState?.Progress:P2})";
         }
     }

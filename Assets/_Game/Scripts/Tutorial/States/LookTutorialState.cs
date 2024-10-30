@@ -1,5 +1,4 @@
 using InputUtils;
-using StarterAssets;
 using UnityEngine;
 using Zenject;
 
@@ -7,6 +6,8 @@ namespace Tutorial.States
 {
     public class LookTutorialState : TutorialState
     {
+        public override string Name => "Look Around";
+
         private PlayerInputFlags _previousInputFlags;
         private Transform _cameraT;
         private Quaternion _prevRotation;
@@ -35,10 +36,10 @@ namespace Tutorial.States
         public override void Tick(float deltaTime)
         {
             base.Tick(deltaTime);
-            
+
             if (Quaternion.Angle(_prevRotation, _cameraT.rotation) > .1f)
                 Progress += ProgressSpeed * deltaTime;
-            
+
             _prevRotation = _cameraT.rotation;
         }
     }
