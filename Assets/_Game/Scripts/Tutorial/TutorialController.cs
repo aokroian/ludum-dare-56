@@ -15,6 +15,7 @@ namespace Tutorial
         public TutorialState CurrentState => _fsm.CurrentState;
         public PlayerInputsService InputService => _inputService;
 
+        [SerializeField] private TutorialPropController propController;
         [SerializeField] private TutorialUI keyboardMouseUI;
         [SerializeField] private TutorialUI gamepadUI;
         [SerializeField] private TutorialUI touchUI;
@@ -24,6 +25,7 @@ namespace Tutorial
         private MovementTutorialState _movementState;
         private LookTutorialState _lookState;
         private MatchstickTutorialState _matchstickState;
+        private MimicTutorialState _mimicState;
         private TutorialState[] _statesQueue;
         private int _currentStateIndex;
         private TutorialUI _currentUI;
@@ -34,10 +36,16 @@ namespace Tutorial
         [Inject] private InputDeviceService _inputDeviceService;
         [Inject] private SignalBus _signalBus;
 
+        private void OnDestroy()
+        {
+            UnInit();
+        }
+
         public void Init()
         {
             if (_isInit) UnInitStateMachine();
             InitStateMachine();
+            propController.Init(this);
             IsDone = false;
             _currentStateIndex = 0;
             _fsm.SetState(_statesQueue[_currentStateIndex]);
@@ -46,10 +54,13 @@ namespace Tutorial
             _isInit = true;
         }
 
-        private void OnDestroy()
+        private void UnInit()
         {
+            if (!_isInit) return;
             _deviceSubscription?.Dispose();
             UnInitStateMachine();
+            propController.UnInit();
+            _isInit = false;
         }
 
         private void InitStateMachine()
@@ -59,6 +70,7 @@ namespace Tutorial
             _movementState = new MovementTutorialState(this, _signalBus);
             _lookState = new LookTutorialState(this, _signalBus);
             _matchstickState = new MatchstickTutorialState(this, _signalBus);
+            _mimicState = new MimicTutorialState(this, _signalBus);
 
             _statesQueue = new TutorialState[]
             {
@@ -94,7 +106,7 @@ namespace Tutorial
         {
             var ui = device switch
             {
-                Keyboard or Mouse  => keyboardMouseUI,
+                Keyboard or Mouse => keyboardMouseUI,
                 Gamepad => gamepadUI,
                 Touchscreen => touchUI,
                 _ => null

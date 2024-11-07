@@ -11,6 +11,7 @@ namespace Level
 {
     public class LevelController : MonoBehaviour
     {
+        [SerializeField] private bool isTutorial;
         [SerializeField] private GameObject directionalLight;
 
         [field: SerializeField] public List<PropSurface> PropSurfaces { get; private set; }
@@ -37,7 +38,7 @@ namespace Level
 
         private void OnMatchWentOut()
         {
-            directionalLight.SetActive(false);
+            if (!isTutorial) directionalLight.SetActive(false);
         }
 
         private void OnMatchLit()
