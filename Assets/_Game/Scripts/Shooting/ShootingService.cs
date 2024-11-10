@@ -10,24 +10,27 @@ namespace Shooting
     {
         [Inject]
         private SignalBus _signalBus;
-        
+
         [Inject]
         private Config _config;
 
         private float _nextShotTime;
-        
-        public int Ammo { get; private set; }
-        
+
+        public int Ammo => _isInfiniteAmmo ? int.MaxValue : _ammo;
+
+        private int _ammo;
+        private bool _isInfiniteAmmo;
+
         [Inject]
         private void Initialize(SignalBus signalBus, Config config)
         {
             _signalBus = signalBus;
             _config = config;
-            
-            Ammo = _config.startAmmo;
-            
+            _ammo = _config.startAmmo;
             _signalBus.Subscribe<NightStartedEvent>(OnNightStarted);
         }
+
+        public void SetInfiniteAmmo(bool isInfinite) => _isInfiniteAmmo = isInfinite;
 
         public bool TryShoot()
         {
@@ -37,24 +40,23 @@ namespace Shooting
                 _signalBus.Fire<ShootingNoAmmoEvent>();
                 return false;
             }
-            
+
             if (_nextShotTime > Time.time)
             {
                 Debug.Log($"Wait...");
                 return false;
             }
-            
+
             _nextShotTime = Time.time + _config.shotDelay;
 
-            Ammo--;
-            
+            _ammo--;
             _signalBus.Fire<ShootingEvent>();
             return true;
         }
-        
+
         private void OnNightStarted(NightStartedEvent e)
         {
-            Ammo = _config.startAmmo;
+            _ammo = _config.startAmmo;
         }
 
         [Serializable]

@@ -13,13 +13,16 @@ namespace Matchstick
     {
         private Config _config;
 
-        public int Matches { get; private set; }
+        public int Matches => _isInfiniteMatches ? int.MaxValue : _matchesCount;
 
         private SignalBus _signalBus;
         private float _nextLightTime;
         private Action _cancelCallback;
-        
+
         private List<IDisposable> _disposables = new();
+
+        private int _matchesCount;
+        private bool _isInfiniteMatches;
 
 
         [Inject]
@@ -27,11 +30,11 @@ namespace Matchstick
         {
             _config = config;
             _signalBus = signalBus;
-
-            Matches = _config.startMatches;
-            
+            _matchesCount = _config.startMatches;
             _signalBus.Subscribe<NightStartedEvent>(OnNightStarted);
         }
+
+        public void SetInfiniteMatches(bool isInfinite) => _isInfiniteMatches = isInfinite;
 
         public float TryLight(Action cancelCallback)
         {
@@ -47,7 +50,7 @@ namespace Matchstick
 
             _nextLightTime = Time.time + _config.duration + _config.delay;
 
-            Matches--;
+            _matchesCount--;
             _signalBus.Fire(new MatchLitEvent());
             _cancelCallback = cancelCallback;
 
@@ -61,24 +64,25 @@ namespace Matchstick
 
             return _config.duration;
         }
-        
+
         private void OnNightStarted(NightStartedEvent e)
         {
             foreach (var disposable in _disposables)
             {
                 disposable.Dispose();
             }
+
             _disposables.Clear();
-            Matches = _config.startMatches;
+            _matchesCount = _config.startMatches;
             _nextLightTime = 0;
             _cancelCallback?.Invoke();
         }
-        
+
         public bool IsLit()
         {
             return _nextLightTime > Time.time;
         }
-        
+
         [Serializable]
         public class Config
         {

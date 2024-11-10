@@ -3,8 +3,10 @@ using Enemy;
 using Enemy.Events;
 using GameLoop.Events;
 using Level;
+using Matchstick;
 using Player;
 using R3;
+using Shooting;
 using UnityEngine;
 using Zenject;
 
@@ -23,6 +25,8 @@ namespace GameLoop
         private LevelController _levelController;
         [Inject]
         private EnemyService _enemyService;
+        [Inject] private MatchService _matchService;
+        [Inject] private ShootingService _shootingService;
 
         private GameStateData _gameState;
         
@@ -40,6 +44,9 @@ namespace GameLoop
 
         private void Configure()
         {
+            _matchService.SetInfiniteMatches(false);
+            _shootingService.SetInfiniteAmmo(false);
+            
             _gameStateProvider.LoadGameState();
             _gameState = _gameStateProvider.GameState;
             
