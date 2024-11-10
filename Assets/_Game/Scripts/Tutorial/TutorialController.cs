@@ -45,7 +45,6 @@ namespace Tutorial
         {
             if (_isInit) UnInitStateMachine();
             InitStateMachine();
-            propController.Init(this);
             IsDone = false;
             _currentStateIndex = 0;
             _fsm.SetState(_statesQueue[_currentStateIndex]);
@@ -59,7 +58,6 @@ namespace Tutorial
             if (!_isInit) return;
             _deviceSubscription?.Dispose();
             UnInitStateMachine();
-            propController.UnInit();
             _isInit = false;
         }
 
@@ -70,11 +68,11 @@ namespace Tutorial
             _movementState = new MovementTutorialState(this, _signalBus);
             _lookState = new LookTutorialState(this, _signalBus);
             _matchstickState = new MatchstickTutorialState(this, _signalBus);
-            _mimicState = new MimicTutorialState(this, _signalBus);
+            _mimicState = new MimicTutorialState(this, _signalBus, propController);
 
             _statesQueue = new TutorialState[]
             {
-                _movementState, _lookState, _fireState, _matchstickState
+                _movementState, _lookState, _fireState, _matchstickState, _mimicState
             };
 
             _fsm.Init(_statesQueue);

@@ -1,6 +1,7 @@
 using R3;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using UnityEngine;
 
 namespace InputUtils
 {
@@ -10,7 +11,8 @@ namespace InputUtils
 
         public InputDeviceService()
         {
-            InputSystem.onAnyButtonPress.Call(control => CurrentDevice.Value = control.device);
+            if (Application.isPlaying)
+                InputSystem.onAnyButtonPress.Call(control => CurrentDevice.Value = control.device);
         }
     }
 }

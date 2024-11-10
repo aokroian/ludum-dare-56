@@ -11,7 +11,6 @@ namespace Level
 {
     public class LevelController : MonoBehaviour
     {
-        [SerializeField] private bool isTutorial;
         [SerializeField] private GameObject directionalLight;
 
         [field: SerializeField] public List<PropSurface> PropSurfaces { get; private set; }
@@ -28,17 +27,13 @@ namespace Level
             _signalBus = signalBus;
             _signalBus.Subscribe<MatchLitEvent>(OnMatchLit);
             _signalBus.Subscribe<MatchWentOutEvent>(OnMatchWentOut);
-
-            _propsOutlineMaterial = new Material(propOutlineMaterial);
-            var allProps = PropSurfaces.SelectMany(ps => ps.AllowedProps).ToList();
-            foreach (var p in allProps)
-                p.SetOutlineMaterial(_propsOutlineMaterial);
+            SetPropsOutlineMaterial();
             directionalLight.SetActive(true);
         }
 
         private void OnMatchWentOut()
         {
-            if (!isTutorial) directionalLight.SetActive(false);
+            directionalLight.SetActive(false);
         }
 
         private void OnMatchLit()
@@ -53,6 +48,9 @@ namespace Level
             {
                 propSurface.SelectProp(PropKind.None);
             }
+
+            if (count == 0)
+                return;
 
             PropSurfaces = PropSurfaces.OrderBy(_ => Guid.NewGuid()).ToList();
 
@@ -82,6 +80,14 @@ namespace Level
             oldSurface.SelectProp(PropKind.None);
             newSurface.SelectProp(prop.Kind);
             return newSurface.SelectedProp;
+        }
+
+        private void SetPropsOutlineMaterial()
+        {
+            _propsOutlineMaterial = new Material(propOutlineMaterial);
+            var allProps = PropSurfaces.SelectMany(ps => ps.AllowedProps).ToList();
+            foreach (var p in allProps)
+                p.SetOutlineMaterial(_propsOutlineMaterial);
         }
 
 #if UNITY_EDITOR

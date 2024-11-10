@@ -31,7 +31,7 @@ namespace Tutorial.States
 
         private void OnFire()
         {
-            Progress += .5f;
+            Progress += 1f;
         }
     }
 }

@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using R3;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -25,7 +23,7 @@ namespace Level
             }
         }
         private bool _isDeadEnemy;
-        
+
         public Vector3 BoundsCenter => transform.TransformPoint(Bounds.center);
 
         [HideInInspector] public PropSurface surface;
