@@ -7,7 +7,7 @@ namespace Tutorial.States
     public class FireTutorialState : TutorialState
     {
         private PlayerInputFlags _previousInputFlags;
-        public override string Name => "Fire";
+        public override string Hint => "to Fire";
 
         public FireTutorialState(TutorialController controller, SignalBus signalBus) : base(controller, signalBus)
         {
@@ -18,7 +18,8 @@ namespace Tutorial.States
             base.Enter();
             SignalBus.Subscribe<ShootingEvent>(OnFire);
             _previousInputFlags = Controller.InputService.InputFlags;
-            const PlayerInputFlags inputFlags = PlayerInputFlags.NonGameplay | PlayerInputFlags.Fire;
+            const PlayerInputFlags inputFlags = PlayerInputFlags.NonGameplay | PlayerInputFlags.Look |
+                                                PlayerInputFlags.Move | PlayerInputFlags.Fire;
             Controller.InputService.EnableInputs(inputFlags);
         }
 
@@ -31,7 +32,7 @@ namespace Tutorial.States
 
         private void OnFire()
         {
-            Progress += .25f;
+            Progress += .5f;
         }
     }
 }

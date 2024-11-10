@@ -6,8 +6,8 @@ namespace Tutorial.States
 {
     public class MatchstickTutorialState : TutorialState
     {
-        public override string Name => "Light Matchstick";
-        
+        public override string Hint => "to Light a Matchstick";
+
         private PlayerInputFlags _previousInputFlags;
 
         public MatchstickTutorialState(TutorialController controller, SignalBus signalBus) : base(controller, signalBus)
@@ -19,7 +19,8 @@ namespace Tutorial.States
             base.Enter();
             SignalBus.Subscribe<MatchLitEvent>(OnMatchLit);
             _previousInputFlags = Controller.InputService.InputFlags;
-            const PlayerInputFlags inputFlags = PlayerInputFlags.NonGameplay | PlayerInputFlags.Matchstick;
+            const PlayerInputFlags inputFlags = PlayerInputFlags.NonGameplay | PlayerInputFlags.Look |
+                                                PlayerInputFlags.Move | PlayerInputFlags.Matchstick;
             Controller.InputService.EnableInputs(inputFlags);
         }
 

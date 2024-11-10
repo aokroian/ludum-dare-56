@@ -6,7 +6,7 @@ namespace Tutorial.States
 {
     public class LookTutorialState : TutorialState
     {
-        public override string Name => "Look Around";
+        public override string Hint => "to Look Around";
 
         private PlayerInputFlags _previousInputFlags;
         private Transform _cameraT;

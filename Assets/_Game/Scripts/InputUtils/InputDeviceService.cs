@@ -1,7 +1,8 @@
 using R3;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Utilities;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.InputSystem.Utilities;
 
 namespace InputUtils
 {
@@ -11,8 +12,30 @@ namespace InputUtils
 
         public InputDeviceService()
         {
-            if (Application.isPlaying)
-                InputSystem.onAnyButtonPress.Call(control => CurrentDevice.Value = control.device);
+            InputSystem.onDeviceChange += OnDeviceChange;
+            InputSystem.onEvent += OnInputEvent;
+        }
+
+        private void OnDeviceChange(InputDevice device, InputDeviceChange change)
+        {
+            if (!Application.isPlaying)
+                return;
+            if (change is InputDeviceChange.Added or InputDeviceChange.Reconnected)
+            {
+                CurrentDevice.Value = device;
+                Debug.Log($"Device changed: {CurrentDevice.Value.name}");
+            }
+        }
+
+        private void OnInputEvent(InputEventPtr eventPtr, InputDevice device)
+        {
+            if (!Application.isPlaying)
+                return;
+            if (device is Mouse or Keyboard or Gamepad or Touchscreen)
+            {
+                CurrentDevice.Value = device;
+                Debug.Log($"Input event from device: {CurrentDevice.Value.name}");
+            }
         }
     }
 }

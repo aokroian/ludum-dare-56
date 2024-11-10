@@ -16,7 +16,7 @@ namespace Tutorial.States
             SignalBus = signalBus;
         }
 
-        public virtual string Name => GetType().Name;
+        public virtual string Hint => GetType().Name;
 
         public override void Enter()
         {

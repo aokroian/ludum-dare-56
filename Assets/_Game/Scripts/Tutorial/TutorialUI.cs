@@ -6,7 +6,13 @@ namespace Tutorial
 {
     public class TutorialUI : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI progressText;
+        [SerializeField] private PulseEffect controlsTutorialTitle;
+        [SerializeField] private GameObject controlsTutorialDoneIcon;
+        [SerializeField] private TextMeshProUGUI controlsProgressTmp;
+
+        [SerializeField] private PulseEffect gameplayTutorialTitle;
+        [SerializeField] private GameObject gameplayTutorialDoneIcon;
+        [SerializeField] private TextMeshProUGUI gameplayProgressTmp;
 
         [SerializeField] private GameObject movementGraphics;
         [SerializeField] private GameObject fireGraphics;
@@ -56,14 +62,30 @@ namespace Tutorial
             lookGraphics.SetActive(_controller.CurrentState is LookTutorialState && !_controller.IsDone);
             matchstickGraphics.SetActive(_controller.CurrentState is MatchstickTutorialState && !_controller.IsDone);
 
-            progressText.gameObject.SetActive(!_controller.IsDone && _controller.CurrentState != null);
+            var isGameplayState = _controller.CurrentState is MimicTutorialState;
+            var isControlsTutorialDone = isGameplayState || _controller.IsDone;
+            controlsTutorialDoneIcon.SetActive(isControlsTutorialDone);
+            controlsTutorialTitle.Toggle(!isControlsTutorialDone);
+            controlsProgressTmp.gameObject.SetActive(!isControlsTutorialDone);
+
+            gameplayTutorialDoneIcon.SetActive(_controller.IsDone);
+            gameplayTutorialTitle.Toggle(isGameplayState && !_controller.IsDone);
+            gameplayProgressTmp.gameObject.SetActive(isGameplayState && !_controller.IsDone);
         }
 
         private void UpdateProgress()
         {
-            if (_controller.IsDone)
+            if (_controller.IsDone || _controller.CurrentState == null)
                 return;
-            progressText.text = $"{_controller.CurrentState?.Name} ({_controller.CurrentState?.Progress:P2})";
+            if (_controller.CurrentState is MimicTutorialState)
+            {
+                gameplayProgressTmp.text = $"{_controller.CurrentState?.Hint}";
+            }
+            else
+            {
+                controlsProgressTmp.text =
+                    $"{_controller.CurrentState?.Hint} ({_controller.CurrentState?.Progress:P2})";
+            }
         }
     }
 }

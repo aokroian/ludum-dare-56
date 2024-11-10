@@ -7,7 +7,7 @@ namespace Tutorial.States
 {
     public class MovementTutorialState : TutorialState
     {
-        public override string Name => "Walk";
+        public override string Hint => "to Walk";
 
         private PlayerInputFlags _previousInputFlags;
         private Transform _playerT;
@@ -24,7 +24,8 @@ namespace Tutorial.States
             _playerT = Object.FindFirstObjectByType<FirstPersonController>().transform;
             _prevPosition = _playerT.position;
             _previousInputFlags = Controller.InputService.InputFlags;
-            const PlayerInputFlags inputFlags = PlayerInputFlags.NonGameplay | PlayerInputFlags.Move;
+            const PlayerInputFlags inputFlags =
+                PlayerInputFlags.NonGameplay | PlayerInputFlags.Move | PlayerInputFlags.Look;
             Controller.InputService.EnableInputs(inputFlags);
         }
 

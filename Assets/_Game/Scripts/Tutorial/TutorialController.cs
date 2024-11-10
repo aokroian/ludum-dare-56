@@ -1,6 +1,10 @@
 using System;
 using BasicStateMachine;
+using Cinemachine;
+using DG.Tweening;
+using Enemy;
 using InputUtils;
+using Level;
 using R3;
 using Tutorial.States;
 using UnityEngine;
@@ -15,7 +19,9 @@ namespace Tutorial
         public TutorialState CurrentState => _fsm.CurrentState;
         public PlayerInputsService InputService => _inputService;
 
-        [SerializeField] private TutorialPropController propController;
+        [SerializeField] private Transform playerShootMimicPos;
+        [SerializeField] private Transform cameraRoot;
+        [SerializeField] private CharacterController player;
         [SerializeField] private TutorialUI keyboardMouseUI;
         [SerializeField] private TutorialUI gamepadUI;
         [SerializeField] private TutorialUI touchUI;
@@ -30,20 +36,18 @@ namespace Tutorial
         private int _currentStateIndex;
         private TutorialUI _currentUI;
         private IDisposable _deviceSubscription;
+        private bool _isLookAtActiveProp;
         private bool _isInit;
 
         [Inject] private PlayerInputsService _inputService;
         [Inject] private InputDeviceService _inputDeviceService;
+        [Inject] private LevelController _levelController;
+        [Inject] private EnemyService _enemyService;
         [Inject] private SignalBus _signalBus;
-
-        private void OnDestroy()
-        {
-            UnInit();
-        }
 
         public void Init()
         {
-            if (_isInit) UnInitStateMachine();
+            if (_isInit) UnInit();
             InitStateMachine();
             IsDone = false;
             _currentStateIndex = 0;
@@ -68,11 +72,11 @@ namespace Tutorial
             _movementState = new MovementTutorialState(this, _signalBus);
             _lookState = new LookTutorialState(this, _signalBus);
             _matchstickState = new MatchstickTutorialState(this, _signalBus);
-            _mimicState = new MimicTutorialState(this, _signalBus, propController);
+            _mimicState = new MimicTutorialState(this, _signalBus, _levelController, _enemyService);
 
             _statesQueue = new TutorialState[]
             {
-                _movementState, _lookState, _fireState, _matchstickState, _mimicState
+                _lookState, _movementState, _fireState, _matchstickState, _mimicState
             };
 
             _fsm.Init(_statesQueue);
@@ -88,6 +92,12 @@ namespace Tutorial
         {
             if (!_isInit || IsDone)
                 return;
+            if (_isLookAtActiveProp)
+            {
+                var activeProp = _enemyService.Enemies[0].Prop;
+                SmoothLookAt(activeProp.transform.position + Vector3.up * .3f);
+            }
+
             if (_fsm.CurrentState.IsRunning && _fsm.CurrentState.IsDone)
             {
                 _currentStateIndex++;
@@ -119,5 +129,26 @@ namespace Tutorial
 
             _currentUI = ui;
         }
+
+        public void TweenPlayerPosToShootMimicPos(float duration, Action onComplete = null)
+        {
+            player.transform.DOMove(playerShootMimicPos.position, duration).OnComplete(() =>
+            {
+                onComplete?.Invoke();
+            });
+        }
+
+        private void SmoothLookAt(Vector3 targetPosition)
+        {
+            var targetRotation = Quaternion.LookRotation(targetPosition - cameraRoot.transform.position);
+            cameraRoot.transform.rotation =
+                Quaternion.Slerp(cameraRoot.transform.rotation, targetRotation, Time.deltaTime * 2f);
+        }
+
+        public void SetLookAtActiveProp(bool isOn) => _isLookAtActiveProp = isOn;
+        // {
+        // var activeProp = _levelController.ActiveProps[0];
+        // player.transform.LookAt(activeProp.transform.position);
+        // }
     }
 }
