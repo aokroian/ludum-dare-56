@@ -5,6 +5,7 @@ using DG.Tweening;
 using Enemy;
 using InputUtils;
 using Level;
+using Matchstick;
 using R3;
 using Tutorial.States;
 using UnityEngine;
@@ -19,6 +20,7 @@ namespace Tutorial
         public TutorialState CurrentState => _fsm.CurrentState;
         public PlayerInputsService InputService => _inputService;
 
+        [SerializeField] private float matchDuration = 12f;
         [SerializeField] private Transform playerShootMimicPos;
         [SerializeField] private Transform cameraRoot;
         [SerializeField] private CharacterController player;
@@ -43,6 +45,7 @@ namespace Tutorial
         [Inject] private InputDeviceService _inputDeviceService;
         [Inject] private LevelController _levelController;
         [Inject] private EnemyService _enemyService;
+        [Inject] private MatchService _matchService;
         [Inject] private SignalBus _signalBus;
 
         public void Init()
@@ -51,6 +54,7 @@ namespace Tutorial
             InitStateMachine();
             IsDone = false;
             _currentStateIndex = 0;
+            _matchService.SetOverwrittenDuration(true, matchDuration);
             _fsm.SetState(_statesQueue[_currentStateIndex]);
             _deviceSubscription = _inputDeviceService.CurrentDevice.Subscribe(OnInputDeviceChanged);
             OnInputDeviceChanged(_inputDeviceService.CurrentDevice.Value);
@@ -61,6 +65,7 @@ namespace Tutorial
         {
             if (!_isInit) return;
             _deviceSubscription?.Dispose();
+            _matchService.SetOverwrittenDuration(false);
             UnInitStateMachine();
             _isInit = false;
         }

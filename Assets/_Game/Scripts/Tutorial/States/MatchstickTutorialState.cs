@@ -6,7 +6,7 @@ namespace Tutorial.States
 {
     public class MatchstickTutorialState : TutorialState
     {
-        public override string Hint => "to Light a Matchstick";
+        public override string Hint => Strings.MatchControlsTutorialHint;
 
         private PlayerInputFlags _previousInputFlags;
 

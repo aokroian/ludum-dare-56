@@ -1,3 +1,4 @@
+using System;
 using Enemy;
 using Enemy.Events;
 using InputUtils;
@@ -43,13 +44,14 @@ namespace Tutorial.States
             const PlayerInputFlags inputFlags = PlayerInputFlags.NonGameplay;
             Controller.InputService.EnableInputs(inputFlags);
 
-            _message = "Now let's learn about mimics. They can disguise themselves as props";
-            await Observable.Timer(System.TimeSpan.FromSeconds(2f)).ObserveOnMainThread().WaitAsync();
+            _message = Strings.MimicTutorialIntroMessage1;
+            await Observable.Timer(TimeSpan.FromSeconds(3.5f)).ObserveOnMainThread().WaitAsync();
+            _message = Strings.MimicTutorialIntroMessage2;
+            await Observable.Timer(TimeSpan.FromSeconds(3.5f)).ObserveOnMainThread().WaitAsync();
 
-            Controller.TweenPlayerPosToShootMimicPos(2f, () =>
+            Controller.TweenPlayerPosToShootMimicPos(1f, () =>
             {
-                _message =
-                    "Take a look at this prop. Try to remember where it is. The matchstick will go out soon.";
+                _message = Strings.MimicTutorialIntroMessage3;
                 Controller.SetLookAtActiveProp(true);
             });
         }
@@ -67,16 +69,18 @@ namespace Tutorial.States
 
         private void OnMatchWentOut()
         {
+            Controller.SetLookAtActiveProp(false);
             const PlayerInputFlags inputFlags = PlayerInputFlags.NonGameplay | PlayerInputFlags.Matchstick;
             Controller.InputService.EnableInputs(inputFlags);
-            _message = "The matchstick went out. Let's light it up again.";
+            _message = Strings.MimicTutorialMatchWentOutMessage;
         }
 
         private void OnMatchLit()
         {
+            Controller.SetLookAtActiveProp(true);
             const PlayerInputFlags inputFlags = PlayerInputFlags.NonGameplay | PlayerInputFlags.Fire;
             Controller.InputService.EnableInputs(inputFlags);
-            _message = "Now look at the prop. It was moved. The mimic is trying to trick you. Shoot the mimic.";
+            _message = Strings.MimicTutorialShootMimicMessage;
         }
 
         private void OnEnemyGotHit()

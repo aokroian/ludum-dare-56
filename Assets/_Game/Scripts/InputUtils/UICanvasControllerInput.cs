@@ -15,7 +15,12 @@ namespace InputUtils
         private void Start()
         {
             _inputDeviceService.CurrentDevice
-                .Subscribe(device => { gameObject.SetActive(device is Touchscreen); }).AddTo(this);
+                .Subscribe(device =>
+                {
+                    if (!this)
+                        return;
+                    gameObject.SetActive(device is Touchscreen);
+                }).AddTo(this);
         }
 
         public void VirtualMoveInput(Vector2 virtualMoveDirection)

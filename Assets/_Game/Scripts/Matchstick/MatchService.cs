@@ -21,8 +21,12 @@ namespace Matchstick
 
         private List<IDisposable> _disposables = new();
 
+        private float Duration => _isOverwrittenDuration ? _overwrittenDuration : _config.duration;
+
         private int _matchesCount;
         private bool _isInfiniteMatches;
+        private float _overwrittenDuration;
+        private bool _isOverwrittenDuration;
 
 
         [Inject]
@@ -36,6 +40,12 @@ namespace Matchstick
 
         public void SetInfiniteMatches(bool isInfinite) => _isInfiniteMatches = isInfinite;
 
+        public void SetOverwrittenDuration(bool isOn, float value = 0)
+        {
+            _isOverwrittenDuration = isOn;
+            _overwrittenDuration = value;
+        }
+
         public float TryLight(Action cancelCallback)
         {
             if (Matches <= 0)
@@ -48,13 +58,13 @@ namespace Matchstick
                 return 0;
             }
 
-            _nextLightTime = Time.time + _config.duration + _config.delay;
+            _nextLightTime = Time.time + Duration + _config.delay;
 
             _matchesCount--;
             _signalBus.Fire(new MatchLitEvent());
             _cancelCallback = cancelCallback;
 
-            Observable.Timer(TimeSpan.FromSeconds(_config.duration))
+            Observable.Timer(TimeSpan.FromSeconds(Duration))
                 .ObserveOn(UnityFrameProvider.Update)
                 .Subscribe(_ =>
                 {
@@ -62,7 +72,7 @@ namespace Matchstick
                     _cancelCallback = null;
                 }).AddTo(_disposables);
 
-            return _config.duration;
+            return Duration;
         }
 
         private void OnNightStarted(NightStartedEvent e)

@@ -1,8 +1,19 @@
 public static class Strings
 {
     // tutorial
-    
-    
+    public const string FireControlsTutorialHint = "To Shoot";
+    public const string LookControlsTutorialHint = "To Look";
+    public const string MoveControlsTutorialHint = "To Walk";
+    public const string MatchControlsTutorialHint = "To Light Matchstick";
+    public const string MimicTutorialIntroMessage1 =
+        "Now let's learn about mimics. They can disguise themselves as props";
+    public const string MimicTutorialIntroMessage2 =
+        "You can find them if you notice some object moved while it was dark.";
+    public const string MimicTutorialIntroMessage3 =
+        "Take a look at this prop. Try to remember where it is. The matchstick will go out soon.";
+    public const string MimicTutorialMatchWentOutMessage = "The matchstick went out. Let's light it up again.";
+    public const string MimicTutorialShootMimicMessage = "This item moved while it was dark! It's a mimic, shoot it!";
+
     public const string MouseSensitivityKey = "MouseSensitivity";
     public const string SoundVolumeKey = "SoundVolume";
     public const string GraphicsQualityKey = "GraphicsQuality";
