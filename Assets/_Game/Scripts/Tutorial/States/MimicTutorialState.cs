@@ -45,14 +45,17 @@ namespace Tutorial.States
             Controller.InputService.EnableInputs(inputFlags);
 
             _message = Strings.MimicTutorialIntroMessage1;
-            await Observable.Timer(TimeSpan.FromSeconds(3.5f)).ObserveOnMainThread().WaitAsync();
+            await Observable.Timer(TimeSpan.FromSeconds(4f)).ObserveOnMainThread().WaitAsync();
+            Progress = 0.2f;
             _message = Strings.MimicTutorialIntroMessage2;
-            await Observable.Timer(TimeSpan.FromSeconds(3.5f)).ObserveOnMainThread().WaitAsync();
+            await Observable.Timer(TimeSpan.FromSeconds(4f)).ObserveOnMainThread().WaitAsync();
+            Progress = 0.4f;
 
             Controller.TweenPlayerPosToShootMimicPos(1f, () =>
             {
                 _message = Strings.MimicTutorialIntroMessage3;
                 Controller.SetLookAtActiveProp(true);
+                Progress = 0.6f;
             });
         }
 
@@ -72,6 +75,7 @@ namespace Tutorial.States
             Controller.SetLookAtActiveProp(false);
             const PlayerInputFlags inputFlags = PlayerInputFlags.NonGameplay | PlayerInputFlags.Matchstick;
             Controller.InputService.EnableInputs(inputFlags);
+            Progress = 0.75f;
             _message = Strings.MimicTutorialMatchWentOutMessage;
         }
 
@@ -80,12 +84,13 @@ namespace Tutorial.States
             Controller.SetLookAtActiveProp(true);
             const PlayerInputFlags inputFlags = PlayerInputFlags.NonGameplay | PlayerInputFlags.Fire;
             Controller.InputService.EnableInputs(inputFlags);
+            Progress = 0.9f;
             _message = Strings.MimicTutorialShootMimicMessage;
         }
 
         private void OnEnemyGotHit()
         {
-            Progress += 1f;
+            Progress = 1f;
         }
     }
 }

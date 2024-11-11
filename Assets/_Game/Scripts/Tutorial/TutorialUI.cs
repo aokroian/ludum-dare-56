@@ -1,6 +1,7 @@
 using TMPro;
 using Tutorial.States;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Tutorial
 {
@@ -8,9 +9,11 @@ namespace Tutorial
     {
         [SerializeField] private PulseEffect controlsTutorialTitle;
         [SerializeField] private GameObject controlsTutorialDoneIcon;
+        [SerializeField] private Slider controlsTutorialProgress;
         [SerializeField] private TextMeshProUGUI controlsProgressTmp;
 
         [SerializeField] private PulseEffect gameplayTutorialTitle;
+        [SerializeField] private Slider gameplayTutorialProgress;
         [SerializeField] private GameObject gameplayTutorialDoneIcon;
         [SerializeField] private TextMeshProUGUI gameplayProgressTmp;
 
@@ -76,7 +79,12 @@ namespace Tutorial
         private void UpdateProgress()
         {
             if (_controller.IsDone || _controller.CurrentState == null)
+            {
+                controlsTutorialProgress.value = 1f;
+                gameplayTutorialProgress.value = 1f;
                 return;
+            }
+
             if (_controller.CurrentState is MimicTutorialState)
             {
                 gameplayProgressTmp.text = $"{_controller.CurrentState?.Hint}";
@@ -84,8 +92,12 @@ namespace Tutorial
             else
             {
                 controlsProgressTmp.text =
-                    $"{_controller.CurrentState?.Hint} ({_controller.CurrentState?.Progress:P2})";
+                    // $"{_controller.CurrentState?.Hint} ({_controller.CurrentState?.Progress:P2})";
+                    $"{_controller.CurrentState?.Hint}";
             }
+
+            controlsTutorialProgress.value = _controller.ControlsProgress;
+            gameplayTutorialProgress.value = _controller.GameplayProgress;
         }
     }
 }

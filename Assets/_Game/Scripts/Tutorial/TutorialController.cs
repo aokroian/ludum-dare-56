@@ -1,6 +1,5 @@
 using System;
 using BasicStateMachine;
-using Cinemachine;
 using DG.Tweening;
 using Enemy;
 using InputUtils;
@@ -19,6 +18,10 @@ namespace Tutorial
         public bool IsDone { get; private set; }
         public TutorialState CurrentState => _fsm.CurrentState;
         public PlayerInputsService InputService => _inputService;
+
+        public float ControlsProgress =>
+            (_lookState.Progress + _movementState.Progress + _fireState.Progress + _matchstickState.Progress) / 4f;
+        public float GameplayProgress => _mimicState.Progress;
 
         [SerializeField] private float matchDuration = 12f;
         [SerializeField] private Transform playerShootMimicPos;
@@ -137,10 +140,7 @@ namespace Tutorial
 
         public void TweenPlayerPosToShootMimicPos(float duration, Action onComplete = null)
         {
-            player.transform.DOMove(playerShootMimicPos.position, duration).OnComplete(() =>
-            {
-                onComplete?.Invoke();
-            });
+            player.transform.DOMove(playerShootMimicPos.position, duration).OnComplete(() => { onComplete?.Invoke(); });
         }
 
         private void SmoothLookAt(Vector3 targetPosition)
