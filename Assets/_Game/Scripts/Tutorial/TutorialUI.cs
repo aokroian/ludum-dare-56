@@ -1,6 +1,7 @@
 using TMPro;
 using Tutorial.States;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Tutorial
@@ -10,12 +11,12 @@ namespace Tutorial
         [SerializeField] private PulseEffect controlsTutorialTitle;
         [SerializeField] private GameObject controlsTutorialDoneIcon;
         [SerializeField] private Slider controlsTutorialProgress;
-        [SerializeField] private TextMeshProUGUI controlsProgressTmp;
+        [FormerlySerializedAs("controlsProgressTmp")] [SerializeField] private TextMeshProUGUI controlsHintTmp;
 
         [SerializeField] private PulseEffect gameplayTutorialTitle;
         [SerializeField] private Slider gameplayTutorialProgress;
         [SerializeField] private GameObject gameplayTutorialDoneIcon;
-        [SerializeField] private TextMeshProUGUI gameplayProgressTmp;
+        [FormerlySerializedAs("gameplayProgressTmp")] [SerializeField] private TextMeshProUGUI gameplayHintTmp;
 
         [SerializeField] private GameObject movementGraphics;
         [SerializeField] private GameObject fireGraphics;
@@ -31,6 +32,7 @@ namespace Tutorial
         public void Init(TutorialController controller)
         {
             if (_isInit) UnInit();
+            gameObject.SetActive(true);
             _controller = controller;
             ToggleGraphics();
             _isInit = true;
@@ -42,6 +44,7 @@ namespace Tutorial
             _controller = null;
             _prevState = null;
             _isInit = false;
+            gameObject.SetActive(false);
         }
 
         private void Update()
@@ -69,11 +72,11 @@ namespace Tutorial
             var isControlsTutorialDone = isGameplayState || _controller.IsDone;
             controlsTutorialDoneIcon.SetActive(isControlsTutorialDone);
             controlsTutorialTitle.Toggle(!isControlsTutorialDone);
-            controlsProgressTmp.gameObject.SetActive(!isControlsTutorialDone);
+            controlsHintTmp.gameObject.SetActive(!isControlsTutorialDone);
 
             gameplayTutorialDoneIcon.SetActive(_controller.IsDone);
             gameplayTutorialTitle.Toggle(isGameplayState && !_controller.IsDone);
-            gameplayProgressTmp.gameObject.SetActive(isGameplayState && !_controller.IsDone);
+            gameplayHintTmp.gameObject.SetActive(isGameplayState && !_controller.IsDone);
         }
 
         private void UpdateProgress()
@@ -87,11 +90,11 @@ namespace Tutorial
 
             if (_controller.CurrentState is MimicTutorialState)
             {
-                gameplayProgressTmp.text = $"{_controller.CurrentState?.Hint}";
+                gameplayHintTmp.text = $"{_controller.CurrentState?.Hint}";
             }
             else
             {
-                controlsProgressTmp.text =
+                controlsHintTmp.text =
                     // $"{_controller.CurrentState?.Hint} ({_controller.CurrentState?.Progress:P2})";
                     $"{_controller.CurrentState?.Hint}";
             }

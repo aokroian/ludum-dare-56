@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -5,6 +6,8 @@ namespace Tutorial
 {
     public class PulseEffect : MonoBehaviour
     {
+        public bool activateOnEnable;
+
         private Vector3 _initialScale;
         private bool IsActive => _tween != null && _tween.IsPlaying();
         private Tween _tween;
@@ -12,6 +15,19 @@ namespace Tutorial
         private void Awake()
         {
             _initialScale = transform.localScale;
+        }
+
+        private void OnEnable()
+        {
+            if (activateOnEnable) Toggle(true);
+        }
+
+        private void OnDisable()
+        {
+            if (IsActive)
+            {
+                Toggle(false);
+            }
         }
 
         public void Toggle(bool active)

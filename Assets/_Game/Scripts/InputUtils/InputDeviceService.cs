@@ -23,7 +23,6 @@ namespace InputUtils
             if (change is InputDeviceChange.Added or InputDeviceChange.Reconnected)
             {
                 CurrentDevice.Value = device;
-                Debug.Log($"Device changed: {CurrentDevice.Value.name}");
             }
         }
 
@@ -34,7 +33,6 @@ namespace InputUtils
             if (device is Mouse or Keyboard or Gamepad or Touchscreen)
             {
                 CurrentDevice.Value = device;
-                Debug.Log($"Input event from device: {CurrentDevice.Value.name}");
             }
         }
     }
