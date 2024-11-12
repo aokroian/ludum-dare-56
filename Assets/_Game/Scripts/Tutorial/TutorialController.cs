@@ -134,7 +134,8 @@ namespace Tutorial
                 _currentUI.UnInit();
             }
 
-            if (ui) ui.Init(this);
+            if (ui && (!_currentUI || (ui != _currentUI && !_currentUI.IsInit)))
+                ui.Init(this);
 
             _currentUI = ui;
         }

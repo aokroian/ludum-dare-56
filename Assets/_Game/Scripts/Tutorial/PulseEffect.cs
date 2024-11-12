@@ -9,7 +9,7 @@ namespace Tutorial
         public bool activateOnEnable;
 
         private Vector3 _initialScale;
-        private bool IsActive => _tween != null && _tween.IsPlaying();
+        private bool IsActive => _tween != null;
         private Tween _tween;
 
         private void Awake()
@@ -30,16 +30,16 @@ namespace Tutorial
             }
         }
 
-        public void Toggle(bool active)
+        public void Toggle(bool isOn)
         {
-            if (active && IsActive)
+            if (isOn && IsActive)
                 return;
-            if (active)
+            if (isOn)
             {
-                _tween = transform.DOScale(_initialScale * 1.1f, 0.5f).SetEase(Ease.InOutSine)
-                    .SetLoops(-1, LoopType.Yoyo);
+                _tween = transform.DOScale(_initialScale * 1.1f, 0.5f)
+                    .SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
             }
-            else if (_tween != null)
+            else if (IsActive)
             {
                 _tween.Kill();
                 transform.localScale = _initialScale;

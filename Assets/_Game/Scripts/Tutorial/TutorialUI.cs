@@ -1,22 +1,23 @@
 using TMPro;
 using Tutorial.States;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Tutorial
 {
     public class TutorialUI : MonoBehaviour
     {
+        public bool IsInit { get; private set; }
+        
         [SerializeField] private PulseEffect controlsTutorialTitle;
         [SerializeField] private GameObject controlsTutorialDoneIcon;
         [SerializeField] private Slider controlsTutorialProgress;
-        [FormerlySerializedAs("controlsProgressTmp")] [SerializeField] private TextMeshProUGUI controlsHintTmp;
+        [SerializeField] private TextMeshProUGUI controlsHintTmp;
 
         [SerializeField] private PulseEffect gameplayTutorialTitle;
         [SerializeField] private Slider gameplayTutorialProgress;
         [SerializeField] private GameObject gameplayTutorialDoneIcon;
-        [FormerlySerializedAs("gameplayProgressTmp")] [SerializeField] private TextMeshProUGUI gameplayHintTmp;
+        [SerializeField] private TextMeshProUGUI gameplayHintTmp;
 
         [SerializeField] private GameObject movementGraphics;
         [SerializeField] private GameObject fireGraphics;
@@ -27,29 +28,28 @@ namespace Tutorial
         private TutorialState _prevState;
         private bool _prevIsDone;
         private TutorialController _controller;
-        private bool _isInit;
 
         public void Init(TutorialController controller)
         {
-            if (_isInit) UnInit();
+            if (IsInit) UnInit();
             gameObject.SetActive(true);
             _controller = controller;
             ToggleGraphics();
-            _isInit = true;
+            IsInit = true;
         }
 
         public void UnInit()
         {
-            if (!_isInit) return;
+            if (!IsInit) return;
             _controller = null;
             _prevState = null;
-            _isInit = false;
+            IsInit = false;
             gameObject.SetActive(false);
         }
 
         private void Update()
         {
-            if (!_isInit) return;
+            if (!IsInit) return;
             if (_prevState != _controller.CurrentState || _prevIsDone != _controller.IsDone)
             {
                 ToggleGraphics();
