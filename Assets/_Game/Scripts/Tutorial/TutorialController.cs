@@ -142,7 +142,12 @@ namespace Tutorial
 
         public void TweenPlayerPosToShootMimicPos(float duration, Action onComplete = null)
         {
-            player.transform.DOMove(playerShootMimicPos.position, duration).OnComplete(() => { onComplete?.Invoke(); });
+            player.enabled = false;
+            player.transform.DOMove(playerShootMimicPos.position, duration).OnComplete(() =>
+            {
+                player.enabled = true;
+                onComplete?.Invoke();
+            });
         }
 
         private void SmoothLookAt(Vector3 targetPosition)
@@ -153,9 +158,5 @@ namespace Tutorial
         }
 
         public void SetLookAtActiveProp(bool isOn) => _isLookAtActiveProp = isOn;
-        // {
-        // var activeProp = _levelController.ActiveProps[0];
-        // player.transform.LookAt(activeProp.transform.position);
-        // }
     }
 }
