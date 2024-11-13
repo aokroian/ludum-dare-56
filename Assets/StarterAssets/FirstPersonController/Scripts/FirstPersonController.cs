@@ -210,7 +210,7 @@ namespace StarterAssets
 			// move the player
 			var finalMotion = inputDirection.normalized * (_speed * Time.deltaTime) +
 			                  new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime;
-			_controller.Move(finalMotion);
+			if (_controller.enabled) _controller.Move(finalMotion);
 			if (_input.move != Vector2.zero && _speed > targetSpeed * .08f &&
 			    Time.time - _lastStepTime > 1 / (MoveSpeed * .43f)) 
 			{
