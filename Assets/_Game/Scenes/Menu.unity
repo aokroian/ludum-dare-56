@@ -1704,6 +1704,7 @@ MonoBehaviour:
         m_TrackedProperties:
           items:
           - rid: 1026817993642606886
+          - rid: 1528232565574468080
         m_UpdateType: 0
     - rid: 1026817993642606886
       type: {class: LocalizedStringProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
@@ -1718,6 +1719,17 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         m_PropertyPath: m_text
+    - rid: 1528232565574468080
+      type: {class: BoolTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_isRightToLeft
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: 0
+        - localeIdentifier:
+            m_Code: ru
+          value: 0
 --- !u!114 &427513220
 MonoBehaviour:
   m_ObjectHideFlags: 0

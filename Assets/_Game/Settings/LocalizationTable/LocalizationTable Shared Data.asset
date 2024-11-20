@@ -149,6 +149,42 @@ MonoBehaviour:
     m_Key: Game/Cutscene/Canvas/NightsCountPanel/GameCompletedText
     m_Metadata:
       m_Items: []
+  - m_Id: 9454898667053056
+    m_Key: Tutorial/Keyboard_Tutorial_Canvas/hints/FinalGraphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9455058562310144
+    m_Key: Tutorial/Gamepad_Tutorial_Canvas/hints/FinalGraphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9455286954745856
+    m_Key: Tutorial/Touch_Tutorial_Canvas/SafeArea/FinalGraphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9455881392480256
+    m_Key: Tutorial/Keyboard_Tutorial_Canvas/Titles/controls/ControlsTutorialTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9456122413965312
+    m_Key: Tutorial/Keyboard_Tutorial_Canvas/Titles/gameplay/GameplayTutorialTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9456334079516672
+    m_Key: Tutorial/Gamepad_Tutorial_Canvas/Titles/controls/ControlsTutorialTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9456408360640512
+    m_Key: Tutorial/Gamepad_Tutorial_Canvas/Titles/gameplay/GameplayTutorialTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9456568213954560
+    m_Key: Tutorial/Touch_Tutorial_Canvas/SafeArea/Titles/controls/ControlsTutorialTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9456611750830080
+    m_Key: Tutorial/Touch_Tutorial_Canvas/SafeArea/Titles/gameplay/GameplayTutorialTitle
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

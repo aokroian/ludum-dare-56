@@ -152,6 +152,42 @@ MonoBehaviour:
     m_Localized: Finally, I'm safe...
     m_Metadata:
       m_Items: []
+  - m_Id: 9454898667053056
+    m_Localized: You are ready to play now!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9455058562310144
+    m_Localized: You are ready to play now!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9455286954745856
+    m_Localized: You are ready to play now!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9455881392480256
+    m_Localized: controls tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9456122413965312
+    m_Localized: gameplay tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9456334079516672
+    m_Localized: controls tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9456408360640512
+    m_Localized: gameplay tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9456568213954560
+    m_Localized: controls tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9456611750830080
+    m_Localized: gameplay tutorial
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
