@@ -8,6 +8,7 @@ using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 
@@ -21,7 +22,9 @@ namespace Player
         [SerializeField] private Button touchRestartButton;
         
         [SerializeField] private CanvasGroup cutsceneCanvasGroup;
-        [SerializeField] private TMP_Text cutsceneCanvasText;
+        [SerializeField] private TMP_Text nightCountText;
+        [SerializeField] private GameObject nightsTextsParent;
+        [SerializeField] private GameObject gameCompletedText;
 
         [SerializeField] private CinemachineVirtualCamera mainVirtualCamera;
         [SerializeField] private CinemachineVirtualCamera attackVirtualCamera;
@@ -91,13 +94,17 @@ namespace Player
             _playerInputsService.EnableInputs(PlayerInputFlags.NonGameplay);
             canvas.gameObject.SetActive(true);
             cutsceneCanvasGroup.alpha = 1;
-            cutsceneCanvasText.text = "";
+            nightCountText.text = "";
+            nightsTextsParent.SetActive(true);
+            gameCompletedText.SetActive(false);
         }
 
         private void OnNightFinished(NightFinishedEvent e)
         {
             PrepareCutscene();
-            cutsceneCanvasText.text = "Night " + e.Night + 1;
+            nightCountText.text = (e.Night + 1).ToString();
+            nightsTextsParent.SetActive(true);
+            gameCompletedText.SetActive(false);
         }
 
         private void OnNightStarted(NightStartedEvent e)
@@ -119,7 +126,9 @@ namespace Player
             player.enabled = true;
             
             var seq = DOTween.Sequence();
-            cutsceneCanvasText.text = "Night " + e.Night;
+            nightsTextsParent.SetActive(true);
+            gameCompletedText.SetActive(false);
+            nightCountText.text = e.Night.ToString();
             seq.AppendInterval(1f);
             seq.Append(cutsceneCanvasGroup.DOFade(0, 0f));
             seq.onComplete += BedAnimation;
@@ -150,7 +159,8 @@ namespace Player
         private void OnGameFinished()
         {
             PrepareCutscene();
-            cutsceneCanvasText.text = "Finally, I am safe";
+            nightsTextsParent.SetActive(false);
+            gameCompletedText.SetActive(true);
             _gameStateProvider.ClearGameState();
         }
         

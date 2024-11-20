@@ -128,6 +128,30 @@ MonoBehaviour:
     m_Localized: exit to menu
     m_Metadata:
       m_Items: []
+  - m_Id: 9448432560234496
+    m_Localized: you died\nPress <color=#EED17A>"R"</color> to restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9448781928980480
+    m_Localized: you died\n\n
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9448818893381632
+    m_Localized: restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9449165460332544
+    m_Localized: you died\nPress           to restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9450040673165312
+    m_Localized: Night
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9452516566622208
+    m_Localized: Finally, I'm safe...
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -125,6 +125,30 @@ MonoBehaviour:
     m_Key: EscManager/EscManager/Canvas/Exit_Keyboard/text
     m_Metadata:
       m_Items: []
+  - m_Id: 9448432560234496
+    m_Key: Game/Cutscene/Canvas/DiedPanel/Keyboard/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9448781928980480
+    m_Key: Game/Cutscene/Canvas/DiedPanel/Touchscreen/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9448818893381632
+    m_Key: Game/Cutscene/Canvas/DiedPanel/Touchscreen/RestartButton/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9449165460332544
+    m_Key: Game/Cutscene/Canvas/DiedPanel/Gamepad/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9450040673165312
+    m_Key: Game/Cutscene/Canvas/NightsCountPanel/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9452516566622208
+    m_Key: Game/Cutscene/Canvas/NightsCountPanel/GameCompletedText
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
