@@ -221,18 +221,6 @@ MonoBehaviour:
     m_Key: MimicTutorialShootMimicMessage
     m_Metadata:
       m_Items: []
-  - m_Id: 9458878612000768
-    m_Key: MouseSensitivityKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 9458906176966656
-    m_Key: SoundVolumeKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 9458944106057728
-    m_Key: GraphicsQualityKey
-    m_Metadata:
-      m_Items: []
   - m_Id: 9459034988236800
     m_Key: NextNightMessages1
     m_Metadata:

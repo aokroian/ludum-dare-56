@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 3576f0c68493f65418651420a27f1c28, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 5235233823244419223
   m_TableData:
   - m_Id: 30849569185792
     m_Localized: Start game
@@ -225,18 +226,6 @@ MonoBehaviour:
     m_Localized: This item moved while it was dark! It's a mimic, shoot it!
     m_Metadata:
       m_Items: []
-  - m_Id: 9458878612000768
-    m_Localized: MouseSensitivity
-    m_Metadata:
-      m_Items: []
-  - m_Id: 9458906176966656
-    m_Localized: SoundVolume
-    m_Metadata:
-      m_Items: []
-  - m_Id: 9458944106057728
-    m_Localized: GraphicsQuality
-    m_Metadata:
-      m_Items: []
   - m_Id: 9459034988236800
     m_Localized: I feel a presence. Another mimic is here.
     m_Metadata:
@@ -281,7 +270,8 @@ MonoBehaviour:
     m_Localized: '{global.matches:p:<color=#EED17A>{}</color> match left|<color=#EED17A>{}</color>
       matches left}'
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 5235233823244419223
   - m_Id: 9470697669939200
     m_Localized: No matches left. I'm doomed.
     m_Metadata:
@@ -290,7 +280,8 @@ MonoBehaviour:
     m_Localized: '{global.bullets:p:<color=#EED17A>{}</color> bullet left|<color=#EED17A>{}</color>
       bullets left}'
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 5235233823244419223
   - m_Id: 9473841997041664
     m_Localized: No bullets left. This is the end.
     m_Metadata:
@@ -301,4 +292,11 @@ MonoBehaviour:
       m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5235233823244419223
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 9473829145694208
+        - id: 9470644884623360
