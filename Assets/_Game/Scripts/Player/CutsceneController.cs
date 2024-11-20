@@ -64,7 +64,7 @@ namespace Player
                 .Subscribe(device =>
                 {
                     gamepadRestartText.SetActive(device is Gamepad);
-                    keyboardRestartText.SetActive(device is Keyboard);
+                    keyboardRestartText.SetActive(device is Keyboard or Mouse);
                     touchRestartButton.transform.parent.gameObject.SetActive(device is Touchscreen);
                 }).AddTo(this);
             touchRestartButton.onClick.AddListener(() =>
