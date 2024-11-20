@@ -42,6 +42,56 @@ MonoBehaviour:
     m_Localized: Tutorial
     m_Metadata:
       m_Items: []
+  - m_Id: 9433659667898368
+    m_Localized: made for Ludum Dare 56
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434063277383680
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434148312702976
+    m_Localized: back to menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434263232438272
+    m_Localized: Look Sensitivity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434301639680000
+    m_Localized: Sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434327828914176
+    m_Localized: Graphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434467641843712
+    m_Localized: reset game progress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434826812678144
+    m_Localized: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434897000161280
+    m_Localized: "Devs:\n\nSergei L.  Alik O.\nVladimir S. \nAlexei S. Alexei K.
+      \n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9435197954056192
+    m_Localized: 'Music:
+
+
+      https://freesound.org/s/700747/
+
+      https://freesound.org/s/475738/'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9435335191683072
+    m_Localized: back to menu
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

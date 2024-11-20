@@ -39,6 +39,50 @@ MonoBehaviour:
     m_Key: Menu/MenuController/SafeArea/MainPanel/Tutorial
     m_Metadata:
       m_Items: []
+  - m_Id: 9433659667898368
+    m_Key: Menu/MenuController/SafeArea/LD_Text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434063277383680
+    m_Key: Menu/MenuController/SafeArea/SettingsPanel/Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434148312702976
+    m_Key: Menu/MenuController/SafeArea/SettingsPanel/BackButton/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434263232438272
+    m_Key: Menu/MenuController/SafeArea/SettingsPanel/Container/LookSensLabel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434301639680000
+    m_Key: Menu/MenuController/SafeArea/SettingsPanel/Container/SoundsLabel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434327828914176
+    m_Key: Menu/MenuController/SafeArea/SettingsPanel/Container/GraphicsLabel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434467641843712
+    m_Key: Menu/MenuController/SafeArea/SettingsPanel/ClearProgressButton/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434826812678144
+    m_Key: Menu/MenuController/SafeArea/CreditsPanel/Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434897000161280
+    m_Key: Menu/MenuController/SafeArea/CreditsPanel/DevsText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9435197954056192
+    m_Key: Menu/MenuController/SafeArea/CreditsPanel/MusicText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9435335191683072
+    m_Key: Menu/MenuController/SafeArea/CreditsPanel/BackButton/Text (TMP)
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
