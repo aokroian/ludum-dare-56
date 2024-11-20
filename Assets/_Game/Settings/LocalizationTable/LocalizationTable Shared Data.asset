@@ -83,6 +83,36 @@ MonoBehaviour:
     m_Key: Menu/MenuController/SafeArea/CreditsPanel/BackButton/Text (TMP)
     m_Metadata:
       m_Items: []
+  - m_Id: 9442980673871872
+    m_Key: Menu/MenuController/SafeArea/SettingsPanel/Container/GraphicsTabGroup/GraphicsButton/Text
+      (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9443035598282752
+    m_Key: Menu/MenuController/SafeArea/SettingsPanel/Container/GraphicsTabGroup/GraphicsButton
+      (1)/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9443062383108096
+    m_Key: Menu/MenuController/SafeArea/SettingsPanel/Container/GraphicsTabGroup/GraphicsButton
+      (2)/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9444616670535680
+    m_Key: Menu/MenuController/SafeArea/SettingsPanel/Container/GraphicsValueTmps/Text
+      (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9444629396054016
+    m_Key: Menu/MenuController/SafeArea/SettingsPanel/Container/GraphicsValueTmps/Text
+      (TMP) (1)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9444646580117504
+    m_Key: Menu/MenuController/SafeArea/SettingsPanel/Container/GraphicsValueTmps/Text
+      (TMP) (2)
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

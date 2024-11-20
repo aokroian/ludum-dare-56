@@ -26,8 +26,16 @@ namespace Menu
         [SerializeField] private AudioMixer audioMixer;
         [SerializeField] private Button clearProgressBtn;
         [SerializeField] private Slider volumeSlider;
-        [SerializeField] private Slider mouseSensitivitySlider;
-        [SerializeField] private TMP_Dropdown graphicsDropdown;
+        [SerializeField] private TextMeshProUGUI volumeValueTmp;
+        [SerializeField] private Slider lookSensSlider;
+        [SerializeField] private TextMeshProUGUI lookSensValueTmp;
+
+        [SerializeField] private Button mediumGraphicsBtn;
+        [SerializeField] private Button highGraphicsBtn;
+        [SerializeField] private Button ultraGraphicsBtn;
+        [SerializeField] private TextMeshProUGUI mediumGraphicsValueTmp;
+        [SerializeField] private TextMeshProUGUI highGraphicsValueTmp;
+        [SerializeField] private TextMeshProUGUI ultraGraphicsValueTmp;
 
         private SignalBus _signalBus;
         private GameStateProvider _gameStateProvider;
@@ -51,23 +59,20 @@ namespace Menu
             tutorialBtn.onClick.AddListener(StartTutorial);
 
             volumeSlider.value = PlayerPrefs.GetFloat(Strings.SoundVolumeKey, 1f);
-            mouseSensitivitySlider.value = PlayerPrefs.GetFloat(Strings.MouseSensitivityKey, .5f);
+            lookSensSlider.value = PlayerPrefs.GetFloat(Strings.MouseSensitivityKey, .5f);
 
             volumeSlider.onValueChanged.AddListener(OnVolumeSliderChanged);
-            mouseSensitivitySlider.onValueChanged.AddListener(OnMouseSensitivitySliderChanged);
+            lookSensSlider.onValueChanged.AddListener(OnMouseSensitivitySliderChanged);
+            volumeValueTmp.text = Mathf.RoundToInt(volumeSlider.value * 100) + "%";
 
-            var graphicsNames = QualitySettings.names;
-            graphicsDropdown.options.Clear();
-            foreach (var n in graphicsNames)
-            {
-                graphicsDropdown.options.Add(new TMP_Dropdown.OptionData(n));
-            }
+            mediumGraphicsBtn.onClick.AddListener(() => { OnGraphicsQualityChanged(1); });
+            highGraphicsBtn.onClick.AddListener(() => { OnGraphicsQualityChanged(2); });
+            ultraGraphicsBtn.onClick.AddListener(() => { OnGraphicsQualityChanged(3); });
 
-            graphicsDropdown.value = PlayerPrefs.GetInt(Strings.GraphicsQualityKey, QualitySettings.names.Length - 1);
-            graphicsDropdown.onValueChanged.AddListener(OnGraphicsQualityChanged);
             OnVolumeSliderChanged(volumeSlider.value);
-            OnMouseSensitivitySliderChanged(mouseSensitivitySlider.value);
-            OnGraphicsQualityChanged(graphicsDropdown.value);
+            OnMouseSensitivitySliderChanged(lookSensSlider.value);
+            var currentGraphics = PlayerPrefs.GetInt(Strings.GraphicsQualityKey, 2);
+            OnGraphicsQualityChanged(currentGraphics);
 
 #if UNITY_WEBGl
             quitBtn.gameObject.SetActive(false);
@@ -139,18 +144,23 @@ namespace Menu
 
             audioMixer.SetFloat("Volume", value);
             PlayerPrefs.SetFloat(Strings.SoundVolumeKey, valuePercent);
+            volumeValueTmp.text = Mathf.RoundToInt(valuePercent * 100) + "%";
         }
 
         private void OnMouseSensitivitySliderChanged(float value)
         {
             if (value < 0.03f) value = 0.03f;
             PlayerPrefs.SetFloat(Strings.MouseSensitivityKey, value);
+            lookSensValueTmp.text = Mathf.RoundToInt(value * 100) + "%";
         }
 
         private void OnGraphicsQualityChanged(int value)
         {
             PlayerPrefs.SetInt(Strings.GraphicsQualityKey, value);
             QualitySettings.SetQualityLevel(value);
+            mediumGraphicsValueTmp.gameObject.SetActive(value == 1);
+            highGraphicsValueTmp.gameObject.SetActive(value == 2);
+            ultraGraphicsValueTmp.gameObject.SetActive(value == 3);
         }
     }
 }

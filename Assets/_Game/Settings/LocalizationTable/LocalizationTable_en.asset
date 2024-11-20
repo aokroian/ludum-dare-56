@@ -92,6 +92,30 @@ MonoBehaviour:
     m_Localized: back to menu
     m_Metadata:
       m_Items: []
+  - m_Id: 9442980673871872
+    m_Localized: medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9443035598282752
+    m_Localized: high
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9443062383108096
+    m_Localized: ultra
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9444616670535680
+    m_Localized: medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9444629396054016
+    m_Localized: high
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9444646580117504
+    m_Localized: ultra
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
