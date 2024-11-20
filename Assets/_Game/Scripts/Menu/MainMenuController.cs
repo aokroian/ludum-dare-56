@@ -1,9 +1,12 @@
-﻿using _GameTemplate.Scripts.SceneManagement;
+﻿using System.Collections.Generic;
+using System.Linq;
+using _GameTemplate.Scripts.SceneManagement;
 using GameLoop;
 using GameLoop.Events;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 using Zenject;
 
@@ -11,6 +14,9 @@ namespace Menu
 {
     public class MainMenuController : MonoBehaviour
     {
+        [SerializeField] private Button rusLangBtn;
+        [SerializeField] private Button engLangBtn;
+
         [SerializeField] private Button startGameBtn;
         [SerializeField] private Button settingsBtn;
         [SerializeField] private Button backFromSettingsBtn;
@@ -49,6 +55,17 @@ namespace Menu
 
         private void Start()
         {
+            if (PlayerPrefs.GetString(Strings.LanguageKey, "en") == "ru")
+            {
+                SetRusLang();
+            }
+            else
+            {
+                SetEngLang();
+            }
+
+            rusLangBtn.onClick.AddListener(SetRusLang);
+            engLangBtn.onClick.AddListener(SetEngLang);
             startGameBtn.onClick.AddListener(StartGame);
             quitBtn.onClick.AddListener(QuitGame);
             settingsBtn.onClick.AddListener(OpenSettings);
@@ -112,6 +129,22 @@ namespace Menu
         private void QuitGame()
         {
             Application.Quit();
+        }
+
+        private void SetRusLang()
+        {
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale("ru");
+            engLangBtn.transform.GetChild(0).gameObject.SetActive(true);
+            rusLangBtn.transform.GetChild(0).gameObject.SetActive(false);
+            PlayerPrefs.SetString(Strings.LanguageKey, "ru");
+        }
+
+        private void SetEngLang()
+        {
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale("en");
+            engLangBtn.transform.GetChild(0).gameObject.SetActive(false);
+            rusLangBtn.transform.GetChild(0).gameObject.SetActive(true);
+            PlayerPrefs.SetString(Strings.LanguageKey, "en");
         }
 
         private void OpenSettings()
