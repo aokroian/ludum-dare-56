@@ -8,19 +8,18 @@ using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 
 namespace Player
 {
-    public class CutsceneController: MonoBehaviour
+    public class CutsceneController : MonoBehaviour
     {
         [SerializeField] private Canvas canvas;
         [SerializeField] private GameObject gamepadRestartText;
         [SerializeField] private GameObject keyboardRestartText;
         [SerializeField] private Button touchRestartButton;
-        
+
         [SerializeField] private CanvasGroup cutsceneCanvasGroup;
         [SerializeField] private TMP_Text nightCountText;
         [SerializeField] private GameObject nightsTextsParent;
@@ -33,47 +32,34 @@ namespace Player
 
         [SerializeField] private Transform playerStartPos;
         [SerializeField] private CharacterController player;
-
         [SerializeField] private RectTransform gameOverScreen;
-        
-        
+
         private GameStateProvider _gameStateProvider;
         private SignalBus _signalBus;
         private PlayerInputsService _playerInputsService;
         private InputDeviceService _inputDeviceService;
-        
-        // Fast workaround
-        private static CutsceneController _instance;
 
         [Inject]
         private void Initialize(
             SignalBus signalBus,
             PlayerInputsService playerInputsService,
             GameStateProvider gameStateProvider,
-            InputDeviceService inputDeviceService)
+            InputDeviceService inputDeviceService
+        )
         {
             gameOverScreen.gameObject.SetActive(false);
-            
-            if (_instance != null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            _instance = this;
-            
             _playerInputsService = playerInputsService;
             _inputDeviceService = inputDeviceService;
             _inputDeviceService.CurrentDevice
-                .Subscribe(device =>
-                {
-                    gamepadRestartText.SetActive(device is Gamepad);
-                    keyboardRestartText.SetActive(device is Keyboard or Mouse);
-                    touchRestartButton.transform.parent.gameObject.SetActive(device is Touchscreen);
-                }).AddTo(this);
-            touchRestartButton.onClick.AddListener(() =>
-            {
-                _playerInputsService.CurrentState.restart = true;
-            });
+                .Subscribe(
+                    device =>
+                    {
+                        gamepadRestartText.SetActive(device is Gamepad);
+                        keyboardRestartText.SetActive(device is Keyboard or Mouse);
+                        touchRestartButton.transform.parent.gameObject.SetActive(device is Touchscreen);
+                    })
+                .AddTo(this);
+            touchRestartButton.onClick.AddListener(() => { _playerInputsService.CurrentState.restart = true; });
             
             _gameStateProvider = gameStateProvider;
             _signalBus = signalBus;
@@ -82,11 +68,8 @@ namespace Player
             _signalBus.Subscribe<GameFinishedEvent>(OnGameFinished);
             _signalBus.Subscribe<AttackPlayerEvent>(OnAttackPlayer);
             _signalBus.Subscribe<GameOverEvent>(OnGameOver);
-            
-            
-            // PrepareCutscene();
-            
-            // DontDestroyOnLoad(this);
+            nightsTextsParent.SetActive(true);
+            gameCompletedText.SetActive(false);
         }
 
         private void PrepareCutscene()
@@ -94,7 +77,6 @@ namespace Player
             _playerInputsService.EnableInputs(PlayerInputFlags.NonGameplay);
             canvas.gameObject.SetActive(true);
             cutsceneCanvasGroup.alpha = 1;
-            nightCountText.text = "";
             nightsTextsParent.SetActive(true);
             gameCompletedText.SetActive(false);
         }
@@ -103,59 +85,47 @@ namespace Player
         {
             PrepareCutscene();
             nightCountText.text = (e.Night + 1).ToString();
-            nightsTextsParent.SetActive(true);
-            gameCompletedText.SetActive(false);
         }
 
         private void OnNightStarted(NightStartedEvent e)
         {
             PrepareCutscene();
-            Debug.Log("Night started");
-            // TODO: Start cutscene
-            // TODO: Move parameters to config
-            
-            // var cam = Camera.main;
-            // var camBrain = cam.GetComponent<CinemachineBrain>();
             camBrain.m_DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Style.EaseInOut, 0);
-            
             bedVirtualCamera.enabled = true;
-            
+
             player.enabled = false;
             player.transform.position = playerStartPos.position;
             player.transform.rotation = playerStartPos.rotation;
             player.enabled = true;
-            
+
             var seq = DOTween.Sequence();
-            nightsTextsParent.SetActive(true);
-            gameCompletedText.SetActive(false);
             nightCountText.text = e.Night.ToString();
             seq.AppendInterval(1f);
-            seq.Append(cutsceneCanvasGroup.DOFade(0, 0f));
+            seq.Append(cutsceneCanvasGroup.DOFade(0, .5f));
             seq.onComplete += BedAnimation;
-            // _playerInputsService.EnableInput();
         }
 
         private void BedAnimation()
         {
-            // var cam = Camera.main;
-            // var camBrain = cam.GetComponent<CinemachineBrain>();
             camBrain.m_DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Style.EaseInOut, 2);
             bedVirtualCamera.enabled = false;
 
             DisposableBag disposable = default;
-            
+
             Observable.EveryUpdate()
                 .ObserveOn(UnityFrameProvider.Update)
-                .Subscribe(_ =>
-                {
-                    if (camBrain.IsBlending)
-                        return;
-                    
-                    _playerInputsService.EnableInputs(PlayerInputFlags.All);
-                    disposable.Dispose();
-                }).AddTo(ref disposable);
+                .Subscribe(
+                    _ =>
+                    {
+                        if (camBrain.IsBlending)
+                            return;
+
+                        _playerInputsService.EnableInputs(PlayerInputFlags.All);
+                        disposable.Dispose();
+                    })
+                .AddTo(ref disposable);
         }
-        
+
         private void OnGameFinished()
         {
             PrepareCutscene();
@@ -163,39 +133,42 @@ namespace Player
             gameCompletedText.SetActive(true);
             _gameStateProvider.ClearGameState();
         }
-        
+
         private async void OnAttackPlayer(AttackPlayerEvent e)
         {
             await Observable.Timer(System.TimeSpan.FromSeconds(0.2f))
-                .ObserveOnMainThread().WaitAsync();
+                .ObserveOnMainThread()
+                .WaitAsync();
             camBrain.m_DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Style.EaseInOut, 0.5f);
-            _playerInputsService.EnableInputs(PlayerInputFlags.NonGameplay);   
+            _playerInputsService.EnableInputs(PlayerInputFlags.NonGameplay);
             attackVirtualCamera.transform.position = mainVirtualCamera.transform.position;
             attackVirtualCamera.enabled = true;
             attackVirtualCamera.LookAt = e.EnemyTransform;
         }
-        
+
         private void OnGameOver()
         {
             attackVirtualCamera.enabled = false;
             _playerInputsService.CurrentState.restart = false;
-            
+
             canvas.gameObject.SetActive(true);
             gameOverScreen.gameObject.SetActive(true);
-            
+
             DisposableBag disposable = default;
             Observable.EveryUpdate()
                 .ObserveOn(UnityFrameProvider.Update)
-                .Subscribe(_ =>
-                {
-                    if (_playerInputsService.CurrentState.restart)
+                .Subscribe(
+                    _ =>
                     {
-                        _playerInputsService.CurrentState.restart = false;
-                        disposable.Dispose();
-                        gameOverScreen.gameObject.SetActive(false);
-                        FindFirstObjectByType<GameSceneEntryPoint>().StartGame();
-                    }
-                }).AddTo(ref disposable);
+                        if (_playerInputsService.CurrentState.restart)
+                        {
+                            _playerInputsService.CurrentState.restart = false;
+                            disposable.Dispose();
+                            gameOverScreen.gameObject.SetActive(false);
+                            FindFirstObjectByType<GameSceneEntryPoint>().StartGame();
+                        }
+                    })
+                .AddTo(ref disposable);
         }
     }
 }

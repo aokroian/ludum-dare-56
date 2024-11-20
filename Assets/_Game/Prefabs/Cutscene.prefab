@@ -535,7 +535,7 @@ GameObject:
   - component: {fileID: 1399834532617062325}
   - component: {fileID: 5212573695380633195}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -558,7 +558,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -26.249962, y: 0}
-  m_SizeDelta: {x: 170, y: 100}
+  m_SizeDelta: {x: 180, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3281231336574133101
 CanvasRenderer:
@@ -588,7 +588,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Night 0
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2a8a373daa54d43e39ddb918329852a0, type: 2}
   m_sharedMaterial: {fileID: 883340157440514788, guid: 2a8a373daa54d43e39ddb918329852a0, type: 2}
@@ -939,7 +939,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1405891749280080071}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: NightsCountTexts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -963,7 +963,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -14.75, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 222.5, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3708162181133045041
@@ -1019,7 +1019,7 @@ MonoBehaviour:
   keyboardRestartText: {fileID: 4399629860048183308}
   touchRestartButton: {fileID: 2653934847722085868}
   cutsceneCanvasGroup: {fileID: 110277750529340506}
-  cutsceneCanvasText: {fileID: 5641541361817947112}
+  nightCountText: {fileID: 5641541361817947112}
   nightsTextsParent: {fileID: 3706009486547311725}
   gameCompletedText: {fileID: 5899546428359441582}
   mainVirtualCamera: {fileID: 0}
@@ -1263,7 +1263,6 @@ GameObject:
   - component: {fileID: 1053643358787359961}
   - component: {fileID: 1537621292477217632}
   - component: {fileID: 5592793901483807645}
-  - component: {fileID: 2996051395210957924}
   m_Layer: 5
   m_Name: DiedPanel
   m_TagString: Untagged
@@ -1331,21 +1330,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2996051395210957924
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5122660467619739558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c97afc556caea1c44969477eb7ddec74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConformX: 1
-  ConformY: 1
-  Logging: 0
 --- !u!1 &5262534074095019486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1701,13 +1685,15 @@ GameObject:
   - component: {fileID: 8695755502750842963}
   - component: {fileID: 7590976249075711399}
   - component: {fileID: 2058385602531528533}
+  - component: {fileID: 5790217112595087074}
+  - component: {fileID: 5405635107925802924}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: GameCompletedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8695755502750842963
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1725,7 +1711,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 551.07, y: 100}
+  m_SizeDelta: {x: 851.7, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7590976249075711399
 CanvasRenderer:
@@ -1755,7 +1741,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Finally, I'm safe.
+  m_text: Finally, I'm safe...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2a8a373daa54d43e39ddb918329852a0, type: 2}
   m_sharedMaterial: {fileID: 883340157440514788, guid: 2a8a373daa54d43e39ddb918329852a0, type: 2}
@@ -1826,6 +1812,84 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5790217112595087074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5899546428359441582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2058385602531528533}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &5405635107925802924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5899546428359441582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 1528232565574467978
+  references:
+    version: 2
+    RefIds:
+    - rid: 1528232565574467978
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 2058385602531528533}
+        m_TrackedProperties:
+          items:
+          - rid: 1528232565574467979
+        m_UpdateType: 0
+    - rid: 1528232565574467979
+      type: {class: LocalizedStringProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_Localized:
+          m_TableReference:
+            m_TableCollectionName: GUID:3576f0c68493f65418651420a27f1c28
+          m_TableEntryReference:
+            m_KeyId: 9452516566622208
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        m_PropertyPath: m_text
 --- !u!1 &6071068389937418049
 GameObject:
   m_ObjectHideFlags: 0
@@ -2202,7 +2266,7 @@ GameObject:
   - component: {fileID: 9006523800471697465}
   - component: {fileID: 5641541361817947112}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2338,7 +2402,6 @@ GameObject:
   - component: {fileID: 4841531181007693658}
   - component: {fileID: 8245574766906792964}
   - component: {fileID: 110277750529340506}
-  - component: {fileID: 4597488899247090696}
   m_Layer: 5
   m_Name: NightsCountPanel
   m_TagString: Untagged
@@ -2417,18 +2480,3 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &4597488899247090696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7216977723039896195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c97afc556caea1c44969477eb7ddec74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConformX: 1
-  ConformY: 1
-  Logging: 0
