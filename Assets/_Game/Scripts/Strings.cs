@@ -1,3 +1,8 @@
+using System;
+using UnityEngine;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.Tables;
+
 public static class Strings
 {
     // tutorial
@@ -47,6 +52,16 @@ public static class Strings
     {
         "I missed the mimic. I need to look for it better.",
     };
+
+    private static readonly string TestStringKey = "TestStringKey";
+
+    public static void Localize(string key, Action<string> onComplete)
+    {
+        var locale = LocalizationSettings.SelectedLocale;
+        var reference = (TableEntryReference) key;
+        LocalizationSettings.StringDatabase.GetLocalizedStringAsync(reference, locale).Completed +=
+            (it) => onComplete(it.Result);
+    }
 
     public static string GetNextNightMessage()
     {

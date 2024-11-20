@@ -185,6 +185,94 @@ MonoBehaviour:
     m_Key: Tutorial/Touch_Tutorial_Canvas/SafeArea/Titles/gameplay/GameplayTutorialTitle
     m_Metadata:
       m_Items: []
+  - m_Id: 9457496018407424
+    m_Key: FireControlsTutorialHint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458409311326208
+    m_Key: LookControlsTutorialHint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458496187944960
+    m_Key: MoveControlsTutorialHint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458541708726272
+    m_Key: MatchControlsTutorialHint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458604338073600
+    m_Key: MimicTutorialIntroMessage1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458650097930240
+    m_Key: MimicTutorialIntroMessage2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458683362955264
+    m_Key: MimicTutorialIntroMessage3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458724462940160
+    m_Key: MimicTutorialMatchWentOutMessage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458782067511296
+    m_Key: MimicTutorialShootMimicMessage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458878612000768
+    m_Key: MouseSensitivityKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458906176966656
+    m_Key: SoundVolumeKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458944106057728
+    m_Key: GraphicsQualityKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459034988236800
+    m_Key: NextNightMessages1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459098531942400
+    m_Key: NextNightMessages2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459102264872960
+    m_Key: NextNightMessages3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459193243521024
+    m_Key: FirstNightMessages1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459248235040768
+    m_Key: FirstNightMessages2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459291243433984
+    m_Key: MatchWentOutMessages1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459306338734080
+    m_Key: MatchWentOutMessages2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459381920092160
+    m_Key: HitMimicMessages1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459390363226112
+    m_Key: HitMimicMessages2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459478254866432
+    m_Key: MissedMimicMessages
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

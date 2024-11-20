@@ -188,6 +188,95 @@ MonoBehaviour:
     m_Localized: gameplay tutorial
     m_Metadata:
       m_Items: []
+  - m_Id: 9457496018407424
+    m_Localized: To Shoot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458409311326208
+    m_Localized: To Look
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458496187944960
+    m_Localized: To Walk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458541708726272
+    m_Localized: To Light Matchstick
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458604338073600
+    m_Localized: Now let's learn about mimics. They can disguise themselves as props
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458650097930240
+    m_Localized: You can find them if you notice some object moved while it was dark.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458683362955264
+    m_Localized: Take a look at this prop. Try to remember where it is. The matchstick
+      will go out soon.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458724462940160
+    m_Localized: The matchstick went out. Let's light it up again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458782067511296
+    m_Localized: This item moved while it was dark! It's a mimic, shoot it!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458878612000768
+    m_Localized: MouseSensitivity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458906176966656
+    m_Localized: SoundVolume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9458944106057728
+    m_Localized: GraphicsQuality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459034988236800
+    m_Localized: I feel a presence. Another mimic is here.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459098531942400
+    m_Localized: I hear something. It's another mimic.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459102264872960
+    m_Localized: I can feel it. Another mimic is here.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459193243521024
+    m_Localized: The mimic is hunting me. It's among the items.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459248235040768
+    m_Localized: The mimic is hiding among the items. I need to find it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459291243433984
+    m_Localized: The match went out. The mimic acts in the dark.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459306338734080
+    m_Localized: I can't see anything. I need to light the match.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459381920092160
+    m_Localized: I shot the mimic. I can rest for now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459390363226112
+    m_Localized: I hit the mimic. The night is a bit safer now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9459478254866432
+    m_Localized: I missed the mimic. I need to look for it better.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
