@@ -90,13 +90,21 @@ namespace Tutorial
 
             if (_controller.CurrentState is MimicTutorialState)
             {
-                gameplayHintTmp.text = $"{_controller.CurrentState?.Hint}";
+                _controller.CurrentState?.LocalizedHint(hint =>
+                {
+                    gameplayHintTmp.text = hint;
+                });
+                // gameplayHintTmp.text = $"{_controller.CurrentState?.Hint}";
             }
             else
             {
-                controlsHintTmp.text =
-                    // $"{_controller.CurrentState?.Hint} ({_controller.CurrentState?.Progress:P2})";
-                    $"{_controller.CurrentState?.Hint}";
+                _controller.CurrentState?.LocalizedHint(hint =>
+                {
+                    controlsHintTmp.text = hint;
+                });
+                // controlsHintTmp.text =
+                //     // $"{_controller.CurrentState?.Hint} ({_controller.CurrentState?.Progress:P2})";
+                //     $"{_controller.CurrentState?.Hint}";
             }
 
             controlsTutorialProgress.value = _controller.ControlsProgress;

@@ -63,7 +63,7 @@ MonoBehaviour:
       type: {class: LocalizedStringDatabase, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
       data:
         m_DefaultTableReference:
-          m_TableCollectionName: 
+          m_TableCollectionName: LocalizationTable
         m_CustomTableProvider:
           rid: -2
         m_CustomTablePostprocessor:
@@ -130,7 +130,9 @@ MonoBehaviour:
     - rid: 1026817993642606862
       type: {class: PersistentVariablesSource, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
       data:
-        m_Groups: []
+        m_Groups:
+        - name: global
+          group: {fileID: 11400000, guid: 5ab48bbf85734b340a13905ea08821bd, type: 2}
     - rid: 1026817993642606863
       type: {class: DictionarySource, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
       data: 

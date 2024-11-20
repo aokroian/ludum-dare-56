@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b745bd37964e0e96bc0f0f7aee58ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  localizationVariables: {fileID: 11400000, guid: 5ab48bbf85734b340a13905ea08821bd, type: 2}
   messagePrefab: {fileID: 5926573778745880420, guid: 3bde5e68c5f004baa8e0d76d989596f5, type: 3}
   messagesParent: {fileID: 6633796854442547076}
 --- !u!1 &8875759565309080283

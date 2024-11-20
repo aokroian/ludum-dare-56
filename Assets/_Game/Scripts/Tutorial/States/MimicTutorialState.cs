@@ -11,7 +11,7 @@ namespace Tutorial.States
 {
     public class MimicTutorialState : TutorialState
     {
-        public override string Hint => _message;
+        protected override string Hint => _message;
         private readonly LevelController _levelController;
         private readonly EnemyService _enemyService;
         private PlayerInputFlags _previousInputFlags;

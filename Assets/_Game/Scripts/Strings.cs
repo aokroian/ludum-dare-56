@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
@@ -6,55 +7,61 @@ using UnityEngine.Localization.Tables;
 public static class Strings
 {
     // tutorial
-    public const string FireControlsTutorialHint = "To Shoot";
-    public const string LookControlsTutorialHint = "To Look";
-    public const string MoveControlsTutorialHint = "To Walk";
-    public const string MatchControlsTutorialHint = "To Light Matchstick";
+    public const string FireControlsTutorialHint = "FireControlsTutorialHint";
+    public const string LookControlsTutorialHint = "LookControlsTutorialHint";
+    public const string MoveControlsTutorialHint = "MoveControlsTutorialHint";
+    public const string MatchControlsTutorialHint = "MatchControlsTutorialHint";
     public const string MimicTutorialIntroMessage1 =
-        "Now let's learn about mimics. They can disguise themselves as props";
+        "MimicTutorialIntroMessage1";
     public const string MimicTutorialIntroMessage2 =
-        "You can find them if you notice some object moved while it was dark.";
+        "MimicTutorialIntroMessage2";
     public const string MimicTutorialIntroMessage3 =
-        "Take a look at this prop. Try to remember where it is. The matchstick will go out soon.";
-    public const string MimicTutorialMatchWentOutMessage = "The matchstick went out. Let's light it up again.";
-    public const string MimicTutorialShootMimicMessage = "This item moved while it was dark! It's a mimic, shoot it!";
+        "MimicTutorialIntroMessage3";
+    public const string MimicTutorialMatchWentOutMessage = "MimicTutorialMatchWentOutMessage";
+    public const string MimicTutorialShootMimicMessage = "MimicTutorialShootMimicMessage";
 
     public const string MouseSensitivityKey = "MouseSensitivity";
     public const string SoundVolumeKey = "SoundVolume";
     public const string GraphicsQualityKey = "GraphicsQuality";
     public const string LanguageKey = "Language";
+    
+    public const string MatchesLeftZero = "MatchesLeftZero";
+    public const string MatchesLeftNotZero = "MatchesLeftNotZero";
+    
+    public const string BulletsLeftZero = "BulletsLeftZero";
+    public const string BulletsLeftNotZero = "BulletsLeftNotZero";
 
     private static readonly string[] NextNightMessages =
     {
-        "I feel a presence. Another mimic is here.",
-        "I hear something. It's another mimic.",
-        "I can feel it. Another mimic is here.",
+        "NextNightMessages1",
+        "NextNightMessages2",
+        "NextNightMessages3",
     };
 
     private static readonly string[] FirstNightMessages =
     {
-        "The mimic is hunting me. It's among the items.",
-        "The mimic is hiding among the items. I need to find it.",
+        "FirstNightMessages1",
+        "FirstNightMessages2",
     };
 
     private static readonly string[] MatchWentOutMessages =
     {
-        "The match went out. The mimic acts in the dark.",
-        "I can't see anything. I need to light the match.",
+        "MatchWentOutMessages1",
+        "MatchWentOutMessages2",
     };
 
     private static readonly string[] HitMimicMessages =
     {
-        "I shot the mimic. I can rest for now.",
-        "I hit the mimic. The night is a bit safer now.",
+        "HitMimicMessages1",
+        "HitMimicMessages2",
     };
 
     private static readonly string[] MissedMimicMessages =
     {
-        "I missed the mimic. I need to look for it better.",
+        "MissedMimicMessages1",
     };
 
-    private static readonly string TestStringKey = "TestStringKey";
+    // private static readonly string TestStringKey = "TestStringKey";
 
     public static void Localize(string key, Action<string> onComplete)
     {
@@ -62,6 +69,13 @@ public static class Strings
         var reference = (TableEntryReference) key;
         LocalizationSettings.StringDatabase.GetLocalizedStringAsync(reference, locale).Completed +=
             (it) => onComplete(it.Result);
+    }
+    
+    public static Task<string> Localize(string key)
+    {
+        var locale = LocalizationSettings.SelectedLocale;
+        var reference = (TableEntryReference) key;
+        return LocalizationSettings.StringDatabase.GetLocalizedStringAsync(reference, locale).Task;
     }
 
     public static string GetNextNightMessage()

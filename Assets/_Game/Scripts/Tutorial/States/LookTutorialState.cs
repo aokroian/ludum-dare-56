@@ -6,7 +6,7 @@ namespace Tutorial.States
 {
     public class LookTutorialState : TutorialState
     {
-        public override string Hint => Strings.LookControlsTutorialHint;
+        protected override string Hint => Strings.LookControlsTutorialHint;
 
         private PlayerInputFlags _previousInputFlags;
         private Transform _cameraT;

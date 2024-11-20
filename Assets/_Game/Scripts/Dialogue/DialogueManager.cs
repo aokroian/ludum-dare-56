@@ -4,6 +4,7 @@ using Matchstick;
 using Matchstick.Events;
 using Shooting;
 using UnityEngine;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
 using UnityEngine.UI;
 using Zenject;
 
@@ -11,6 +12,9 @@ namespace Dialogue
 {
     public class DialogueManager : MonoBehaviour
     {
+        [SerializeField] private VariablesGroupAsset localizationVariables;
+        
+        [Space]
         [SerializeField] private DialogueMessage messagePrefab;
         [SerializeField] private VerticalLayoutGroup messagesParent;
 
@@ -37,24 +41,31 @@ namespace Dialogue
             _signalBus.Subscribe<NightStartedEvent>(OnNightStarted);
         }
 
-        private void OnEnemyGotHit(EnemyGotHitEvent data)
+        private async void OnEnemyGotHit(EnemyGotHitEvent data)
         {
-            SpawnMessage(Strings.GetHitEnemyMessage(), LongMessageDuration);
+            var message = await Strings.Localize(Strings.GetHitEnemyMessage());
+            SpawnMessage(message, LongMessageDuration);
         }
 
-        private void OnMissedEnemy()
+        private async void OnMissedEnemy()
         {
-            var bulletsLeftPart = _shootingService.Ammo > 0
-                ? $"<color=#EED17A>{_shootingService.Ammo}</color> bullets left."
-                : "No bullets left. This is the end.";
-            SpawnMessage(Strings.GetMissedEnemyMessage() + "\n" + bulletsLeftPart, DefaultMessageDuration);
+            ((IntVariable)localizationVariables["bullets"]).Value = _shootingService.Ammo;
+            // var bulletsLeftPart = _shootingService.Ammo > 0
+            //     ? $"<color=#EED17A>{_shootingService.Ammo}</color> bullets left."
+            //     : "No bullets left. This is the end.";
+            var firstRow = await Strings.Localize(Strings.GetMissedEnemyMessage());
+            var secondRow = await Strings.Localize(_shootingService.Ammo > 0 ? Strings.BulletsLeftNotZero : Strings.BulletsLeftZero);
+            SpawnMessage(firstRow + "\n" + secondRow, DefaultMessageDuration);
         }
 
-        private void OnNightStarted(NightStartedEvent data)
+        private async void OnNightStarted(NightStartedEvent data)
         {
             ClearSpawnedMessages();
-            SpawnMessage(data.Night == 1 ? Strings.GetFirstNightMessage() : Strings.GetNextNightMessage(),
-                LongMessageDuration);
+            var task = data.Night == 1
+                ? Strings.Localize(Strings.GetFirstNightMessage())
+                : Strings.Localize(Strings.GetNextNightMessage());
+            var message = await task;
+            SpawnMessage(message, LongMessageDuration);
         }
 
         private void ClearSpawnedMessages()
@@ -63,12 +74,15 @@ namespace Dialogue
                 Destroy(child.gameObject);
         }
 
-        private void OnMatchWeanOut()
+        private async void OnMatchWeanOut()
         {
-            var matchesLeftPart = _matchService.Matches > 0
-                ? $"<color=#EED17A>{_matchService.Matches}</color> matches left."
-                : "No matches left. I'm doomed.";
-            SpawnMessage($"{Strings.GetMatchWentOutMessage()}\n{matchesLeftPart}", DefaultMessageDuration);
+            ((IntVariable)localizationVariables["matches"]).Value = _matchService.Matches;
+            // var matchesLeftPart = _matchService.Matches > 0
+            //     ? $"<color=#EED17A>{_matchService.Matches}</color> matches left."
+            //     : "No matches left. I'm doomed.";
+            var firstRow = await Strings.Localize(Strings.GetMatchWentOutMessage());
+            var secondRow = await Strings.Localize(_matchService.Matches > 0 ? Strings.MatchesLeftNotZero : Strings.MatchesLeftZero);
+            SpawnMessage($"{firstRow}\n{secondRow}", DefaultMessageDuration);
         }
 
         private void SpawnMessage(string text, float lifetime)

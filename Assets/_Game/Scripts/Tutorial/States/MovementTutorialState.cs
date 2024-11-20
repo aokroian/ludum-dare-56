@@ -7,7 +7,7 @@ namespace Tutorial.States
 {
     public class MovementTutorialState : TutorialState
     {
-        public override string Hint => Strings.MoveControlsTutorialHint;
+        protected override string Hint => Strings.MoveControlsTutorialHint;
 
         private PlayerInputFlags _previousInputFlags;
         private Transform _playerT;

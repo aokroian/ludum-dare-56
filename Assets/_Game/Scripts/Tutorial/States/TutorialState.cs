@@ -1,3 +1,4 @@
+using System;
 using BasicStateMachine;
 using Zenject;
 
@@ -16,7 +17,12 @@ namespace Tutorial.States
             SignalBus = signalBus;
         }
 
-        public virtual string Hint => GetType().Name;
+        protected virtual string Hint => GetType().Name;
+
+        public virtual void LocalizedHint(Action<string> onComplete)
+        {
+            Strings.Localize(Hint, onComplete);
+        }
 
         public override void Enter()
         {

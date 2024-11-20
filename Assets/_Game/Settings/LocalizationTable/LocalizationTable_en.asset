@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 3576f0c68493f65418651420a27f1c28, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 5235233823244419156
   m_TableData:
   - m_Id: 30849569185792
     m_Localized: Start game
@@ -277,6 +278,41 @@ MonoBehaviour:
     m_Localized: I missed the mimic. I need to look for it better.
     m_Metadata:
       m_Items: []
+  - m_Id: 9470697669939200
+    m_Localized: No matches left. I'm doomed.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9470644884623360
+    m_Localized: '{global.matches:p:<color=#EED17A>{}</color> match left|<color=#EED17A>{}</color>
+      matches left}'
+    m_Metadata:
+      m_Items:
+      - rid: 5235233823244419156
+  - m_Id: 9473841997041664
+    m_Localized: No bullets left. This is the end.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473829145694208
+    m_Localized: '{global.bullets:p:<color=#EED17A>{}</color> bullet left|<color=#EED17A>{}</color>
+      bullets left}'
+    m_Metadata:
+      m_Items:
+      - rid: 5235233823244419156
+  - m_Id: 9475763332206592
+    m_Localized: Loading...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9478907290210304
+    m_Localized: Loading...
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5235233823244419156
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 9470644884623360
+        - id: 9473829145694208
