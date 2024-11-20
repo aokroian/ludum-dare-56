@@ -289,12 +289,8 @@ MonoBehaviour:
     m_Key: BulletsLeftZero
     m_Metadata:
       m_Items: []
-  - m_Id: 9475763332206592
-    m_Key: Menu/LoadingScreen/Panel/Text (TMP)
-    m_Metadata:
-      m_Items: []
-  - m_Id: 9478907290210304
-    m_Key: Menu/LoadingScreen/Panel/Text (TMP) 1
+  - m_Id: 9483733143904256
+    m_Key: Menu/LoadingScreen/Panel/LoadingText
     m_Metadata:
       m_Items: []
   m_Metadata:
