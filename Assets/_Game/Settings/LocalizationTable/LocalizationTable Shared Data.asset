@@ -113,6 +113,18 @@ MonoBehaviour:
       (TMP) (2)
     m_Metadata:
       m_Items: []
+  - m_Id: 9447176756256768
+    m_Key: EscManager/EscManager/Canvas/ExitButton_Touch/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9447383313145856
+    m_Key: EscManager/EscManager/Canvas/Exit_Gamepad/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9447534777851904
+    m_Key: EscManager/EscManager/Canvas/Exit_Keyboard/text
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
