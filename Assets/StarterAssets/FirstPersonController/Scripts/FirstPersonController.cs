@@ -98,7 +98,6 @@ namespace StarterAssets
 
 		private void Start()
 		{
-            _signalBus.Fire<GameSceneLoadedEvent>();
 			_lastStepTime = Time.time;
 			_mouseSensitivitySetting = PlayerPrefs.GetFloat(Strings.MouseSensitivityKey, .5f);
 			

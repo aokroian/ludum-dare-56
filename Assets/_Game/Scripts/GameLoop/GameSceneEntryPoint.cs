@@ -32,6 +32,7 @@ namespace GameLoop
         
         private void Start()
         {
+            _signalBus.Fire<GameSceneLoadedEvent>();
             Debug.Log("Game scene loaded");
             Configure();
             StartGame();

@@ -23,16 +23,7 @@ namespace Sound
         private SoundsConfig _soundsConfig;
         private AudioSource _activeMusicSource;
         private Camera _camera;
-        private Vector3 PosInFrontOfCamera
-        {
-            get
-            {
-#if UNITY_EDITOR
-                if (!_camera) return Vector3.zero;
-#endif
-                return _camera.transform.position + _camera.transform.forward;
-            }
-        }
+        private Vector3 PosInFrontOfCamera => _camera.transform.position + _camera.transform.forward;
 
         [Inject]
         private void Initialize(SignalBus signalBus, SoundsConfig soundsConfig)
