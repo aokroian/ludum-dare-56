@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using _GameTemplate.Scripts.SceneManagement;
+﻿using _GameTemplate.Scripts.SceneManagement;
 using GameLoop;
 using GameLoop.Events;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -55,14 +54,15 @@ namespace Menu
 
         private void Start()
         {
-            if (PlayerPrefs.GetString(Strings.LanguageKey, "en") == "ru")
-            {
-                SetRusLang();
-            }
-            else
-            {
-                SetEngLang();
-            }
+            Observable.NextFrame()
+                .ObserveOnCurrentSynchronizationContext()
+                .Subscribe(_ =>
+                {
+                    if (PlayerPrefs.GetString(Strings.LanguageKey, "en") == "ru")
+                        SetRusLang();
+                    else
+                        SetEngLang();
+                });
 
             rusLangBtn.onClick.AddListener(SetRusLang);
             engLangBtn.onClick.AddListener(SetEngLang);
