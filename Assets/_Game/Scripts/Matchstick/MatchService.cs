@@ -13,7 +13,9 @@ namespace Matchstick
     {
         private Config _config;
 
-        public int Matches => _isInfiniteMatches ? int.MaxValue : _matchesCount;
+        public int Matches => _isInfiniteMatches
+            ? int.MaxValue
+            : _matchesCount;
 
         private SignalBus _signalBus;
         private float _nextLightTime;
@@ -21,13 +23,10 @@ namespace Matchstick
 
         private List<IDisposable> _disposables = new();
 
-        private float Duration => _isOverwrittenDuration ? _overwrittenDuration : _config.duration;
+        private float Duration => _config.duration;
 
         private int _matchesCount;
         private bool _isInfiniteMatches;
-        private float _overwrittenDuration;
-        private bool _isOverwrittenDuration;
-
 
         [Inject]
         private void Initialize(Config config, SignalBus signalBus)
@@ -39,12 +38,6 @@ namespace Matchstick
         }
 
         public void SetInfiniteMatches(bool isInfinite) => _isInfiniteMatches = isInfinite;
-
-        public void SetOverwrittenDuration(bool isOn, float value = 0)
-        {
-            _isOverwrittenDuration = isOn;
-            _overwrittenDuration = value;
-        }
 
         public float TryLight(Action cancelCallback)
         {
@@ -66,11 +59,13 @@ namespace Matchstick
 
             Observable.Timer(TimeSpan.FromSeconds(Duration))
                 .ObserveOn(UnityFrameProvider.Update)
-                .Subscribe(_ =>
-                {
-                    _signalBus.Fire(new MatchWentOutEvent());
-                    _cancelCallback = null;
-                }).AddTo(_disposables);
+                .Subscribe(
+                    _ =>
+                    {
+                        _signalBus.Fire(new MatchWentOutEvent());
+                        _cancelCallback = null;
+                    })
+                .AddTo(_disposables);
 
             return Duration;
         }

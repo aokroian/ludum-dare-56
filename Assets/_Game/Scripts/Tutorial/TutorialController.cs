@@ -49,8 +49,20 @@ namespace Tutorial
         [Inject] private InputDeviceService _inputDeviceService;
         [Inject] private LevelController _levelController;
         [Inject] private EnemyService _enemyService;
-        [Inject] private MatchService _matchService;
         [Inject] private SignalBus _signalBus;
+        [Inject] private MatchService.Config _matchConfig;
+
+        private float _defaultMatchDuration;
+
+        private void Awake()
+        {
+            _defaultMatchDuration = _matchConfig.duration;
+        }
+        
+        private void OnDestroy()
+        {
+            _matchConfig.duration = _defaultMatchDuration;
+        }
 
         public void Init()
         {
@@ -58,7 +70,8 @@ namespace Tutorial
             InitStateMachine();
             IsDone = false;
             _currentStateIndex = 0;
-            _matchService.SetOverwrittenDuration(true, matchDuration);
+            _defaultMatchDuration = _matchConfig.duration;
+            _matchConfig.duration = matchDuration;
             _fsm.SetState(_statesQueue[_currentStateIndex]);
             _deviceSubscription = _inputDeviceService.CurrentDevice.Subscribe(OnInputDeviceChanged);
             OnInputDeviceChanged(_inputDeviceService.CurrentDevice.Value);
@@ -69,7 +82,7 @@ namespace Tutorial
         {
             if (!_isInit) return;
             _deviceSubscription?.Dispose();
-            _matchService.SetOverwrittenDuration(false);
+            _matchConfig.duration = _defaultMatchDuration;
             UnInitStateMachine();
             _isInit = false;
         }
