@@ -24,22 +24,27 @@ namespace Enemy
         private LevelController _level;
         private MatchService _matchService;
         private ShootingService _shootingService;
-        
-        private List<Enemy> _enemies = new ();
+
+        private List<Enemy> _enemies = new();
 
         [Inject]
-        private void Initialize(Config config, SignalBus signalBus, MatchService matchService,
-            ShootingService shootingService, LevelController level)
+        private void Initialize(
+            Config config,
+            SignalBus signalBus,
+            MatchService matchService,
+            ShootingService shootingService,
+            LevelController level
+        )
         {
             _config = config;
             _signalBus = signalBus;
             _shootingService = shootingService;
             _matchService = matchService;
             _level = level;
-            
+
             _signalBus.Subscribe<ShootingEvent>(OnShot);
         }
-        
+
         public void ResetEnemies()
         {
             foreach (var enemy in Enemies)
@@ -49,8 +54,9 @@ namespace Enemy
                     Object.Destroy(deathEffect.gameObject);
                 Object.Destroy(enemy);
             }
+
             _enemies.Clear();
-            
+
             for (int i = 0; i < _config.enemiesCount; i++)
             {
                 var props = _level.ActiveProps;
@@ -69,6 +75,7 @@ namespace Enemy
                 AttackPlayer();
                 return;
             }
+
             var oldEnemy = oldProp.GetComponent<Enemy>();
             _enemies.Remove(oldEnemy);
             Object.Destroy(oldEnemy);
@@ -76,45 +83,56 @@ namespace Enemy
             var enemy = prop.gameObject.AddComponent<Enemy>();
             enemy.Init(prop, _signalBus, MoveProp, OnEnemyDied);
             _enemies.Add(enemy);
-            
+
             _signalBus.Fire(new EnemyRepositionEvent(enemy.transform.position));
         }
-        
+
         private void AttackPlayer()
         {
             if (_enemies.Count == 0)
                 return;
-            var mimic = Object.Instantiate(_config.enemyPrefab,
-                _enemies[0].transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
+            var mimic = Object.Instantiate(_config.enemyPrefab, _enemies[0].transform.position, Quaternion.identity);
+            _level.ToggleAllColliders(true);
             _signalBus.Fire(new AttackPlayerEvent(mimic.transform));
-            var cam = Camera.main;
-            mimic.transform.localScale = Vector3.zero;
             var seq = DOTween.Sequence();
-            seq.AppendInterval(0.7f);
+            seq.AppendInterval(2f);
             seq.Append(_enemies[0].Prop.transform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InSine));
-            seq.Append(mimic.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutSine));
-            seq.Join(mimic.transform.DOMove(cam.transform.position, 0.5f).SetEase(Ease.OutSine));
-            mimic.transform.DOMove(cam.transform.position, 2f).SetEase(Ease.InQuint).OnComplete(() =>
-            {
-                Object.Destroy(mimic.gameObject);
-                _signalBus.Fire(new GameOverEvent());
-            });
+            var mainCam = Camera.main;
+            var dirFromCamToMimic = mimic.transform.position - mainCam.transform.position;
+            var targetPos = mainCam.transform.position + dirFromCamToMimic.normalized;
+            targetPos.y = 1f;
+            var distance = Vector3.Distance(mimic.transform.position, targetPos);
+            var duration = distance / 1.7f;
+            seq.Join(mimic.transform.DOMove(targetPos, duration).SetEase(Ease.OutQuint));
+            seq.OnComplete(
+                () =>
+                {
+                    Object.Destroy(mimic.gameObject);
+                    _signalBus.Fire(new GameOverEvent());
+                });
+            seq.Play();
         }
 
         private void OnEnemyDied(Enemy enemy)
         {
             _signalBus.Fire(new EnemyGotHitEvent(enemy.transform.position));
-            var deathEffect = Object.Instantiate(_config.deathEffect, enemy.transform.position, Quaternion.identity, enemy.transform);
-            deathEffect.PlayDeathEffect(enemy.Prop, () =>
-            {
-                if (_enemies.Count(it => it.Alive) <= 0)
+            var deathEffect = Object.Instantiate(
+                _config.deathEffect,
+                enemy.transform.position,
+                Quaternion.identity,
+                enemy.transform);
+            deathEffect.PlayDeathEffect(
+                enemy.Prop,
+                () =>
                 {
-                    Debug.LogWarning("All enemies are dead");
-                    _signalBus.Fire<AllEnemiesDeadEvent>();
-                } 
-            });
+                    if (_enemies.Count(it => it.Alive) <= 0)
+                    {
+                        Debug.LogWarning("All enemies are dead");
+                        _signalBus.Fire<AllEnemiesDeadEvent>();
+                    }
+                });
         }
-        
+
         private void OnShot()
         {
             if (_shootingService.Ammo <= 0 && !_matchService.IsLit())

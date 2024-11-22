@@ -21,6 +21,6 @@ MonoBehaviour:
     delay: 1
   enemyService:
     enemiesCount: 1
-    enemyPrefab: {fileID: 1412427604783887812, guid: f7f68f31252ac1142a959e24ed77f0d8, type: 3}
+    enemyPrefab: {fileID: 7516936301366006602, guid: f7f68f31252ac1142a959e24ed77f0d8, type: 3}
     deathEffect: {fileID: -3475721051429772325, guid: a9151d867911c5941afb418cafdf34a3, type: 3}
   soundsConfig: {fileID: 11400000, guid: 3dcf8f50c61b54c29842626e8b7f497e, type: 2}

@@ -4,6 +4,7 @@ using Enemy.Events;
 using GameLoop;
 using GameLoop.Events;
 using InputUtils;
+using Level;
 using R3;
 using TMPro;
 using UnityEngine;
@@ -25,8 +26,7 @@ namespace Player
         [SerializeField] private GameObject nightsTextsParent;
         [SerializeField] private GameObject gameCompletedText;
 
-        [SerializeField] private CinemachineVirtualCamera mainVirtualCamera;
-        [SerializeField] private CinemachineVirtualCamera attackVirtualCamera;
+        [SerializeField] private Transform playerCameraRoot;
         [SerializeField] private CinemachineVirtualCamera bedVirtualCamera;
         [SerializeField] private CinemachineBrain camBrain;
 
@@ -38,18 +38,21 @@ namespace Player
         private SignalBus _signalBus;
         private PlayerInputsService _playerInputsService;
         private InputDeviceService _inputDeviceService;
+        private LevelController _levelController;
 
         [Inject]
         private void Initialize(
             SignalBus signalBus,
             PlayerInputsService playerInputsService,
             GameStateProvider gameStateProvider,
-            InputDeviceService inputDeviceService
+            InputDeviceService inputDeviceService,
+            LevelController levelController
         )
         {
             gameOverScreen.gameObject.SetActive(false);
             _playerInputsService = playerInputsService;
             _inputDeviceService = inputDeviceService;
+            _levelController = levelController;
             _inputDeviceService.CurrentDevice
                 .Subscribe(
                     device =>
@@ -60,13 +63,13 @@ namespace Player
                     })
                 .AddTo(this);
             touchRestartButton.onClick.AddListener(() => { _playerInputsService.CurrentState.restart = true; });
-            
+
             _gameStateProvider = gameStateProvider;
             _signalBus = signalBus;
             _signalBus.Subscribe<NightStartedEvent>(OnNightStarted);
             _signalBus.Subscribe<NightFinishedEvent>(OnNightFinished);
             _signalBus.Subscribe<GameFinishedEvent>(OnGameFinished);
-            _signalBus.Subscribe<AttackPlayerEvent>(OnAttackPlayer);
+            _signalBus.Subscribe<AttackPlayerEvent>(OnEnemyAttackedPlayer);
             _signalBus.Subscribe<GameOverEvent>(OnGameOver);
             nightsTextsParent.SetActive(true);
             gameCompletedText.SetActive(false);
@@ -90,6 +93,7 @@ namespace Player
         private void OnNightStarted(NightStartedEvent e)
         {
             PrepareCutscene();
+            _levelController.ToggleAllColliders(false);
             camBrain.m_DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Style.EaseInOut, 0);
             bedVirtualCamera.enabled = true;
 
@@ -134,21 +138,19 @@ namespace Player
             _gameStateProvider.ClearGameState();
         }
 
-        private async void OnAttackPlayer(AttackPlayerEvent e)
+        private async void OnEnemyAttackedPlayer(AttackPlayerEvent e)
         {
             await Observable.Timer(System.TimeSpan.FromSeconds(0.2f))
                 .ObserveOnMainThread()
                 .WaitAsync();
+
             camBrain.m_DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Style.EaseInOut, 0.5f);
             _playerInputsService.EnableInputs(PlayerInputFlags.NonGameplay);
-            attackVirtualCamera.transform.position = mainVirtualCamera.transform.position;
-            attackVirtualCamera.enabled = true;
-            attackVirtualCamera.LookAt = e.EnemyTransform;
+            playerCameraRoot.DOLookAt(e.EnemyTransform.position, .5f);
         }
 
         private void OnGameOver()
         {
-            attackVirtualCamera.enabled = false;
             _playerInputsService.CurrentState.restart = false;
 
             canvas.gameObject.SetActive(true);

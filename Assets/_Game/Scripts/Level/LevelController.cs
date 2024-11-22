@@ -21,6 +21,9 @@ namespace Level
         private SignalBus _signalBus;
         private Material _propsOutlineMaterial;
 
+        private readonly Dictionary<Collider, bool> _collidersState = new();
+        private bool _isBedrockCollider;
+
         [Inject]
         private void Initialize(SignalBus signalBus)
         {
@@ -65,11 +68,32 @@ namespace Level
             }
         }
 
+        public void ToggleAllColliders(bool isForMimicAttackCutscene)
+        {
+            if (isForMimicAttackCutscene)
+            {
+                _collidersState.Clear();
+                var allCollidersInScene = FindObjectsByType<Collider>(FindObjectsSortMode.None);
+                foreach (var col in allCollidersInScene)
+                {
+                    _collidersState[col] = col.enabled;
+                    col.enabled = col.gameObject.CompareTag("Bedrock");
+                }
+            }
+            else if (_collidersState.Count > 0)
+            {
+                foreach (var entry in _collidersState)
+                    entry.Key.enabled = entry.Value;
+                _collidersState.Clear();
+            }
+        }
+
         public Prop MovePropToAnotherSurface(Prop prop)
         {
             var oldSurface = prop.surface;
-            var newSurface = PropSurfaces.FirstOrDefault(s =>
-                s != oldSurface && !s.SelectedProp && s.IsPropAllowed(prop.Kind));
+            var newSurface = PropSurfaces.FirstOrDefault(
+                s =>
+                    s != oldSurface && !s.SelectedProp && s.IsPropAllowed(prop.Kind));
 
             if (!newSurface)
             {
@@ -146,22 +170,23 @@ namespace Level
             var iterations = 1000;
             _movingTest = Observable.Interval(TimeSpan.FromSeconds(.05f))
                 .Take(iterations)
-                .Subscribe(x =>
-                {
-                    for (var propsCount = 1; propsCount < 10; propsCount++)
+                .Subscribe(
+                    x =>
                     {
-                        ResetProps(propsCount);
-                        foreach (var prop in ActiveProps)
+                        for (var propsCount = 1; propsCount < 10; propsCount++)
                         {
-                            var newProp = MovePropToAnotherSurface(prop);
-                            if (prop == newProp)
+                            ResetProps(propsCount);
+                            foreach (var prop in ActiveProps)
                             {
-                                Debug.LogError("Prop was not moved to another surface");
-                                break;
+                                var newProp = MovePropToAnotherSurface(prop);
+                                if (prop == newProp)
+                                {
+                                    Debug.LogError("Prop was not moved to another surface");
+                                    break;
+                                }
                             }
                         }
-                    }
-                });
+                    });
         }
 
 #endif
