@@ -90,7 +90,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 9435335191683072
-    m_Localized: back to menu
+    m_Localized: Back to menu
     m_Metadata:
       m_Items: []
   - m_Id: 9442980673871872
@@ -126,7 +126,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 9447534777851904
-    m_Localized: exit to menu
+    m_Localized: Exit to Menu
     m_Metadata:
       m_Items: []
   - m_Id: 9448432560234496
@@ -134,7 +134,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 9448781928980480
-    m_Localized: you died\n\n
+    m_Localized: you died
     m_Metadata:
       m_Items: []
   - m_Id: 9448818893381632
@@ -166,27 +166,27 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 9455881392480256
-    m_Localized: controls tutorial
+    m_Localized: Controls Tutorial
     m_Metadata:
       m_Items: []
   - m_Id: 9456122413965312
-    m_Localized: gameplay tutorial
+    m_Localized: Gameplay Tutorial
     m_Metadata:
       m_Items: []
   - m_Id: 9456334079516672
-    m_Localized: controls tutorial
+    m_Localized: Controls Tutorial
     m_Metadata:
       m_Items: []
   - m_Id: 9456408360640512
-    m_Localized: gameplay tutorial
+    m_Localized: Gameplay Tutorial
     m_Metadata:
       m_Items: []
   - m_Id: 9456568213954560
-    m_Localized: controls tutorial
+    m_Localized: Controls Tutorial
     m_Metadata:
       m_Items: []
   - m_Id: 9456611750830080
-    m_Localized: gameplay tutorial
+    m_Localized: Gameplay Tutorial
     m_Metadata:
       m_Items: []
   - m_Id: 9457496018407424
@@ -206,7 +206,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 9458604338073600
-    m_Localized: Now let's learn about mimics. They can disguise themselves as props
+    m_Localized: Now let's learn about mimics. They can disguise themselves as props.
     m_Metadata:
       m_Items: []
   - m_Id: 9458650097930240
@@ -235,7 +235,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 9459102264872960
-    m_Localized: I can feel it. Another mimic is here.
+    m_Localized: I can feel it... Another mimic is here.
     m_Metadata:
       m_Items: []
   - m_Id: 9459193243521024
