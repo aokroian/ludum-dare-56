@@ -109,8 +109,7 @@ QualitySettings:
     terrainBillboardStart: 50
     terrainFadeLength: 5
     terrainMaxTrees: 50
-    excludedTargetPlatforms:
-    - Android
+    excludedTargetPlatforms: []
   - serializedVersion: 4
     name: High
     pixelLightCount: 2
@@ -162,8 +161,7 @@ QualitySettings:
     terrainBillboardStart: 50
     terrainFadeLength: 5
     terrainMaxTrees: 50
-    excludedTargetPlatforms:
-    - Android
+    excludedTargetPlatforms: []
   - serializedVersion: 4
     name: Ultra
     pixelLightCount: 2
@@ -215,11 +213,10 @@ QualitySettings:
     terrainBillboardStart: 50
     terrainFadeLength: 5
     terrainMaxTrees: 50
-    excludedTargetPlatforms:
-    - Android
+    excludedTargetPlatforms: []
   m_TextureMipmapLimitGroupNames: []
   m_PerPlatformDefaultQuality:
-    Android: 0
+    Android: 3
     GameCoreScarlett: 1
     GameCoreXboxOne: 1
     Lumin: 0
