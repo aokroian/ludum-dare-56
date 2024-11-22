@@ -25,6 +25,7 @@ namespace Sound
 
         // enemy sounds
         public AudioClip[] enemyDiedSounds;
+        public AudioClip[] enemyPrepareToAttackSounds;
         public AudioClip[] enemyAttackSounds;
         public AudioClip[] enemyRepositionedSounds;
     }

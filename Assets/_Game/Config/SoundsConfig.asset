@@ -71,11 +71,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fd619b06f0844416da73349f0d8deecd, type: 3}
   - {fileID: 8300000, guid: 4046b5cc17faa4f639356c4cf38d85d5, type: 3}
   - {fileID: 8300000, guid: 79e38ecea053c4e8b9993e1691bf3c8d, type: 3}
+  enemyPrepareToAttackSounds:
+  - {fileID: 8300000, guid: c8397f07e317f44669adbf5b32371331, type: 3}
+  - {fileID: 8300000, guid: 2543bf149709d4151bad8c8a0397a151, type: 3}
+  - {fileID: 8300000, guid: 125f4bb13f9294ce0b4fa98ce839eab0, type: 3}
   enemyAttackSounds:
-  - {fileID: 8300000, guid: 094cea5239a464772b3cad8d4d32c9bb, type: 3}
-  - {fileID: 8300000, guid: eac5c71becee3413889d1cf899f1e9cf, type: 3}
-  - {fileID: 8300000, guid: f9d99bacf2ad8473c91f0653d5205210, type: 3}
-  - {fileID: 8300000, guid: 92e20659a5c174cfa82b2b7e35cad95b, type: 3}
+  - {fileID: 8300000, guid: 3a027450842f247dd88bee9fa71cf45a, type: 3}
+  - {fileID: 8300000, guid: 2850f3da33124402cb247fed15606462, type: 3}
+  - {fileID: 8300000, guid: 6f6a9ca12806d44bdaf0e4b2f3e8df66, type: 3}
   enemyRepositionedSounds:
   - {fileID: 8300000, guid: 164a5ecccc17449f68bffed90361e955, type: 3}
   - {fileID: 8300000, guid: d65cb68ce0d134980bc88460c478881c, type: 3}

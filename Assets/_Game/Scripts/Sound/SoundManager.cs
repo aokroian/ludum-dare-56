@@ -7,6 +7,7 @@ using Matchstick.Events;
 using Player.Events;
 using R3;
 using Shooting.Events;
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.Audio;
 using Zenject;
@@ -64,8 +65,17 @@ namespace Sound
 
         private void OnEnemyAttackedPlayer()
         {
-            var clip = _soundsConfig.enemyAttackSounds.UnityRandom();
-            Extensions.CustomPlayClipAtPoint(clip, PosInFrontOfCamera, mainMixerGroup);
+            var prepareToAttackClip = _soundsConfig.enemyPrepareToAttackSounds.UnityRandom();
+            var length = prepareToAttackClip.length;
+            Extensions.CustomPlayClipAtPoint(prepareToAttackClip, PosInFrontOfCamera, mainMixerGroup);
+            Observable.Timer(TimeSpan.FromSeconds(length))
+                .ObserveOnCurrentSynchronizationContext()
+                .Subscribe(
+                    _ =>
+                    {
+                        var clip = _soundsConfig.enemyAttackSounds.UnityRandom();
+                        Extensions.CustomPlayClipAtPoint(clip, PosInFrontOfCamera, mainMixerGroup);
+                    });
         }
 
         private void OnNightStarted()
@@ -73,18 +83,21 @@ namespace Sound
             var clip = _soundsConfig.newNightSounds.UnityRandom();
             var length = clip.length;
             Extensions.CustomPlayClipAtPoint(clip, PosInFrontOfCamera, mainMixerGroup);
-            Observable.Timer(TimeSpan.FromSeconds(length * .5f)).ObserveOnCurrentSynchronizationContext()
-                .Subscribe(_ =>
-                {
-                    var getUpFromBedClip = _soundsConfig.getUpFromBedSounds.UnityRandom();
-                    Extensions.CustomPlayClipAtPoint(getUpFromBedClip, PosInFrontOfCamera, mainMixerGroup);
-                });
+            Observable.Timer(TimeSpan.FromSeconds(length * .5f))
+                .ObserveOnCurrentSynchronizationContext()
+                .Subscribe(
+                    _ =>
+                    {
+                        var getUpFromBedClip = _soundsConfig.getUpFromBedSounds.UnityRandom();
+                        Extensions.CustomPlayClipAtPoint(getUpFromBedClip, PosInFrontOfCamera, mainMixerGroup);
+                    });
         }
 
         private void OnEnemyRepositioned(EnemyRepositionEvent ev)
         {
             var clip = _soundsConfig.enemyRepositionedSounds.UnityRandom();
-            Observable.Timer(TimeSpan.FromSeconds(.5f)).ObserveOnCurrentSynchronizationContext()
+            Observable.Timer(TimeSpan.FromSeconds(.5f))
+                .ObserveOnCurrentSynchronizationContext()
                 .Subscribe(_ => { Extensions.CustomPlayClipAtPoint(clip, ev.Pos, mainMixerGroup); });
         }
 
@@ -161,7 +174,9 @@ namespace Sound
         private void FadeToMusicClip(AudioClip clip)
         {
             if (_activeMusicSource) _activeMusicSource.DOFade(0f, .7f);
-            var nextAudioSource = _activeMusicSource == musicSource1 ? musicSource2 : musicSource1;
+            var nextAudioSource = _activeMusicSource == musicSource1
+                ? musicSource2
+                : musicSource1;
             if (clip)
             {
                 nextAudioSource.clip = clip;
