@@ -22,8 +22,8 @@ namespace Sound
         private SignalBus _signalBus;
         private SoundsConfig _soundsConfig;
         private AudioSource _activeMusicSource;
-        private Camera _camera;
-        private Vector3 PosInFrontOfCamera => _camera.transform.position + _camera.transform.forward;
+        private static Camera Camera => Camera.main;
+        private Vector3 PosInFrontOfCamera => Camera.transform.position + Camera.transform.forward;
 
         [Inject]
         private void Initialize(SignalBus signalBus, SoundsConfig soundsConfig)
@@ -35,7 +35,7 @@ namespace Sound
 
         private void FixedUpdate()
         {
-            if (!_camera)
+            if (!Camera)
             {
                 return;
             }
@@ -142,20 +142,18 @@ namespace Sound
             var clip = _soundsConfig.gameStartPressedSound;
             Extensions.CustomPlayClipAtPoint(clip, PosInFrontOfCamera, mainMixerGroup);
             var cameraAnim = new GameStartCameraAnimation();
-            var cameraTarget = _camera.transform.position + _camera.transform.forward * 15f;
-            cameraAnim.PlayAnim(_camera, cameraTarget, clip.length * .7f);
+            var cameraTarget = Camera.transform.position + Camera.transform.forward * 15f;
+            cameraAnim.PlayAnim(Camera, cameraTarget, clip.length * .7f);
         }
 
         private void OnGameSceneLoaded()
         {
-            _camera = Camera.main;
             var clip = _soundsConfig.gameMusicClips.UnityRandom();
             FadeToMusicClip(clip);
         }
 
         private void OnMenuSceneLoaded()
         {
-            _camera = Camera.main;
             var clip = _soundsConfig.menuMusicClips.UnityRandom();
             FadeToMusicClip(clip);
         }

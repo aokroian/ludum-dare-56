@@ -16,6 +16,24 @@ namespace InputUtils
             InputSystem.onEvent += OnInputEvent;
         }
 
+        public void SetInputDeviceBasedOnPlatform()
+        {
+            if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                CurrentDevice.Value = Touchscreen.current;
+            }
+            else if (Application.isEditor || Application.platform == RuntimePlatform.OSXPlayer ||
+                     Application.platform == RuntimePlatform.WindowsPlayer ||
+                     Application.platform == RuntimePlatform.LinuxPlayer)
+            {
+                CurrentDevice.Value = Keyboard.current;
+            }
+            else
+            {
+                CurrentDevice.Value = Gamepad.current;
+            }
+        }
+
         private void OnDeviceChange(InputDevice device, InputDeviceChange change)
         {
             if (!Application.isPlaying)

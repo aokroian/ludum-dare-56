@@ -2,6 +2,7 @@
 using Enemy;
 using Enemy.Events;
 using GameLoop.Events;
+using InputUtils;
 using Level;
 using Matchstick;
 using Player;
@@ -15,18 +16,14 @@ namespace GameLoop
     public class GameSceneEntryPoint : MonoBehaviour
     {
         [SerializeField] private CutsceneController _cutsceneController;
-        
-        
-        [Inject]
-        private SignalBus _signalBus;
-        [Inject]
-        private GameStateProvider _gameStateProvider;
-        [Inject]
-        private LevelController _levelController;
-        [Inject]
-        private EnemyService _enemyService;
+
+        [Inject] private SignalBus _signalBus;
+        [Inject] private GameStateProvider _gameStateProvider;
+        [Inject] private LevelController _levelController;
+        [Inject] private EnemyService _enemyService;
         [Inject] private MatchService _matchService;
         [Inject] private ShootingService _shootingService;
+        [Inject] private InputDeviceService _inputDeviceService;
 
         private GameStateData _gameState;
         
@@ -58,8 +55,8 @@ namespace GameLoop
         {
             _levelController.ResetProps(_gameState.night + 2);
             _enemyService.ResetEnemies();
-            
             _signalBus.Fire(new NightStartedEvent(_gameState.night));
+            _inputDeviceService.SetInputDeviceBasedOnPlatform();
         }
         
         private void OnAllEnemiesDied()

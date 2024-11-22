@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using Tutorial.States;
 using UnityEngine;
@@ -28,6 +29,12 @@ namespace Tutorial
         private TutorialState _prevState;
         private bool _prevIsDone;
         private TutorialController _controller;
+
+        private void Awake()
+        {
+            controlsTutorialProgress.value = 0f;
+            gameplayTutorialProgress.value = 0f;
+        }
 
         public void Init(TutorialController controller)
         {

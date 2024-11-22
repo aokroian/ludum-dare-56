@@ -1,3 +1,4 @@
+using InputUtils;
 using Matchstick;
 using Shooting;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Tutorial
         [SerializeField] private TutorialController tutorialController;
         [Inject] private MatchService _matchService;
         [Inject] private ShootingService _shootingService;
+        [Inject] private InputDeviceService _inputDeviceService;
 
         private void Start()
         {
@@ -17,6 +19,7 @@ namespace Tutorial
             tutorialController.Init();
             _matchService.SetInfiniteMatches(true);
             _shootingService.SetInfiniteAmmo(true);
+            _inputDeviceService.SetInputDeviceBasedOnPlatform();
         }
     }
 }
